@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="header.css" />
+  <link rel="stylesheet" type="text/css" href="recipe.css" />
 </head>
 <body>
   <div class="header shadow-sm rounded">
@@ -24,8 +25,90 @@
     </nav>
   </div>
 
-  <div>
-
+  <div class="container-fluid mt-2">
+    <div class="row justify-content-evenly">
+    <div class="col-sm">
+      <img class="img-fluid mx-30" src="../../images/apple.jpg" />
+      <br />
+      <div class="ingredients-section">
+        <h2>Ingredients</h2>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Servings</label>
+          <select class="form-control" id="exampleFormControlSelect1" >
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option selected>4</option>
+            <option>5</option>
+          </select>
+        </div> 
+      <ul>
+        <li>
+          2 tbs black pepper
+        </li>
+        <li>
+          1 kg apples
+        </li>
+        <li>
+          1 l water
+        </li>
+        <li>
+          1 pinch salt
+        </li>
+        <li>
+          2 msk peppar
+        </li>
+        <li>
+          2 msk peppar
+        </li>
+        <li>
+          2 msk peppar
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div class="col-sm">
+      <div class="instructions-section">
+        <h2>Instructions</h2>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Step 1
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+        <label class="form-check-label" for="flexCheckChecked">
+          Step 2
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Step 3
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+        <label class="form-check-label" for="flexCheckChecked">
+          Step 4
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Step 5
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+        <label class="form-check-label" for="flexCheckChecked">
+          Step 6
+        </label>
+      </div>
+    </div>
+    </div>
+  </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
