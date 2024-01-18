@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+
 .ingredients{
     padding-top: 130px;
 }
 
 .ingredients-title{
     padding-top: 40px;
+    text-decoration: underline;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .card-img-top{
@@ -12,13 +17,38 @@
 }
 
 ul{
-    background-color: rgb(224, 224, 224);
     margin-top: 40px;
     padding-top: 50px;
     padding-bottom: 50px;
-    padding-left: 0px;
-    list-style: none;
     border-radius: 5px;
     font-size: 20px;
+    display: inline-block;
     text-align: left;
+    line-height: 2.5em; 
+}
+
+.ingredients-container{
+    text-align: center;
+    font-family: 'Lexend', sans-serif;
+    padding: 0px;
+}
+
+.ingredients-container{
+    background-color: rgb(235, 235, 235);
+    border-radius: 0px;
+}
+
+.create-recipe-button{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+    display: block;
+    text-decoration: none;
+    transition: 0.3s;
+    color: black;
+    font-size: 23px;
+}
+
+.create-recipe-button:hover{
+    background-color: rgb(230, 230, 230);
 }
