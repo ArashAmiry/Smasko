@@ -5,3 +5,20 @@
 .ingredients-title{
     padding-top: 40px;
 }
+
+.card-img-top{
+        height: 11vw;
+        object-fit: cover;
+}
+
+ul{
+    background-color: rgb(224, 224, 224);
+    margin-top: 40px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 0px;
+    list-style: none;
+    border-radius: 5px;
+    font-size: 20px;
+    text-align: left;
+}
