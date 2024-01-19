@@ -22,6 +22,7 @@
 }
 .form-check-input:checked + .form-check-label{
     text-decoration: line-through;
+    color: lightgray;
 }
 .form-group {
     width:fit-content;
