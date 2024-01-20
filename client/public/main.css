@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
 .ingredients{
     padding-top: 130px;
 }
 
 .ingredients-title{
     padding-top: 40px;
-    font-family: 'Rubik', sans-serif;
+    text-decoration: underline;
+    font-family: 'Permanent Marker', cursive;
 }
 
 .card-img-top{
