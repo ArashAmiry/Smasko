@@ -2,11 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 .ingredients{
-    padding-top: 130px;
+    padding-top: 3rem;
 }
 
 .ingredients-title{
-    padding-top: 40px;
+    padding-top: 3rem;
     text-decoration: underline;
     font-family: 'Permanent Marker', cursive;
 }
@@ -16,7 +16,7 @@
         object-fit: cover;
 }
 
-ul{
+.ingredients-list{
     margin-top: 40px;
     padding-top: 50px;
     padding-bottom: 50px;
