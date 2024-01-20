@@ -22,7 +22,7 @@
 .header {
     background-color: lightgrey;
     padding: 0px;
-    position: fixed;
+    position: static;   
     width: 100%;
     top: 0;
     overflow: hidden;
