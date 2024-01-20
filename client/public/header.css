@@ -22,11 +22,19 @@
 .header {
     background-color: lightgrey;
     padding: 0px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    overflow: hidden;
 }
 
 .navbar {
     background-color: rgb(190, 190, 190);
-    padd: 0px;
+    padding: 0px;
+}
+
+.nav-item {
+    margin: 10px;
 }
 
 .nav-link {
