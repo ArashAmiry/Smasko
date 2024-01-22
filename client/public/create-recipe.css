@@ -1,0 +1,9 @@
+.recipe-name{
+    width: 70%;
+}
+
+.image-input{
+    border-style: dotted;
+    border-radius: 5px;
+    border-color: rgb(204, 204, 204);
+}
