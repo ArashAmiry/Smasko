@@ -8,44 +8,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="header.css" />
-    <link rel="stylesheet" type="text/css" href="recipe.css" />
     <link rel="stylesheet" href="create-recipe.css">
 </head>
 
 <body>
-    <div class="header shadow-sm rounded">
+    <div class="header">
         <h1 class="header-title">SMASKO</h1>
         <nav class="navbar navbar-expand">
-            <div class="container-fluid">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item text-center">
-                        <a class="nav-link" aria-current="page" href="index.html">My Recipes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Create Recipes</a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item text-center">
+                <a class="nav-link active" aria-current="page" href="#">My Recipes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="create-recipe.html">Create Recipe</a>
+              </li>
+            </ul>
         </nav>
-    </div>
+      </div>
 
 
     <div class="container m-2 mx-auto create-recipe-container">
 
         <div class="row mx-5">
-            <form action="">
-                <input type="text" id="name" name="name" placeholder="Recipe name" required maxlength="20"
+            <form action="#">
+                <input type="text" name="recipeName" placeholder="Recipe name" required maxlength="20"
                     class="recipe-name form-control mt-3 mx-auto" />
                 <div class="image-input my-3 p-4">
                     <label for="formFile" class="form-label">Choose image for the recipe</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="file">
                 </div>
 
-                <div class="col-sm justify-content-center mt-3">
-                    <div class="rounded-4 bg-light shadow-sm p-4">
+                <div class="col justify-content-center mt-3">
+                    <div class="rounded-4 bg-light p-4">
                         <h2 class="mb-4">Ingredients</h2>
                         <div class="form-group col-md-1 mb-3">
-                            <label>Chooser number of servings</label>
+                            <label>Choose number of servings</label>
                             <select class="form-control">
                                 <option>2</option>
                                 <option selected>4</option>
@@ -57,14 +54,14 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <input type="text" name="name" placeholder="ex. Chicken powder" required
-                                    maxlength="20" class="form-control mt-3 mx-auto" />
+                                <input type="text" name="firstIngredient" placeholder="ex. Chicken powder" required maxlength="20"
+                                    class="form-control mt-3 mx-auto" />
                             </div>
                             <div class="col-2 mt-3">
-                                <input type="text" class="form-control" placeholder="amount" value="1"/>
+                                <input type="text" class="form-control" placeholder="amount" value="1" />
                             </div>
                             <div class="col-3 mt-3">
-                                <select class="form-control">
+                                <select class="form-control col-3">
                                     <option>ST</option>
                                     <option>L</option>
                                     <option>DL</option>
@@ -76,11 +73,11 @@
                             <img class="col-1 trash" src="../../images/bin.png" alt="Delete ingredient">
 
                             <div class="col-6">
-                                <input type="text" name="name" placeholder="ex. Chicken powder" required
-                                    maxlength="20" class="form-control mt-3 mx-auto" />
+                                <input type="text" name="name" placeholder="ex. Chicken powder" required maxlength="20"
+                                    class="form-control mt-3 mx-auto" />
                             </div>
                             <div class="col-2 mt-3">
-                                <input type="text" class="form-control" placeholder="amount" value="1"/>
+                                <input type="text" class="form-control" placeholder="amount" value="1" />
                             </div>
                             <div class="col-3 mt-3">
                                 <select class="form-control">
@@ -100,15 +97,15 @@
                 </div>
 
                 <div class="col-sm justify-content-center mt-3">
-                    <div class="rounded-4 bg-light shadow-sm p-4">
+                    <div class="rounded-4 bg-light p-4">
                         <h2 class="mb-4">Instructions</h2>
-                        <input type="text" name="name" placeholder="Step 1 in the recipe" required
-                                maxlength="20" class="form-control mt-3 mx-auto" />
-                            <input type="text" name="name" placeholder="Step 2 in the recipe" required
-                                maxlength="20" class="form-control mt-3 mx-auto" />
-                            <input type="text" name="name" placeholder="Step 3 in the recipe" required
-                                maxlength="20" class="form-control mt-3 mx-auto" />
-    
+                        <input type="text" name="name" placeholder="Step 1 in the recipe" required maxlength="20"
+                            class="form-control mt-3 mx-auto" />
+                        <input type="text" name="name" placeholder="Step 2 in the recipe" required maxlength="20"
+                            class="form-control mt-3 mx-auto" />
+                        <input type="text" name="name" placeholder="Step 3 in the recipe" required maxlength="20"
+                            class="form-control mt-3 mx-auto" />
+
                         <button type="button" class="btn btn-outline-secondary mt-3">Add Instruction</button>
                     </div>
 

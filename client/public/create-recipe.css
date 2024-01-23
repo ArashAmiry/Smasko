@@ -15,3 +15,7 @@
 .create-recipe-container{
     padding-top: 10rem;
 }
+
+.form-group {
+    width:fit-content;
+}
