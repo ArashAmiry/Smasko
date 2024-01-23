@@ -66,20 +66,77 @@
                         </ul>
                     </div>
                 </div>
+
                 <div class="col-sm justify-content-center mt-3">
                     <div class="rounded-4 bg-light shadow-sm p-4">
-                        <h2 class="mb-4">Instructions</h2>
-                        <input type="text" id="step1" name="name" placeholder="To do in this step" required maxlength="20"
-                    class="form-control mt-3 mx-auto" />
-                    <input type="text" id="step2" name="name" placeholder="To do in this step" required maxlength="20"
-                    class="form-control mt-3 mx-auto" />
-                    <input type="text" id="step3" name="name" placeholder="To do in this step" required maxlength="20"
-                    class="form-control mt-3 mx-auto" />
-                    <input type="submit" value="Submit">
+                        <h2 class="mb-4">Ingredients</h2>
+                        <div class="form-group col-md-1 mb-3">
+                            <label for="exampleFormControlSelect1">Chooser number of servings</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>2</option>
+                                <option selected>4</option>
+                                <option>6</option>
+                                <option>8</option>
+                                <option>10</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" id="step2" name="name" placeholder="Chicken powder" required
+                                    maxlength="20" class="form-control mt-3 mx-auto" />
+                            </div>
+                            <div class="col-2 mt-3">
+                                <input type="text" class="form-control" placeholder="2" />
+                            </div>
+                            <div class="col-3 mt-3">
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>ST</option>
+                                    <option>L</option>
+                                    <option>DL</option>
+                                    <option>ML</option>
+                                    <option>TSK</option>
+                                    <option>MSK</option>
+                                </select>
+                            </div>
+                            <img class="col-1 trash" src="../../images/bin.png" alt="Delete ingredient">
+
+                            <div class="col-6">
+                                <input type="text" id="step2" name="name" placeholder="Cantanzaro herbs" required
+                                    maxlength="20" class="form-control mt-3 mx-auto" />
+                            </div>
+                            <div class="col-2 mt-3">
+                                <input type="text" class="form-control" placeholder="2" />
+                            </div>
+                            <div class="col-3 mt-3">
+                                <select class="form-control" id="exampleFormControlSelect1">
+                                    <option>ST</option>
+                                    <option>L</option>
+                                    <option>DL</option>
+                                    <option>ML</option>
+                                    <option>TSK</option>
+                                    <option>MSK</option>
+                                </select>
+                            </div>
+                            <img class="col-1 trash" src="../../images/bin.png" alt="Delete ingredient">
+                        </div>
                     </div>
                 </div>
 
-                
+                <div class="col-sm justify-content-center mt-3">
+                    <div class="rounded-4 bg-light shadow-sm p-4">
+                        <h2 class="mb-4">Instructions</h2>
+                        <input type="text" id="step1" name="name" placeholder="Step 1 in the recipe" required
+                            maxlength="20" class="form-control mt-3 mx-auto" />
+                        <input type="text" id="step2" name="name" placeholder="Step 2 in the recipe" required
+                            maxlength="20" class="form-control mt-3 mx-auto" />
+                        <input type="text" id="step3" name="name" placeholder="Step 3 in the recipe" required
+                            maxlength="20" class="form-control mt-3 mx-auto" />
+                        <input type="submit" value="Submit">
+                    </div>
+                </div>
+
+
             </form>
 
 
