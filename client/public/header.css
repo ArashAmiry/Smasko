@@ -23,10 +23,11 @@
 .header {
     background-color: lightgrey;
     padding: 0px;
-    position: static;   
+    position: fixed;   
     width: 100%;
     top: 0;
     overflow: hidden;
+    z-index: 100;
 }
 
 .navbar {
