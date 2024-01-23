@@ -55,8 +55,10 @@
 }
 
 .view-ingredients-button {
-  position: absolute;
-  bottom: 16px;
-  width: 100%; /* Ensure the button takes the full width */
-  text-align: center; /* Center the button horizontally */
+  width: 80%;
+  bottom: 10px;
+}
+
+.text-center {
+  bottom: 10px;
 }
