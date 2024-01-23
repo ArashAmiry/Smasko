@@ -33,13 +33,12 @@
             <form action="#">
                 <input type="text" name="recipeName" placeholder="Recipe name" required maxlength="20"
                     class="recipe-name form-control mt-3 mx-auto" />
-                <div class="image-input my-3 p-4">
+                <section class="image-input my-3 p-4">
                     <label for="formFile" class="form-label">Choose image for the recipe</label>
                     <input class="form-control" type="file">
-                </div>
+                </section>
 
-                <div class="col justify-content-center mt-3">
-                    <div class="rounded-4 bg-light p-4">
+                <section class="col-sm justify-content-center mt-3 rounded-4 bg-light shadow-sm p-4">
                         <h2 class="mb-4">Ingredients</h2>
                         <div class="form-group col-md-1 mb-3">
                             <label>Choose number of servings</label>
@@ -93,11 +92,9 @@
                         </div>
 
                         <button type="button" class="btn btn-outline-secondary mt-3">Add Ingredient</button>
-                    </div>
-                </div>
+                </section>
 
-                <div class="col-sm justify-content-center mt-3">
-                    <div class="rounded-4 bg-light p-4">
+                <section class="col-sm justify-content-center mt-3 rounded-4 bg-light shadow-sm p-4">
                         <h2 class="mb-4">Instructions</h2>
                         <input type="text" name="name" placeholder="Step 1 in the recipe" required maxlength="20"
                             class="form-control mt-3 mx-auto" />
@@ -107,9 +104,7 @@
                             class="form-control mt-3 mx-auto" />
 
                         <button type="button" class="btn btn-outline-secondary mt-3">Add Instruction</button>
-                    </div>
-
-                </div>
+                </section>
 
                 <div class="text-center">
                     <button type="button" class="btn btn-success btn-lg mt-3">Submit</button>
