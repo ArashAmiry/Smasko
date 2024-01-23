@@ -73,3 +73,7 @@
   box-shadow: 0px 5px 5px gray;
   background-color: rgb(241, 241, 241);
 }
+
+a {
+  color: black;
+}
