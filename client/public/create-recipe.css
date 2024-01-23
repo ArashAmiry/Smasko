@@ -11,3 +11,7 @@
 .trash{
     transform: scale(0.5);
 }
+
+.create-recipe-container{
+    padding-top: 10rem;
+}
