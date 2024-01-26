@@ -1,4 +1,4 @@
-import { Recipe } from '../model/recipe.ts';
+import { Recipe } from '../model/recipe';
 
 export class RecipeService {
     private recipes : Recipe[] = [];
@@ -9,7 +9,7 @@ export class RecipeService {
 
     async addRecipe(name : string, imagePath : string, numberServings : number, ingredients : [string, number][], steps : string[]) : Promise<Recipe>{
         
-        const recipe = {
+        const recipe: Recipe = {
             id: Date.now(),
             name: name,
             imagePath: imagePath,
