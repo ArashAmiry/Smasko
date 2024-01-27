@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { Recipe } from "../model/recipe";
+import { Recipe, isRecipe } from "../model/recipe";
 import { RecipeService } from "../service/recipe";
 
 const recipeService = new RecipeService();
@@ -25,7 +25,7 @@ recipeRouter.post("/", async (
     try{
         const recipe: Recipe = req.body;
 
-        if (typeof(recipe) !== "object" || recipe !instanceof Recipe){
+        if (typeof(recipe) !== "object" || isRecipe(recipe)){
 
         }
     }
