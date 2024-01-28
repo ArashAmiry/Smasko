@@ -1,12 +1,13 @@
 import { Recipe } from '../model/recipe';
 
 export class RecipeService {
+   
     private recipes : Recipe[] = [];
 
     async getRecipes(): Promise<Recipe[]> {
         return JSON.parse(JSON.stringify(this.recipes));
     }
-
+    
     async addRecipe(name : string, imagePath : string, numberServings : number, ingredients : [string, number][], steps : string[]) : Promise<Recipe>{
         
         const recipe: Recipe = {
@@ -20,7 +21,7 @@ export class RecipeService {
 
         this.recipes.push(recipe);
         
-        return {...recipe};
+        return JSON.parse(JSON.stringify(recipe));
     }
 
     async deleteRecipe(id: number) {
@@ -34,7 +35,8 @@ export class RecipeService {
 
         if (recipeIndex > -1) {
             this.recipes.splice(recipeIndex, 1);
-         }
+        }
 
+        return JSON.parse(JSON.stringify(recipe));
     }
 }

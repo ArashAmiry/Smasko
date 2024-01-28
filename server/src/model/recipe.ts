@@ -10,7 +10,6 @@ export interface Recipe {
 export function isRecipe(obj: any): obj is Recipe {
     return (
         typeof obj === 'object' &&
-        typeof obj.id === 'number' &&
         typeof obj.name === 'string' &&
         typeof obj.imagePath === 'string' &&
         typeof obj.numberServings === 'number' &&
