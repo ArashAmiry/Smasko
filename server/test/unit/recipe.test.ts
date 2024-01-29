@@ -1,4 +1,4 @@
-import { RecipeService } from "../src/service/recipe";
+import { RecipeService } from "../../src/service/recipe";
 
 test("If recipe is added to list then it should be in the list", async () => {
     const recipeService = new RecipeService();

@@ -52,7 +52,7 @@ recipeRouter.post("/", async (
        
         const newRecipe = await recipeService.addRecipe(name, imagePath, numberServings, ingredients, steps);
 
-        res.status(200).send(newRecipe);
+        res.status(201).send(newRecipe);
     } catch (e: any) {
         res.status(500).send(e.message);
     }
