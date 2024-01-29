@@ -23,18 +23,19 @@ export class RecipeService {
         return {...recipe};
     }
 
-    async deleteRecipe(id: number) {
+    async deleteRecipe(id: number) : Promise<Boolean> {
         const recipe = this.recipes.find((recipe) => recipe.id === id);
         
         if (!recipe) {
-            return undefined;
+            return false;
         }
 
         let recipeIndex : number = this.recipes.indexOf(recipe);
 
         if (recipeIndex > -1) {
             this.recipes.splice(recipeIndex, 1);
+            return true;
          }
-
+        return false;
     }
 }
