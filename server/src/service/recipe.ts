@@ -8,35 +8,35 @@ export class RecipeService {
         return JSON.parse(JSON.stringify(this.recipes));
     }
     
-    async addRecipe(name : string, imagePath : string, numberServings : number, ingredients : [string, number][], steps : string[]) : Promise<Recipe>{
+    async addRecipe(recipe : Omit<Recipe,'id'>) : Promise<Recipe>{
         
-        const recipe: Recipe = {
+        const addedRecipe: Recipe = {
             id: Date.now(),
-            name: name,
-            imagePath: imagePath,
-            numberServings: numberServings,
-            ingredients: ingredients,
-            steps: steps
+            name: recipe.name,
+            imagePath: recipe.imagePath,
+            numberServings: recipe.numberServings,
+            ingredients: recipe.ingredients,
+            steps: recipe.steps
         }
 
-        this.recipes.push(recipe);
+        this.recipes.push(addedRecipe);
         
-        return JSON.parse(JSON.stringify(recipe));
+        return JSON.parse(JSON.stringify(addedRecipe));
     }
 
-    async deleteRecipe(id: number) {
+    async deleteRecipe(id: number): Promise<boolean> {
         const recipe = this.recipes.find((recipe) => recipe.id === id);
         
         if (!recipe) {
-            return undefined;
+            return false;
         }
 
         let recipeIndex : number = this.recipes.indexOf(recipe);
 
         if (recipeIndex > -1) {
             this.recipes.splice(recipeIndex, 1);
+            return true;
         }
-
-        return JSON.parse(JSON.stringify(recipe));
+        return false;
     }
 }

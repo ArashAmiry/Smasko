@@ -19,17 +19,17 @@ recipeRouter.get("/", async (
 });
 
 recipeRouter.post("/", async (
-    req: Request<{}, {}, Recipe>,
+    req: Request<{}, {}, Omit<Recipe, 'id'>>,
     res: Response<Recipe | string>
 ) => {
     try {
-        const recipe: Recipe = req.body;
-
+        const recipe: Omit<Recipe, 'id'> = req.body;
+        
         if (typeof(recipe) !== "object" || !isRecipe(recipe)){
             res.status(400).send(`Bad PUT call to ${req.originalUrl} --- object does not have type recipe`);
             return;
         }
-        const newRecipe = await recipeService.addRecipe(recipe.name, recipe.imagePath, recipe.numberServings, recipe.ingredients, recipe.steps);
+        const newRecipe = await recipeService.addRecipe(recipe);
         res.status(201).send(newRecipe);
     } catch (e: any) {
         res.status(500).send(e.message);
@@ -42,13 +42,13 @@ recipeRouter.delete("/:id", async (
 ) => {
     try {
         const id: number = parseInt(req.params.id, 10);
-        const deletedRecipe = await recipeService.deleteRecipe(id);
+        const deletedRecipe : boolean = await recipeService.deleteRecipe(id);
        
-        if (deletedRecipe === undefined) {
+        if (deletedRecipe === false) {
             res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- recipe with id ${id} does not exist`);
             return;
         }
-        res.status(201).send(deletedRecipe);
+        res.status(204).send();
     } catch (e: any) {
         res.status(500).send(e.message);
     }    
