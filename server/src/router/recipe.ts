@@ -43,6 +43,17 @@ recipeRouter.delete("/:id", async (
 ) => {
     try {
         const id: number = parseInt(req.params.id, 10);
+
+        if (req.params.id == null) {
+            res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- missing id param`);
+            return;
+        }
+
+        if (id < 0) {
+            res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- id number must be a non-negative integer`);
+            return;
+        }
+
         const deletedRecipe : boolean = await recipeService.deleteRecipe(id);
        
         if (deletedRecipe === false) {

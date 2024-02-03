@@ -2,6 +2,6 @@
 
 recipe name, ingredients [("DL ärtor", "2"), ("DL ärtor", "2"), ("DL ärtor", "2")], image path, steps ["step1", "step2", "step3"], number of servings
 
-2. Retrieve all recipes/recipe, add recipe, delete recipe
+2. Retrieve all recipes, add recipe, delete recipe
 
-3. GET requests (200), POST request (201), DELETE request (200 tror)
+3. GET requests (200), POST request (201/400), DELETE request (204/400)
