@@ -25,11 +25,9 @@ export class RecipeService {
     }
 
     async deleteRecipe(id: number): Promise<boolean> {
-    async deleteRecipe(id: number) : Promise<Boolean> {
         const recipe = this.recipes.find((recipe) => recipe.id === id);
         
         if (!recipe) {
-            return false;
             return false;
         }
 
@@ -39,10 +37,6 @@ export class RecipeService {
             this.recipes.splice(recipeIndex, 1);
             return true;
         }
-        return false;
-            return true;
-         }
-         
         return false;
     }
 }

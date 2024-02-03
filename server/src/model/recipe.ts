@@ -14,7 +14,7 @@ export function validateRecipe(obj: any): string {
     }
 
     if (typeof obj.name !== 'string') {
-        return 'mame must be a string';
+        return 'name must be a string';
     }
 
     if (typeof obj.imagePath !== 'string') {
@@ -22,7 +22,7 @@ export function validateRecipe(obj: any): string {
     }
 
     if (typeof obj.numberServings !== 'number') {
-        return 'mumberServings must be a number';
+        return 'numberServings must be a number';
     }
 
     if (!Array.isArray(obj.ingredients) || !obj.ingredients.every(

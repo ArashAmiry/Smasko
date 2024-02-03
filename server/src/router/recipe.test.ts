@@ -15,21 +15,17 @@ afterEach(async () => {
 
 
 test("POST and GET valid recipe", async () => {
-    const res1 = await request.post("/recipe").send({
-        "name": "Recipe",
-        "imagePath": "img",
-        "numberServings": 4,
-        "ingredients": [["in1", 4], ["chicken", 6]],
-        "steps": ["step1", "step2"]
-    });
+    const recipe : Omit<Recipe,'id'> = {
+        name: "Recipe",
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [["in1", 4], ["chicken", 6]],
+        steps: ["step1", "step2"]
+    } 
+    const res1 = await request.post("/recipe").send(recipe);
 
     expect(res1.statusCode).toEqual(201);
-    expect(res1.body.id !== null);
-    expect(res1.body.name).toEqual("Recipe");
-    expect(res1.body.imagePath).toEqual("img");
-    expect(res1.body.numberServings).toEqual(4);
-    expect(res1.body.ingredients).toEqual([["in1", 4], ["chicken", 6]]);
-    expect(res1.body.steps).toEqual(["step1", "step2"]);
+    expect(res1.body).toMatchObject(recipe);
 
     const res2 = await request.get("/recipe");
 
@@ -38,12 +34,13 @@ test("POST and GET valid recipe", async () => {
 })
 
 test("POST and GET invalid recipe", async () => {
-    const res1 = await request.post("/recipe").send({
-        "imagePath": "img",
-        "numberServings": 4,
-        "ingredients": [["in1", 4], ["chicken", 6]],
-        "steps": ["step1", "step2"]
-    });
+    const invalidRecipe = {
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [["in1", 4], ["chicken", 6]],
+        steps: ["step1", "step2"]
+    } 
+    const res1 = await request.post("/recipe").send(invalidRecipe);
 
     expect(res1.statusCode).toEqual(400);
 
@@ -56,13 +53,14 @@ test("POST and GET invalid recipe", async () => {
 
 
 test("DELETE and GET valid recipe", async () => {
-    const res1 = await request.post("/recipe").send({
-        "name": "Recipe",
-        "imagePath": "img",
-        "numberServings": 4,
-        "ingredients": [["in1", 4], ["chicken", 6]],
-        "steps": ["step1", "step2"]
-    });
+    const recipe : Omit<Recipe,'id'> = {
+        name: "Recipe",
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [["in1", 4], ["chicken", 6]],
+        steps: ["step1", "step2"]
+    } 
+    const res1 = await request.post("/recipe").send(recipe);
 
     const deleteId : string = res1.body.id.toString();
     const res2 = await request.delete("/recipe/"+deleteId);
@@ -75,13 +73,14 @@ test("DELETE and GET valid recipe", async () => {
 })
 
 test("DELETE and GET invalid text ID", async () => {
-    const res1 = await request.post("/recipe").send({
-        "name": "Recipe",
-        "imagePath": "img",
-        "numberServings": 4,
-        "ingredients": [["in1", 4], ["chicken", 6]],
-        "steps": ["step1", "step2"]
-    });
+    const recipe : Omit<Recipe,'id'> = {
+        name: "Recipe",
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [["in1", 4], ["chicken", 6]],
+        steps: ["step1", "step2"]
+    } 
+    const res1 = await request.post("/recipe").send(recipe);
 
     const deleteId : string = res1.body.id.toString();
     const res2 = await request.delete("/recipe/"+ "wrongID");
@@ -94,13 +93,14 @@ test("DELETE and GET invalid text ID", async () => {
 })
 
 test("DELETE and GET invalid negative ID", async () => {
-    const res1 = await request.post("/recipe").send({
-        "name": "Recipe",
-        "imagePath": "img",
-        "numberServings": 4,
-        "ingredients": [["in1", 4], ["chicken", 6]],
-        "steps": ["step1", "step2"]
-    });
+    const recipe : Omit<Recipe,'id'> = {
+        name: "Recipe",
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [["in1", 4], ["chicken", 6]],
+        steps: ["step1", "step2"]
+    } 
+    const res1 = await request.post("/recipe").send(recipe);
 
     const deleteId : string = res1.body.id.toString();
     const res2 = await request.delete("/recipe/"+ "-123");
