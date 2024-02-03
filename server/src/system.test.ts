@@ -13,8 +13,7 @@ test("POST and GET test", async () => {
         ingredients: [["gurka", 1], ["tomat", 2]],
         steps: ["step1", "step2"]
     }
-    const res1 = await request.post("/recipe").send({name: testRecipe.name, imagePath:
-    testRecipe.imagePath, numberServings: testRecipe.numberServings, ingredients: testRecipe.ingredients, steps: testRecipe.steps});
+    const res1 = await request.post("/recipe").send(testRecipe);
     expect(res1.statusCode).toEqual(201);
     expect(res1.body).toMatchObject(testRecipe);
 
@@ -23,3 +22,7 @@ test("POST and GET test", async () => {
     expect(res1.body).toEqual(res2.body[0]);
 });
 
+test("Invalid recipe should return status code 400", async () => {
+    const res = await request.post("/recipe").send();
+    expect(res.statusCode).toEqual(400);
+})

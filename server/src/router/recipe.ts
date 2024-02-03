@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { Recipe, isRecipe } from "../model/recipe";
+import { Recipe, validateRecipe } from "../model/recipe";
 import { RecipeService } from "../service/recipe";
 
 const recipeService = new RecipeService();
@@ -24,9 +24,10 @@ recipeRouter.post("/", async (
 ) => {
     try {
         const recipe: Omit<Recipe, 'id'> = req.body;
-        
-        if (typeof(recipe) !== "object" || !isRecipe(recipe)){
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- object does not have type recipe`);
+        const recipeErrors = validateRecipe(recipe);
+       
+        if (recipeErrors){
+            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ${recipeErrors}`);
             return;
         }
         const newRecipe = await recipeService.addRecipe(recipe);
