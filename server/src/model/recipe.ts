@@ -3,7 +3,7 @@ export interface Recipe {
     name : string;
     imagePath : string;
     numberServings : number;
-    ingredients : [string, number][];
+    ingredients : [string, number, string][];
     steps : string[];
 }
 
@@ -26,13 +26,14 @@ export function validateRecipe(obj: any): string {
     }
 
     if (!Array.isArray(obj.ingredients) || !obj.ingredients.every(
-        (ingredient: [string, number]) =>
+        (ingredient: [string, number, string]) =>
             Array.isArray(ingredient) &&
-            ingredient.length === 2 &&
+            ingredient.length === 3 &&
             typeof ingredient[0] === 'string' &&
-            typeof ingredient[1] === 'number'
+            typeof ingredient[1] === 'number' &&
+            typeof ingredient[2] === 'string'
     )) {
-        return 'ingredients must be an array of [string, number] tuples';
+        return 'ingredients must be an array of [string, number, string] tuples';
     }
 
     if (!Array.isArray(obj.steps) || !obj.steps.every((step: string) => typeof step === 'string')) {
