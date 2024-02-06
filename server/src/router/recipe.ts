@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { Recipe } from "../model/recipe";
+import { Recipe, validateRecipe } from "../model/recipe";
 import { RecipeService } from "../service/recipe";
 
 const recipeService = new RecipeService();
@@ -7,7 +7,7 @@ const recipeService = new RecipeService();
 export const recipeRouter = express.Router();
 
 recipeRouter.get("/", async (
-    req : Request<{}>,
+    req : Request<{}, {}, {}>,
     res : Response<Array<Recipe> | String>
 ) => {
     try {
@@ -19,39 +19,18 @@ recipeRouter.get("/", async (
 });
 
 recipeRouter.post("/", async (
-    req: Request<{}, {}, {name : string, imagePath : string, numberServings : number, ingredients : [string, number][], steps : string[]}>,
+    req: Request<{}, {}, Omit<Recipe, 'id'>>,
     res: Response<Recipe | string>
 ) => {
-    try{
-        const name: string = req.body.name;
-        const imagePath: string = req.body.imagePath;
-        const numberServings: number = req.body.numberServings;
-        const ingredients: [string, number][]= req.body.ingredients;
-        const steps: string[] = req.body.steps;
-
-        if (typeof(name) !== "string"){
-            res.status(400).send(`Bad post call to ${req.originalUrl} --- recipe has type ${typeof(name)}`);
-            return;
-        }
-        if (typeof(imagePath) !== "string"){
-            res.status(400).send(`Bad post call to ${req.originalUrl} --- recipe has type ${typeof(imagePath)}`);
-            return;
-        }
-        if (typeof(numberServings) !== "number"){
-            res.status(400).send(`Bad post call to ${req.originalUrl} --- recipe has type ${typeof(numberServings)}`);
-            return;
-        }
-        if (typeof(ingredients) !== "object"){
-            res.status(400).send(`Bad post call to ${req.originalUrl} --- recipe has type ${typeof(ingredients)}`);
-            return;
-        }
-        if (typeof(steps) !== "object"){
-            res.status(400).send(`Bad post call to ${req.originalUrl} --- recipe has type ${typeof(steps)}`);
-            return;
-        }
+    try {
+        const recipe: Omit<Recipe, 'id'> = req.body;
+        const recipeErrors = validateRecipe(recipe);
        
-        const newRecipe = await recipeService.addRecipe(name, imagePath, numberServings, ingredients, steps);
-
+        if (recipeErrors){
+            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ${recipeErrors}`);
+            return;
+        }
+        const newRecipe = await recipeService.addRecipe(recipe);
         res.status(201).send(newRecipe);
     } catch (e: any) {
         res.status(500).send(e.message);
@@ -59,25 +38,19 @@ recipeRouter.post("/", async (
 });
 
 recipeRouter.delete("/:id", async (
-    req: Request<{id : string}, {}, {}>,
-    res: Response<string>
+    req : Request<{id : string}, {}, {}>,
+    res : Response<Recipe | string>
 ) => {
     try {
-        if (req.params.id == null) {
-            res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- missing id param`);
+        const id: number = parseInt(req.params.id, 10);
+        const deletedRecipe : boolean = await recipeService.deleteRecipe(id);
+       
+        if (deletedRecipe === false) {
+            res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- recipe with id ${id} does not exist`);
             return;
         }
-        const deleteId : number = parseInt(req.params.id, 10);
-        if (! (deleteId >= 0)) {
-            res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- id number must be a non-negative integer`);
-            return;
-        }
-        const isRecipeDeleted : Boolean = await recipeService.deleteRecipe(deleteId);
-        if(isRecipeDeleted) {
-            res.sendStatus(204);
-        }
-    }
-    catch (e : any) {
+        res.status(204).send();
+    } catch (e: any) {
         res.status(500).send(e.message);
-    }
+    }    
 });

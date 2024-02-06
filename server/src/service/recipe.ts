@@ -1,29 +1,30 @@
 import { Recipe } from '../model/recipe';
 
 export class RecipeService {
+   
     private recipes : Recipe[] = [];
 
     async getRecipes(): Promise<Recipe[]> {
         return JSON.parse(JSON.stringify(this.recipes));
     }
-
-    async addRecipe(name : string, imagePath : string, numberServings : number, ingredients : [string, number][], steps : string[]) : Promise<Recipe>{
+    
+    async addRecipe(recipe : Omit<Recipe,'id'>) : Promise<Recipe>{
         
-        const recipe: Recipe = {
+        const addedRecipe: Recipe = {
             id: Date.now(),
-            name: name,
-            imagePath: imagePath,
-            numberServings: numberServings,
-            ingredients: ingredients,
-            steps: steps
+            name: recipe.name,
+            imagePath: recipe.imagePath,
+            numberServings: recipe.numberServings,
+            ingredients: recipe.ingredients,
+            steps: recipe.steps
         }
 
-        this.recipes.push(recipe);
+        this.recipes.push(addedRecipe);
         
-        return {...recipe};
+        return JSON.parse(JSON.stringify(addedRecipe));
     }
 
-    async deleteRecipe(id: number) : Promise<Boolean> {
+    async deleteRecipe(id: number): Promise<boolean> {
         const recipe = this.recipes.find((recipe) => recipe.id === id);
         
         if (!recipe) {
@@ -35,8 +36,7 @@ export class RecipeService {
         if (recipeIndex > -1) {
             this.recipes.splice(recipeIndex, 1);
             return true;
-         }
-         
+        }
         return false;
     }
 }
