@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import RecipeCard from './RecipeCard'; // Assuming RecipeCard is in the same directory
+import axios from 'axios';
+
 type Recipe = {
     id: number;
     name: string;
@@ -8,15 +10,20 @@ type Recipe = {
   };
 
 function RecipeCardList() {
-    const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  async function updateRecipes() {
+    setTimeout(async () => {
+      const response = await axios.get<Recipe[]>("http://localhost:8080/recipe");
+      const newRecipes : Recipe[] = response.data;
+      setRecipes(newRecipes);
+    }, 2000);
+  }
 
   useEffect(() => {
-    // Fetch data from your API endpoint
-    fetch('http://localhost:8080/recipe')
-      .then((response) => response.json())
-      .then((data) => setRecipes(data))
-      .catch((error) => console.error('Error fetching recipes:', error));
-  }, []); // Empty dependency array ensures the effect runs once after the initial render
+    updateRecipes();
+  }, []); 
+
 
   return (
     <div className="container-fluid">
