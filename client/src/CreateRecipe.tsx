@@ -4,6 +4,7 @@ import "./createRecipe.css";
 import { ChangeEvent, useEffect, useState } from "react";
 import IngredientRow from "./IngredientRow";
 import StepRow from "./StepsRow";
+import axios from "axios";
 
 
 export type Ingredient = {
@@ -14,7 +15,7 @@ export type Ingredient = {
 
 function CreateRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{name : "", amount: 0, unit: "st"}]);
-    const [stepsList, setStepsList] = useState([{desc: ""}]);
+    const [stepsList, setStepsList] = useState<string[]>([""]);
 
     const addIngredient = () => {
         let newIngredient : Ingredient = {name : "", amount: 0, unit: "st"};
@@ -49,7 +50,7 @@ function CreateRecipe() {
     }
 
     const addStep = () => {
-        setStepsList([...stepsList, {desc: ""}]);
+        setStepsList([...stepsList,  ""]);
         //console.log("hej");
     }
 
@@ -67,6 +68,10 @@ function CreateRecipe() {
         (list[index] as any)[name] = value;
         setStepsList(list);
         //console.log(ingredientsList)
+    }
+
+    const postRecipe = () => {
+        axios.post("localhost:8080/recipe", ingredientsList)
     }
 
 
@@ -115,7 +120,7 @@ function CreateRecipe() {
 
 
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={postRecipe}>
                 Submit
             </Button>
         </Form>

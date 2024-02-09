@@ -14,7 +14,7 @@ function RecipeCardList() {
 
   async function updateRecipes() {
     setTimeout(async () => {
-      const response = await axios.get<Recipe[]>("http://localhost:8000/recipe");
+      const response = await axios.get<Recipe[]>("http://localhost:8080/recipe");
       const newRecipes : Recipe[] = response.data;
       setRecipes(newRecipes);
     }, 2000);

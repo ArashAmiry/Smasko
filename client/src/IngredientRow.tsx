@@ -18,19 +18,19 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
             <Row>
                 <Col xs={5}>
                     <Form.Control name="name" type="text" placeholder="Ingredient" value={ingredient.name} onChange={(e) => {
-                            const {name, value} = e.target as HTMLInputElement;
+                            const {value} = e.target;
                             changeName(value);
                     }} />
                 </Col>
                 <Col xs={2}>
                     <Form.Control name="amount" type="number" placeholder="Amount" value={ingredient.amount} onChange={(e) => {
-                            const {name, value} = e.target as HTMLInputElement;
+                            const {value} = e.target;
                             changeAmount(parseInt(value));
                     }} />
                 </Col>
                 <Col xs={3}>
                     <Form.Select name="unit" value={ingredient.unit} onChange={(e) => {
-                            const {name, value} = e.target as HTMLInputElement;
+                            const {value} = e.target;
                             changeUnit(value);
                     }}>
                         <option value="st">st</option>
