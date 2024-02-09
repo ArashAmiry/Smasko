@@ -1,9 +1,12 @@
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import "./createRecipe.css";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import IngredientRow from "./IngredientRow";
 import StepRow from "./StepsRow";
+import React from "react";
+import Form from "react-bootstrap/esm/Form";
+import Container from "react-bootstrap/esm/Container";
+import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
 
 
@@ -16,6 +19,9 @@ export type Ingredient = {
 function CreateRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{name : "", amount: 0, unit: "st"}]);
     const [stepsList, setStepsList] = useState<string[]>([""]);
+    const [recipeName, setRecipeName] = useState("");
+    const [imgPath, setImgPath] = useState("");
+    const [numServings, setNumServings] = useState(4);
 
     const addIngredient = () => {
         let newIngredient : Ingredient = {name : "", amount: 0, unit: "st"};
@@ -61,24 +67,46 @@ function CreateRecipe() {
         setStepsList(list);
         //console.log(list);
     }
+
     const handleChangeStep = (e : ChangeEvent, index : number) => {
-        const {name, value} = e.target as HTMLInputElement;
+        const {value} = e.target as HTMLInputElement;
         const list = [...stepsList];
        // console.log(name);
-        (list[index] as any)[name] = value;
+        list[index] = value;
         setStepsList(list);
         //console.log(ingredientsList)
     }
 
-    const postRecipe = () => {
-        axios.post("localhost:8080/recipe", ingredientsList)
+    const changeRecipeName = (e : ChangeEvent) => {
+         const { value } = e.target as HTMLInputElement; 
+         setRecipeName(value);
     }
 
+    const handleNumServingsChange = (e : ChangeEvent) => {
+        const { value } = e.target as HTMLInputElement;
+        setNumServings(parseInt(value));
+    }
+
+    async function submitRecipe(e : FormEvent)  {
+            const response = await axios.post('http://localhost:8080/recipe', {
+            "name": recipeName,
+            "imagePath": "hej",
+            "numberServings": numServings,
+            "ingredients": ingredientsList,
+            "steps": stepsList
+          }, {timeout: 10000})
+          .then(function () {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });     
+    }
 
     return (
-        <Form className="container m-2 mx-auto create-recipe-container">
+        <Form className="container m-2 mx-auto create-recipe-container" onSubmit={e => submitRecipe(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control type="text" placeholder="Recipe Name" />
+                <Form.Control type="text" placeholder="Recipe Name" name="recipeName" onChange={e => changeRecipeName(e)}/>
             </Form.Group>
             <Form.Group className="test">
                 <Form.Label> Choose an image for the recipe</Form.Label>
@@ -120,7 +148,7 @@ function CreateRecipe() {
 
 
 
-            <Button variant="primary" type="submit" onClick={postRecipe}>
+            <Button variant="primary" type="submit">
                 Submit
             </Button>
         </Form>

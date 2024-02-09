@@ -29,7 +29,8 @@ function RecipeCardList() {
     <div className="container-fluid">
       {recipes.map((recipe) => (
         <RecipeCard
-          id="1" // Assuming each recipe has a unique id
+          key={recipe.id}
+          id={recipe.id.toString()} // Assuming each recipe has a unique id
           name={recipe.name}
           img={recipe.img}
         />
