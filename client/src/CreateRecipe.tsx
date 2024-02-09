@@ -29,13 +29,23 @@ function CreateRecipe() {
         setIngredientsList(list);
         //console.log(list);
     }
-    const handleChange = (e : ChangeEvent, index : number) => {
-        const {name, value} = e.target as HTMLInputElement;
+    const changeName = (name : string, index : number) => {
         const list = [...ingredientsList];
        // console.log(name);
-        (list[index] as any)[name] = value;
+        list[index].name = name;
         setIngredientsList(list);
-        //console.log(ingredientsList)
+    }
+    const changeAmount = (amount : number, index : number) => {
+        const list = [...ingredientsList];
+       // console.log(name);
+        list[index].amount = amount;
+        setIngredientsList(list);
+    }
+    const changeUnit = (unit : string, index : number) => {
+        const list = [...ingredientsList];
+       // console.log(name);
+        list[index].unit = unit;
+        setIngredientsList(list);
     }
 
     const addStep = () => {
@@ -83,7 +93,8 @@ function CreateRecipe() {
 
                 <Container className="p-0">
                 {ingredientsList.map((singleIngredient, index) => (
-                    <IngredientRow key={index} ingredient={singleIngredient} handleDelete={() => deleteIngredient(index)} handleChange={(e) => handleChange(e, index)} index={index}/>
+                    <IngredientRow key={index} ingredient={singleIngredient} handleDelete={() => deleteIngredient(index)} changeName = {(name) => changeName(name, index)}
+                    changeAmount = {(amount : number) => changeAmount(amount, index)} changeUnit = {(unit : string) => changeUnit(unit, index)} index={index}/>
                 ))}
             </Container>
                 <Button variant="primary" onClick={addIngredient}>
