@@ -18,9 +18,26 @@ recipeRouter.get("/", async (
     }
 });
 
+recipeRouter.get("/:id", async (
+    req : Request<{id : string}, {}, {}>,
+    res : Response<Recipe | string>
+) => {
+    try {
+        const id : number = parseInt(req.params.id, 10);
+        const recipe = await recipeService.getRecipe(id);
+        if (recipe === undefined) {
+            res.status(400).send(`Bad GET call to ${req.originalUrl} --- recipe with id ${id} does not exist`);
+            return;
+        }
+        res.status(200).send(recipe);
+    } catch (e : any) {
+        res.status(500).send(e.message);
+    }
+})
+
 recipeRouter.post("/", async (
-    req: Request<{}, {}, Omit<Recipe, 'id'>>,
-    res: Response<Recipe | string>
+    req : Request<{}, {}, Omit<Recipe, 'id'>>,
+    res : Response<Recipe | string>
 ) => {
     try {
         const recipe: Omit<Recipe, 'id'> = req.body;

@@ -1,7 +1,6 @@
 import { Recipe } from '../model/recipe';
 
 export class RecipeService {
-   
     private recipes : Recipe[] = [];
 
     async getRecipes(): Promise<Recipe[]> {
@@ -38,5 +37,14 @@ export class RecipeService {
             return true;
         }
         return false;
+    }
+
+    async getRecipe(recipeId: number): Promise<Recipe | undefined> {
+        const recipe = this.recipes.find((r) => r.id === recipeId);
+        if (recipe) {
+            return JSON.parse(JSON.stringify(recipe));
+        } else {
+            return undefined;
+        }
     }
 }
