@@ -82,25 +82,27 @@ function CreateRecipe() {
          setRecipeName(value);
     }
 
-    const handleNumServingsChange = (e : ChangeEvent) => {
+    const changeNumServings = (e : ChangeEvent) => {
         const { value } = e.target as HTMLInputElement;
         setNumServings(parseInt(value));
     }
 
     async function submitRecipe(e : FormEvent)  {
-            const response = await axios.post('http://localhost:8080/recipe', {
-            "name": recipeName,
-            "imagePath": "hej",
-            "numberServings": numServings,
-            "ingredients": ingredientsList,
-            "steps": stepsList
-          }, {timeout: 10000})
-          .then(function () {
+        e.preventDefault();
+        const response = await axios.post('http://localhost:8080/recipe', {
+        "name": recipeName,
+        "imagePath": "hej",
+        "numberServings": numServings,
+        "ingredients": ingredientsList,
+        "steps": stepsList
+        }, {timeout: 10000})
+        .then(function (response) {
             console.log(response);
-          })
-          .catch(function (error) {
+        })
+        .catch(function (error) {
             console.log(error);
-          });     
+        }); 
+        window.location.reload();
     }
 
     return (
@@ -116,7 +118,7 @@ function CreateRecipe() {
             <Form.Group className="ingredients my-3 px-3">
                 <h2>Ingredients</h2>
                 <Form.Label>Number of servings</Form.Label>
-                <Form.Select defaultValue={4}>
+                <Form.Select defaultValue={4} onChange={e => changeNumServings(e)}>
                     <option value="2">2</option>
                     <option value="4">4</option>
                     <option value="6">6</option>
