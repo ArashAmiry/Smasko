@@ -7,7 +7,7 @@ test("If recipe is added to list then it should be in the list", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
 
@@ -38,7 +38,7 @@ test("If recipe is deleted from list then it should not be in the list", async (
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
 
@@ -72,7 +72,7 @@ test("If recipe is deleted from list with two recipes then the list should be of
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
 
@@ -80,7 +80,7 @@ test("If recipe is deleted from list with two recipes then the list should be of
         name: "Recipe2",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
 

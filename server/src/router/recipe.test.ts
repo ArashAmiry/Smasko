@@ -19,7 +19,7 @@ test("POST and GET valid recipe", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
@@ -37,7 +37,7 @@ test("POST and GET invalid recipe", async () => {
     const invalidRecipe = {
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(invalidRecipe);
@@ -57,7 +57,7 @@ test("DELETE and GET valid recipe", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
@@ -77,7 +77,7 @@ test("DELETE and GET invalid text ID", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
@@ -97,7 +97,7 @@ test("DELETE and GET invalid negative ID", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4, "g"], ["chicken", 6, "g"]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
