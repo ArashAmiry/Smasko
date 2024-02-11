@@ -3,7 +3,6 @@ import "./createRecipe.css";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import IngredientRow from "./IngredientRow";
 import StepRow from "./StepsRow";
-import React from "react";
 import Form from "react-bootstrap/esm/Form";
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
@@ -15,6 +14,14 @@ export type Ingredient = {
     amount: number;
     unit: string;
 };
+
+interface IngredientsListProps {
+    ingredientsList: Array<Ingredient>; // Assuming Ingredient is another interface or type
+    deleteIngredient: (index: number) => void;
+    changeName: (name: string, index: number) => void;
+    changeAmount: (amount: number, index: number) => void;
+    changeUnit: (unit: string, index: number) => void;
+}
 
 function CreateRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{name : "", amount: 0, unit: "st"}]);
@@ -127,11 +134,14 @@ function CreateRecipe() {
                 </Form.Select>
 
                 <Container className="p-0">
-                {ingredientsList.map((singleIngredient, index) => (
-                    <IngredientRow key={index} ingredient={singleIngredient} handleDelete={() => deleteIngredient(index)} changeName = {(name) => changeName(name, index)}
-                    changeAmount = {(amount : number) => changeAmount(amount, index)} changeUnit = {(unit : string) => changeUnit(unit, index)} index={index}/>
-                ))}
-            </Container>
+                 <IngredientsList 
+                    ingredientsList={ingredientsList}
+                    deleteIngredient={deleteIngredient}
+                    changeName={changeName}
+                    changeAmount={changeAmount}
+                    changeUnit={changeUnit}
+                 />
+                 </Container>
                 <Button variant="primary" onClick={addIngredient}>
                     Add new ingredient
                 </Button>
@@ -140,7 +150,13 @@ function CreateRecipe() {
             <Form.Group>
                 <Container className="p-0">
                 {stepsList.map((singleStep, index) => (
-                    <StepRow key={index} step={singleStep} handleDelete={() => deleteStep(index)} handleChange={(e) => handleChangeStep(e, index)} index={index}/>
+                    <StepRow 
+                    key={index} 
+                    step={singleStep} 
+                    handleDelete={() => deleteStep(index)} 
+                    handleChange={(e) => handleChangeStep(e, index)} 
+                    index={index}
+                    />
                 ))}
             </Container>
                 <Button variant="primary" onClick={addStep}>
@@ -154,6 +170,24 @@ function CreateRecipe() {
                 Submit
             </Button>
         </Form>
+    );
+}
+
+function IngredientsList({ingredientsList, deleteIngredient, changeName, changeAmount, changeUnit} : IngredientsListProps) {
+    return (
+        <>
+            {ingredientsList.map((singleIngredient, index) => (
+                <IngredientRow
+                    key={index}
+                    ingredient={singleIngredient}
+                    handleDelete={() => deleteIngredient(index)}
+                    changeName={(name) => changeName(name, index)}
+                    changeAmount={(amount) => changeAmount(amount, index)}
+                    changeUnit={(unit) => changeUnit(unit, index)}
+                    index={index}
+                />
+            ))}
+        </>
     );
 }
 
