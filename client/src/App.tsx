@@ -5,6 +5,7 @@ import './App.css';
 import Header from './Header';
 import RecipeCardList from './RecipeCardList';
 import CreateRecipe from './CreateRecipe';
+import RecipeView from './RecipeView';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<RecipeCardList />}></Route>
             <Route path="/create" element={<CreateRecipe />}></Route>
+            <Route path="/recipe/:recipeId" element={<RecipeView />}></Route>
           </Routes>
         </div>
       </div>

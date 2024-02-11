@@ -7,6 +7,16 @@ export class RecipeService {
     async getRecipes(): Promise<Recipe[]> {
         return JSON.parse(JSON.stringify(this.recipes));
     }
+
+    async getRecipe(id: number): Promise<Recipe> {
+        const recipe = this.recipes.find((recipe) => recipe.id === id);
+        
+        if (!recipe) {
+            throw new Error("No recipe with that ID exists");
+        }
+
+        return JSON.parse(JSON.stringify(recipe));
+    }
     
     async addRecipe(recipe : Omit<Recipe,'id'>) : Promise<Recipe>{
         

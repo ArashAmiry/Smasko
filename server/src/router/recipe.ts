@@ -18,6 +18,19 @@ recipeRouter.get("/", async (
     }
 });
 
+recipeRouter.get("/:id", async (
+    req: Request<{id : string}, {}, {}>,
+    res: Response<Recipe | String>
+) => {
+    try {
+        const id: number = parseInt(req.params.id, 10);
+        const recipe = await recipeService.getRecipe(id);
+        res.status(200).send(recipe)
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+})
+
 recipeRouter.post("/", async (
     req: Request<{}, {}, Omit<Recipe, 'id'>>,
     res: Response<Recipe | string>

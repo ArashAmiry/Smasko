@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import RecipeCard from './RecipeCard'; // Assuming RecipeCard is in the same directory
 import axios from 'axios';
 
-type Recipe = {
+export type Recipe = {
     id: number;
     name: string;
     img: string;
+    ingredients : {name : string, amount : number, unit: string}[];
+    steps : string[];
     // Add more properties as needed
   };
 
