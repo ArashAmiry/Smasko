@@ -41,8 +41,8 @@ function RecipeView() {
                             </select>
                         </Form.Group>
                         <ul>
-                            {recipe?.ingredients.map((ingredient) => (
-                                <li className="text-start">{ingredient.amount + " " + ingredient.unit + " " + ingredient.name}</li>
+                            {recipe?.ingredients.map((ingredient, index) => (
+                                <li key={index} className="text-start">{ingredient.amount + " " + ingredient.unit + " " + ingredient.name}</li>
                             ))}
                         </ul>
                     </div>

@@ -17,50 +17,50 @@ export type Ingredient = {
 };
 
 function CreateRecipe() {
-    const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{name : "", amount: 0, unit: "st"}]);
+    const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
     const [imgPath, setImgPath] = useState("");
     const [numServings, setNumServings] = useState(4);
 
     const addIngredient = () => {
-        let newIngredient : Ingredient = {name : "", amount: 0, unit: "st"};
+        let newIngredient: Ingredient = { name: "", amount: 0, unit: "st" };
         setIngredientsList([...ingredientsList, newIngredient]);
         //console.log("hej");
     }
 
-    const deleteIngredient = (index : number) => {
+    const deleteIngredient = (index: number) => {
         //console.log(index);
         const list = [...ingredientsList];
         list.splice(index, 1);
         setIngredientsList(list);
         //console.log(list);
     }
-    const changeName = (name : string, index : number) => {
+    const changeName = (name: string, index: number) => {
         const list = [...ingredientsList];
-       // console.log(name);
+        // console.log(name);
         list[index].name = name;
         setIngredientsList(list);
     }
-    const changeAmount = (amount : number, index : number) => {
+    const changeAmount = (amount: number, index: number) => {
         const list = [...ingredientsList];
-       // console.log(name);
+        // console.log(name);
         list[index].amount = amount;
         setIngredientsList(list);
     }
-    const changeUnit = (unit : string, index : number) => {
+    const changeUnit = (unit: string, index: number) => {
         const list = [...ingredientsList];
-       // console.log(name);
+        // console.log(name);
         list[index].unit = unit;
         setIngredientsList(list);
     }
 
     const addStep = () => {
-        setStepsList([...stepsList,  ""]);
+        setStepsList([...stepsList, ""]);
         //console.log("hej");
     }
 
-    const deleteStep = (index : number) => {
+    const deleteStep = (index: number) => {
         //console.log(index);
         const list = [...stepsList];
         list.splice(index, 1);
@@ -68,45 +68,46 @@ function CreateRecipe() {
         //console.log(list);
     }
 
-    const handleChangeStep = (e : ChangeEvent, index : number) => {
-        const {value} = e.target as HTMLInputElement;
+    const handleChangeStep = (e: ChangeEvent, index: number) => {
+        const { value } = e.target as HTMLInputElement;
         const list = [...stepsList];
-       // console.log(name);
+        // console.log(name);
         list[index] = value;
         setStepsList(list);
         //console.log(ingredientsList)
     }
 
-    const changeRecipeName = (e : ChangeEvent) => {
-         const { value } = e.target as HTMLInputElement; 
-         setRecipeName(value);
+    const changeRecipeName = (e: ChangeEvent) => {
+        const { value } = e.target as HTMLInputElement;
+        setRecipeName(value);
     }
 
-    const handleNumServingsChange = (e : ChangeEvent) => {
+    const handleNumServingsChange = (e: ChangeEvent) => {
         const { value } = e.target as HTMLInputElement;
         setNumServings(parseInt(value));
     }
 
-    async function submitRecipe(e : FormEvent)  {
-            const response = await axios.post('http://localhost:8080/recipe', {
+    async function submitRecipe(e: FormEvent) {
+        e.preventDefault();
+        await axios.post('http://localhost:8080/recipe', {
             "name": recipeName,
             "imagePath": "hej",
             "numberServings": numServings,
             "ingredients": ingredientsList,
             "steps": stepsList
-          }, {timeout: 10000})
-          .then(function () {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });     
+        }, { timeout: 10000 })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     return (
         <Form className="container m-2 mx-auto create-recipe-container" onSubmit={e => submitRecipe(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control type="text" placeholder="Recipe Name" name="recipeName" onChange={e => changeRecipeName(e)}/>
+                <Form.Control type="text" placeholder="Recipe Name" name="recipeName" onChange={e => changeRecipeName(e)} />
             </Form.Group>
             <Form.Group className="test">
                 <Form.Label> Choose an image for the recipe</Form.Label>
@@ -125,11 +126,11 @@ function CreateRecipe() {
                 </Form.Select>
 
                 <Container className="p-0">
-                {ingredientsList.map((singleIngredient, index) => (
-                    <IngredientRow key={index} ingredient={singleIngredient} handleDelete={() => deleteIngredient(index)} changeName = {(name) => changeName(name, index)}
-                    changeAmount = {(amount : number) => changeAmount(amount, index)} changeUnit = {(unit : string) => changeUnit(unit, index)} index={index}/>
-                ))}
-            </Container>
+                    {ingredientsList.map((singleIngredient, index) => (
+                        <IngredientRow key={index} ingredient={singleIngredient} handleDelete={() => deleteIngredient(index)} changeName={(name) => changeName(name, index)}
+                            changeAmount={(amount: number) => changeAmount(amount, index)} changeUnit={(unit: string) => changeUnit(unit, index)} index={index} />
+                    ))}
+                </Container>
                 <Button variant="primary" onClick={addIngredient}>
                     Add new ingredient
                 </Button>
@@ -137,10 +138,10 @@ function CreateRecipe() {
 
             <Form.Group>
                 <Container className="p-0">
-                {stepsList.map((singleStep, index) => (
-                    <StepRow key={index} step={singleStep} handleDelete={() => deleteStep(index)} handleChange={(e) => handleChangeStep(e, index)} index={index}/>
-                ))}
-            </Container>
+                    {stepsList.map((singleStep, index) => (
+                        <StepRow key={index} step={singleStep} handleDelete={() => deleteStep(index)} handleChange={(e) => handleChangeStep(e, index)} index={index} />
+                    ))}
+                </Container>
                 <Button variant="primary" onClick={addStep}>
                     Add new step
                 </Button>
