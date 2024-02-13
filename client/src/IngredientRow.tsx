@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 import { Form, Container, Row, Col, Image, Button } from 'react-bootstrap';
 import binImage from './images/bin.png'; 
 import { Ingredient } from './CreateRecipe';
+import './ingredientRow.css';
 
 interface IngredientRowProps {
     ingredient : Ingredient;
@@ -17,13 +18,13 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
         <Form.Group>
             <Row>
                 <Col xs={5}>
-                    <Form.Control name="name" type="text" placeholder="Ingredient" value={ingredient.name} onChange={(e) => {
+                    <Form.Control name="name" type="text" placeholder="Ingredient name" value={ingredient.name} onChange={(e) => {
                             const {value} = e.target;
                             changeName(value);
                     }} />
                 </Col>
                 <Col xs={2}>
-                    <Form.Control name="amount" type="number" placeholder="Amount" value={ingredient.amount} onChange={(e) => {
+                    <Form.Control name="amount" type="number" placeholder="Amount" className='no-spinner' value={ingredient.amount} onChange={(e) => {
                             const {value} = e.target;
                             changeAmount(parseInt(value));
                     }} />
@@ -42,7 +43,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                     </Form.Select>
                 </Col>
                 <Col xs={2}>
-                    <Image src={binImage} width={40} height={40} roundedCircle onClick={() => handleDelete(index)} />
+                    <Image src={binImage} width={40} height={40} roundedCircle className='delete-button' onClick={() => handleDelete(index)} />
                 </Col>
             </Row>
         </Form.Group>

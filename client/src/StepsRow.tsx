@@ -13,11 +13,11 @@ function StepRow({ step, handleDelete, handleChange, index }: StepRowProps) {
     return (
         <Form.Group>
             <Row>
-                <Col xs={10}>
-                <Form.Control name="desc" type="text" placeholder={`Step ${index + 1}`} value={step} onChange={(e) => handleChange(e, index)}/>
+                <Col sm={10}>
+                <Form.Control name="desc" type="text" placeholder={`Step ${index + 1} in the recipe`} value={step} onChange={(e) => handleChange(e, index)}/>
                 </Col>
-                <Col xs={2}>
-                    <Image src={binImage} width={40} height={40} roundedCircle onClick={() => handleDelete(index)} />
+                <Col sm={2}>
+                    <Image src={binImage} width={40} height={40} roundedCircle className='delete-button' onClick={() => handleDelete(index)} />
                 </Col>
             </Row>
         </Form.Group>

@@ -169,14 +169,14 @@ function CreateRecipe() {
                         />
                     ))}
                 </Container>
-                <Button variant="outline-secondary" className="btn-outline-secondary my-3" onClick={addStep}>
+                <Button variant="outline-secondary" className="btn-outline-secondary mt-3" onClick={addStep}>
                     Add new step
                 </Button>
             </Form.Group>
 
 
 
-            <Button variant="primary" type="submit">
+            <Button variant="success" type="submit" className="submit-button" size="lg">
                 Submit
             </Button>
         </Form>
