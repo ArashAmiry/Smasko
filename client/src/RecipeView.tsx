@@ -31,7 +31,7 @@ function RecipeView() {
             {!recipe && <p>Loading</p>}
             {recipe && (
                 <Row className="mx-5">
-                    <h1 className="text-center mx-auto">Tacos with Creamy Garlic Sauce</h1>
+                    <h1 className="text-center mx-auto">{recipe.name}</h1>
                     <img src="../../images/creamytaco.png" className="img rounded-4 mt-3 mx-auto px-0" />
                     <Col sm className=" justify-content-center mt-3">
                         <div className="rounded-4 bg-light shadow-sm p-4">
