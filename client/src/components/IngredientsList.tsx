@@ -1,6 +1,7 @@
 import { Ingredient } from "../CreateRecipe";
 import IngredientRow from "./IngredientRow";
 
+
 export interface IngredientsListProps {
     ingredientsList: Array<Ingredient>; // Assuming Ingredient is another interface or type
     deleteIngredient: (index: number) => void;

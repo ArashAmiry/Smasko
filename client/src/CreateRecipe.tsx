@@ -1,5 +1,3 @@
-import "./createRecipe.css";
-
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import IngredientRow from "./components/IngredientRow";
 import StepRow from "./components/StepsRow";
@@ -10,6 +8,7 @@ import axios from "axios";
 import RecipeSteps from "./components/RecipeSteps";
 import IngredientsList from "./components/IngredientsList";
 import RecipeIngredients from "./components/RecipeIngredients";
+import "./createRecipe.css";
 
 
 export type Ingredient = {
@@ -111,9 +110,16 @@ function CreateRecipe() {
     return (
         <Form className="container m-2 mx-auto create-recipe-container" onSubmit={e => submitRecipe(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control type="text" placeholder="Recipe Name" name="recipeName" onChange={e => changeRecipeName(e)} />
+            <Form.Control
+                    className="recipe-name mx-auto mt-3"
+                    type="text"
+                    placeholder="Recipe Name"
+                    name="recipeName"
+                    required
+                    maxLength={20}
+                    onChange={e => changeRecipeName(e)} />
             </Form.Group>
-            <Form.Group className="test">
+            <Form.Group className="image-input my-3 p-4">
                 <Form.Label> Choose an image for the recipe</Form.Label>
                 <Form.Control type="file" lang="en" />
             </Form.Group>
@@ -136,7 +142,7 @@ function CreateRecipe() {
             />
 
 
-            <Button variant="primary" type="submit">
+<Button variant="success" type="submit" className="submit-button" size="lg">
                 Submit
             </Button>
         </Form>

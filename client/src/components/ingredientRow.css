@@ -1,0 +1,13 @@
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.ingredient-row {
+    margin: 10px 0px;
+}
