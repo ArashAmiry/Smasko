@@ -3,6 +3,10 @@
   -webkit-appearance: none;
 }
 
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .delete-button:hover {
     cursor: pointer;
     opacity: 0.8;
