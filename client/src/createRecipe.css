@@ -1,0 +1,10 @@
+.test {
+    border-radius: 10px;
+    border-style: dotted;
+    border-color: black;
+    padding: 10px;
+}
+.ingredients {
+    background-color: lightgray;
+    border-radius: 10px;
+}

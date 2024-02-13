@@ -3,12 +3,7 @@
 }
 
 .navigation-content {
-    /* border-radius: 2px;
-    border-color: black;
-    border-style: groove; */
     background-color: red;
-    /* padding-left: 30%;
-    padding-right: 30%; */
 }
 
 .navigation-buttons {
@@ -18,15 +13,23 @@
     margin-right: 20px;
 }
 
-
 .header {
     background-color: lightgrey;
     padding: 0px;
+    position: fixed;   
+    width: 100%;
+    top: 0;
+    overflow: hidden;
+    z-index: 100;
 }
 
 .navbar {
     background-color: rgb(190, 190, 190);
-    padd: 0px;
+    padding: 0px;
+}
+
+.nav-item {
+    margin: 10px;
 }
 
 .nav-link {
@@ -40,5 +43,4 @@
 .active {
     border-bottom: solid;
     border-color: gray;
-
 }
