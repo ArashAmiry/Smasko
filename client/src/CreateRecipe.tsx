@@ -8,6 +8,8 @@ import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
 import RecipeSteps from "./components/RecipeSteps";
+import IngredientsList from "./components/IngredientsList";
+import RecipeIngredients from "./components/RecipeIngredients";
 
 
 export type Ingredient = {
@@ -16,13 +18,6 @@ export type Ingredient = {
     unit: string;
 };
 
-interface IngredientsListProps {
-    ingredientsList: Array<Ingredient>; // Assuming Ingredient is another interface or type
-    deleteIngredient: (index: number) => void;
-    changeName: (name: string, index: number) => void;
-    changeAmount: (amount: number, index: number) => void;
-    changeUnit: (unit: string, index: number) => void;
-}
 
 function CreateRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
@@ -123,30 +118,15 @@ function CreateRecipe() {
                 <Form.Control type="file" lang="en" />
             </Form.Group>
 
-            <Form.Group className="ingredients my-3 px-3">
-                <h2>Ingredients</h2>
-                <Form.Label>Number of servings</Form.Label>
-                <Form.Select defaultValue={4} onChange={e => changeNumServings(e)}>
-                    <option value="2">2</option>
-                    <option value="4">4</option>
-                    <option value="6">6</option>
-                    <option value="8">8</option>
-                    <option value="10">10</option>
-                </Form.Select>
-
-                <Container className="p-0">
-                    <IngredientsList
-                        ingredientsList={ingredientsList}
-                        deleteIngredient={deleteIngredient}
-                        changeName={changeName}
-                        changeAmount={changeAmount}
-                        changeUnit={changeUnit}
-                    />
-                </Container>
-                <Button variant="primary" onClick={addIngredient}>
-                    Add new ingredient
-                </Button>
-            </Form.Group>
+            <RecipeIngredients
+                ingredientsList={ingredientsList}
+                deleteIngredient={(index) => deleteIngredient(index)}
+                changeName={(name, index) => changeName(name, index)}
+                changeAmount={(amount, index) => changeAmount(amount, index)}
+                changeUnit={(unit, index) => changeUnit(unit, index)}
+                changeNumServings={(e) => changeNumServings(e)}
+                addIngredient={() => addIngredient()}
+            />
 
             <RecipeSteps
                 stepsList={stepsList}
@@ -163,22 +143,5 @@ function CreateRecipe() {
     );
 }
 
-function IngredientsList({ ingredientsList, deleteIngredient, changeName, changeAmount, changeUnit }: IngredientsListProps) {
-    return (
-        <>
-            {ingredientsList.map((singleIngredient, index) => (
-                <IngredientRow
-                    key={index}
-                    ingredient={singleIngredient}
-                    handleDelete={() => deleteIngredient(index)}
-                    changeName={(name) => changeName(name, index)}
-                    changeAmount={(amount) => changeAmount(amount, index)}
-                    changeUnit={(unit) => changeUnit(unit, index)}
-                    index={index}
-                />
-            ))}
-        </>
-    );
-}
 
 export default CreateRecipe;
