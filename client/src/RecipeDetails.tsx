@@ -7,7 +7,7 @@ import Row from "react-bootstrap/esm/Row";
 import Image from 'react-bootstrap/Image';
 import { useNavigate, useParams } from "react-router-dom";
 import './recipeDetails.css';
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 interface Recipe{
     id : number;
@@ -21,6 +21,7 @@ interface Recipe{
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [nrServings, setNrServings] = useState(0);
+  const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   
@@ -41,7 +42,11 @@ function RecipeDetails() {
     return <div>Loading...</div>;
   }
 
+  const closeDeletePrompt = () => setShowDeletePrompt(false);
+
+
   const handleDeleteRecipe = () => {
+    closeDeletePrompt();
     axios.delete(`http://localhost:8080/recipe/${recipe.id}`)
       .then(response => { 
         console.log('Recipe deleted successfully');
@@ -73,8 +78,13 @@ function RecipeDetails() {
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
                 <li key={index} className="text-start">
-                   {ingredient.amount * nrServings / recipe.numberServings} {ingredient.unit} {ingredient.name}
-                </li>
+                {
+                  (() => {
+                    const result = ingredient.amount * nrServings / recipe.numberServings;
+                    return (result % 1 === 0) ? result : result.toFixed(1);
+                  })()
+                } {ingredient.unit} {ingredient.name}
+              </li>
               ))}
             </ul>
           </div>
@@ -95,9 +105,24 @@ function RecipeDetails() {
           </div>
         </Col>
       </Row>
-      <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={handleDeleteRecipe}>
+      <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
           Delete Recipe
             </Button>
+
+            <Modal show={showDeletePrompt} onHide={closeDeletePrompt}>
+        <Modal.Header closeButton>
+          <Modal.Title>Recipe Is About To Be Deleted</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete the recipe? This action cannot be undone.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeDeletePrompt}>
+            No, Close!
+          </Button>
+          <Button variant="danger" onClick={handleDeleteRecipe}>
+            Yes, Delete!
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
