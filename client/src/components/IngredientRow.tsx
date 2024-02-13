@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { Form, Container, Row, Col, Image, Button } from 'react-bootstrap';
-import binImage from './images/bin.png'; 
-import { Ingredient } from './CreateRecipe';
+import binImage from '../images/bin.png'; 
+import { Ingredient } from '../CreateRecipe';
 
 interface IngredientRowProps {
     ingredient : Ingredient;

@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/esm/Container";
 import Nav from "react-bootstrap/esm/Nav";
 import Navbar from "react-bootstrap/esm/Navbar";
+import { NavLink } from "react-router-dom";
 
 
 function Header() {
@@ -12,8 +13,8 @@ function Header() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className='m-auto'>
-                    <Nav.Link href="/">My Recipes</Nav.Link>
-                    <Nav.Link href="/create">Create Recipe</Nav.Link>
+                    <NavLink to="/">My Recipes</NavLink>
+                    <NavLink to="/create">Create Recipe</NavLink>
                 </Nav>
                 </Navbar.Collapse>
             </Container>
