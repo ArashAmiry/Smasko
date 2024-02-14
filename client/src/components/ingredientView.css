@@ -1,6 +1,37 @@
 .ingredient-view-container {
-    background-color: lightblue;
-    width: fit-content;
-    height: 100vh;
+    background-color: rgb(235, 235, 235);
+    height: calc(100vh - 136px);
     margin-right: 0;
+    text-align: center;
+    font-family: 'Lexend', sans-serif;
+    padding: 0px;
+    overflow-y: auto;
+}
+
+.ingredients-title{
+    padding-top: 3rem;
+    text-decoration: underline;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.ingredients-list{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 5px;
+    font-size: 20px;
+    display: inline-block;
+    text-align: left;
+    line-height: 2.5em; 
+    width: 70%;
+}
+
+.ingredients-vew-container{
+    text-align: center;
+    font-family: 'Lexend', sans-serif;
+    padding: 0px;
+    position: fixed;
+    height: 100%;
+    right: 0;
+    padding-top: 7rem;
+    background-color: rgb(124, 124, 124);
 }

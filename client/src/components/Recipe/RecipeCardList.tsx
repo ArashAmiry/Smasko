@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import IngredientsView from '../IngredientView';
+import '../recipeCardList.css';
 
 type Recipe = {
     id: number;
@@ -31,10 +32,10 @@ function RecipeCardList(props : {showIngredients: (id : number) => void }) {
   console.log(recipes);
     
   return (
-    <Container>
+    <Container className='cards-container'>
       <Row className="mt-4">
       {recipes.map((recipe) => (
-        <Col key={recipe.id}  md={3}>
+        <Col key={recipe.id}  xl={3} className='mt-4'>
           <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
             <RecipeCard
               key={recipe.id}

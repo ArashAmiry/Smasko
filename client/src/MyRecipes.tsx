@@ -39,11 +39,11 @@ function MyRecipes() {
         <>
             <Container className="card-container " fluid>
                 <Row>
-                    <Col md={2}></Col>
-                    <Col md={8}>
+                    <Col xl={2}></Col>
+                    <Col xl={8}>
                         <RecipeCardList showIngredients={(id: number) => displayIngredientsView(id)} />
                     </Col>
-                    <Col md={2}>
+                    <Col xl={2}>
                         {showIngredients && <IngredientsView ingredients={ingredientsList} nrServ={nrServings} />}
                     </Col>
                 </Row>
