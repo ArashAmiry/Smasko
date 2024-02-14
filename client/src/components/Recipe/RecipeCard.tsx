@@ -7,13 +7,14 @@ function RecipeCard(props: { name: string, img: string, id: string, showIngredie
     event.preventDefault();
     props.showIngredients(parseInt(props.id));
   };
+
   return (
     <Link  to={`/recipe/${props.id}`}>
     <Card id={props.id}>
       <Card.Img variant="top" src={props.img} />
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
-        <Button variant="primary" onClick={handleClick}>See ingredients</Button>
+        <Button variant="primary" onClick={(e) => handleClick(e)}>See ingredients</Button>
       </Card.Body>
     </Card>
     </Link>

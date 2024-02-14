@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { Form, Container, Row, Col, Image, Button } from 'react-bootstrap';
-import binImage from '../images/bin.png';
-import './stepRow.css'; 
+import binImage from '../../images/bin.png'; 
+import '../stepRow.css'; 
 
 interface StepRowProps {
     step : string;

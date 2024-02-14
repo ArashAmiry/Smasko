@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import RecipeCard from './components/RecipeCard';
+import RecipeCard from './components/Recipe/RecipeCard';
 import Header from './components/Header';
-import RecipeCardList from './components/RecipeCardList';
+import RecipeCardList from './components/Recipe/RecipeCardList';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 const root = ReactDOM.createRoot(

@@ -1,6 +1,6 @@
 import Container from "react-bootstrap/esm/Container";
 import "./createRecipe.css";
-import RecipeCardList from "./components/RecipeCardList";
+import RecipeCardList from "./components/Recipe/RecipeCardList";
 import IngredientsView from "./components/IngredientView";
 import { useState } from "react";
 import axios from "axios";

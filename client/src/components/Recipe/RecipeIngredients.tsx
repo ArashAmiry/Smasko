@@ -3,8 +3,8 @@ import { Container, Button } from "react-bootstrap";
 import Form from "react-bootstrap/esm/Form";
 import IngredientsList, { IngredientsListProps } from "./IngredientsList";
 import Col from "react-bootstrap/esm/Col";
-import './recipeIngredients.css';
-import './createRecipeSections.css';
+import '../recipeIngredients.css';
+import '../createRecipeSections.css';
 
 interface RecipeIngredientsProps extends IngredientsListProps{
     changeNumServings: (e : ChangeEvent) => void,

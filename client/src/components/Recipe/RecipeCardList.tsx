@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import IngredientsView from './IngredientView';
+import IngredientsView from '../IngredientView';
 
 type Recipe = {
     id: number;
@@ -28,18 +28,22 @@ function RecipeCardList(props : {showIngredients: (id : number) => void }) {
   }, []); 
 
 
+  console.log(recipes);
+    
   return (
     <Container>
       <Row className="mt-4">
       {recipes.map((recipe) => (
-        <Col key={recipe.id} md={3} className='mt-4'>
-          <RecipeCard
-            key={recipe.id}
-            id={recipe.id.toString()} // Assuming each recipe has a unique id
-            name={recipe.name}
-            img={recipe.img}
-            showIngredients={() => props.showIngredients(recipe.id)}
-          />
+        <Col key={recipe.id}  md={3}>
+          <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
+            <RecipeCard
+              key={recipe.id}
+              id={recipe.id.toString()} // Assuming each recipe has a unique id
+              name={recipe.name}
+              img={recipe.img}
+              showIngredients={() => props.showIngredients(recipe.id)}
+            />
+          </Link>
         </Col>
       ))}
       </Row>
