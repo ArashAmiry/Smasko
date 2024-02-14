@@ -32,7 +32,7 @@ function RecipeCardList(props : {showIngredients: (id : number) => void }) {
     <Container>
       <Row className="mt-4">
       {recipes.map((recipe) => (
-        <Col key={recipe.id} md={3}>
+        <Col key={recipe.id} md={3} className='mt-4'>
           <RecipeCard
             key={recipe.id}
             id={recipe.id.toString()} // Assuming each recipe has a unique id

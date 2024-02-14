@@ -4,6 +4,8 @@ import RecipeCardList from "./components/RecipeCardList";
 import IngredientsView from "./components/IngredientView";
 import { useState } from "react";
 import axios from "axios";
+import './myRecipes.css';
+import { Col, Row } from "react-bootstrap";
 
 export type Ingredient = {
     name: string;
@@ -35,9 +37,19 @@ function MyRecipes() {
 
     return (
         <>
-            <Container>
-                <RecipeCardList showIngredients={(id: number) => displayIngredientsView(id)} />
-                {showIngredients && <IngredientsView ingredients={ingredientsList} nrServ={nrServings}/>}
+            <Container className="card-container " fluid>
+                <Row>
+                    <Col md={2}></Col>
+                    <Col md={8}>
+                        <RecipeCardList showIngredients={(id: number) => displayIngredientsView(id)} />
+                    </Col>
+                    <Col md={2}>
+                        {showIngredients && <IngredientsView ingredients={ingredientsList} nrServ={nrServings} />}
+                    </Col>
+                </Row>
+
+
+
             </Container>
         </>
     );
