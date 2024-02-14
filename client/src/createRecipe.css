@@ -1,10 +1,17 @@
-.test {
-    border-radius: 10px;
-    border-style: dotted;
-    border-color: black;
-    padding: 10px;
+.create-recipe-container {
+    max-width: 900px;
 }
-.ingredients {
-    background-color: lightgray;
-    border-radius: 10px;
+
+.recipe-name{
+    width: 70%;
+}
+
+.image-input{
+    border-style: dotted;
+    border-radius: 5px;
+    border-color: rgb(204, 204, 204);
+}
+
+.submit-button {
+    margin: 10px;
 }

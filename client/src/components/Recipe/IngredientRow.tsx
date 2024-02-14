@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { Form, Container, Row, Col, Image, Button } from 'react-bootstrap';
 import binImage from '../../images/bin.png';
 import { Ingredient } from '../../CreateRecipe';
+import '../ingredientRow.css';
 
 interface IngredientRowProps {
     ingredient: Ingredient;
@@ -16,7 +17,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
     const [val, changeVal] = useState<string>(ingredient.amount.toString())
 
     return (
-        <Form.Group>
+        <Form.Group className='ingredient-row'>
             <Row>
                 <Col xs={5}>
                     <Form.Control name="name" type="text" placeholder="Ingredient" value={ingredient.name} onChange={(e) => {
@@ -25,7 +26,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                     }} />
                 </Col>
                 <Col xs={2}>
-                    <Form.Control name="amount" type="text" placeholder="Amount" value={val} onChange={(e) => {
+                    <Form.Control name="amount" type="text" placeholder="Amount" className='no-spinner' value={val} onChange={(e) => {
                         changeVal(e.target.value);
 
                         const newAmount: number = parseInt(e.target.value);
@@ -51,7 +52,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                     </Form.Select>
                 </Col>
                 <Col xs={2}>
-                    <Image src={binImage} width={40} height={40} roundedCircle onClick={() => handleDelete(index)} />
+                    <Image src={binImage} width={40} height={40} roundedCircle className='delete-button' onClick={() => handleDelete(index)} />
                 </Col>
             </Row>
         </Form.Group>

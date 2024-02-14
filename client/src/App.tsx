@@ -6,6 +6,7 @@ import Header from './components/Header';
 import RecipeCardList from './components/Recipe/RecipeCardList';
 import CreateRecipe from './CreateRecipe';
 import RecipeDetails from './RecipeDetails';
+import MyRecipes from './MyRecipes';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
         <Header />
         <div className="content">
           <Routes>
-            <Route path="/" element={<RecipeCardList />}></Route>
+            <Route path="/" element={<MyRecipes />}></Route>
             <Route path="/create" element={<CreateRecipe />}></Route>
             <Route path="/recipe/:id" element={<RecipeDetails />} />
           </Routes>
