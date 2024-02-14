@@ -27,18 +27,20 @@ function RecipeCardList() {
   }, []); 
 
 
+  console.log(recipes);
+    
   return (
     <Container>
       <Row className="mt-4">
       {recipes.map((recipe) => (
-        <Col>
+        <Col key={recipe.id}>
           <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
-          <RecipeCard
-            key={recipe.id}
-            id={recipe.id.toString()} // Assuming each recipe has a unique id
-            name={recipe.name}
-            img={recipe.img}
-          />
+            <RecipeCard
+              key={recipe.id}
+              id={recipe.id.toString()} // Assuming each recipe has a unique id
+              name={recipe.name}
+              img={recipe.img}
+            />
           </Link>
         </Col>
       ))}

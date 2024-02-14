@@ -1,15 +1,15 @@
 import "./createRecipe.css";
 
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import IngredientRow from "./components/IngredientRow";
-import StepRow from "./components/StepsRow";
+import IngredientRow from "./components/Recipe/IngredientRow";
+import StepRow from "./components/Recipe/StepsRow";
 import Form from "react-bootstrap/esm/Form";
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
-import RecipeSteps from "./components/RecipeSteps";
-import IngredientsList from "./components/IngredientsList";
-import RecipeIngredients from "./components/RecipeIngredients";
+import RecipeSteps from "./components/Recipe/RecipeSteps";
+import IngredientsList from "./components/Recipe/IngredientsList";
+import RecipeIngredients from "./components/Recipe/RecipeIngredients";
 
 
 export type Ingredient = {
@@ -47,10 +47,10 @@ function CreateRecipe() {
     }
     const changeAmount = (amount: number, index: number) => {
         const list = [...ingredientsList];
-        // console.log(name);
         list[index].amount = amount;
         setIngredientsList(list);
     }
+    
     const changeUnit = (unit: string, index: number) => {
         const list = [...ingredientsList];
         // console.log(name);
@@ -81,7 +81,8 @@ function CreateRecipe() {
     }
 
     const changeRecipeName = (e: ChangeEvent) => {
-        const { value } = e.target as HTMLInputElement;
+        let { value } = e.target as HTMLInputElement;
+
         setRecipeName(value);
     }
 
@@ -91,6 +92,7 @@ function CreateRecipe() {
     }
 
     async function submitRecipe(e: FormEvent) {
+        console.log("submit");
         e.preventDefault();
         await axios.post('http://localhost:8080/recipe', {
             "name": recipeName,
@@ -113,6 +115,7 @@ function CreateRecipe() {
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control type="text" placeholder="Recipe Name" name="recipeName" onChange={e => changeRecipeName(e)} />
             </Form.Group>
+
             <Form.Group className="test">
                 <Form.Label> Choose an image for the recipe</Form.Label>
                 <Form.Control type="file" lang="en" />
