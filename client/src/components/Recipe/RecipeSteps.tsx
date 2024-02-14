@@ -3,7 +3,7 @@ import StepRow from "./StepsRow";
 import { ChangeEvent } from "react";
 import Form from "react-bootstrap/esm/Form";
 import Col from "react-bootstrap/esm/Col";
-import './createRecipeSections.css';
+import '../createRecipeSections.css';
 
 interface StepsProps {
     stepsList: Array<string>; 
