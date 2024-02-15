@@ -9,6 +9,7 @@ import RecipeSteps from "./components/Recipe/RecipeSteps";
 import IngredientsList from "./components/Recipe/IngredientsList";
 import RecipeIngredients from "./components/Recipe/RecipeIngredients";
 import "./createRecipe.css";
+import RecipeName from "./components/Recipe/RecipeName";
 
 export type Ingredient = {
     name: string;
@@ -23,38 +24,6 @@ function CreateRecipe() {
     const [recipeName, setRecipeName] = useState("");
     const [imgPath, setImgPath] = useState("");
     const [numServings, setNumServings] = useState(2);
-
-    
-
-    const addStep = () => {
-        setStepsList([...stepsList, ""]);
-        //console.log("hej");
-    }
-
-    const deleteStep = (index: number) => {
-        //console.log(index);
-        const list = [...stepsList];
-        list.splice(index, 1);
-        setStepsList(list);
-        //console.log(list);
-    }
-
-    const handleChangeStep = (e: ChangeEvent, index: number) => {
-        const { value } = e.target as HTMLInputElement;
-        const list = [...stepsList];
-        // console.log(name);
-        list[index] = value;
-        setStepsList(list);
-        //console.log(ingredientsList)
-    }
-
-    const changeRecipeName = (e: ChangeEvent) => {
-        let { value } = e.target as HTMLInputElement;
-
-        setRecipeName(value);
-    }
-
-    
 
     async function submitRecipe(e: FormEvent) {
         console.log("submit");
@@ -77,16 +46,10 @@ function CreateRecipe() {
 
     return (
         <Form className="container m-2 mx-auto create-recipe-container" onSubmit={e => submitRecipe(e)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control
-                    className="recipe-name mx-auto mt-3"
-                    type="text"
-                    placeholder="Recipe Name"
-                    name="recipeName"
-                    required
-                    maxLength={20}
-                    onChange={e => changeRecipeName(e)} />
-            </Form.Group>
+            <RecipeName
+                recipeName={recipeName}
+                setRecipeName={(recipeName) => setRecipeName(recipeName)}
+            />
 
             <Form.Group className="image-input my-3 p-4">
                 <Form.Label> Choose an image for the recipe</Form.Label>
@@ -102,13 +65,11 @@ function CreateRecipe() {
 
             <RecipeSteps
                 stepsList={stepsList}
-                deleteStep={(index) => deleteStep(index)}
-                addStep={() => addStep()}
-                handleChangeStep={(e, index) => handleChangeStep(e, index)}
+                setStepsList={(stepsList) => setStepsList(stepsList)}
             />
 
 
-<Button variant="success" type="submit" className="submit-button" size="lg">
+            <Button variant="success" type="submit" className="submit-button" size="lg">
                 Submit
             </Button>
         </Form>

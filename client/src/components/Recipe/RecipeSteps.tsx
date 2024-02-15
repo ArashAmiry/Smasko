@@ -6,15 +6,32 @@ import Col from "react-bootstrap/esm/Col";
 import '../createRecipeSections.css';
 
 interface StepsProps {
-    stepsList: Array<string>; 
-    deleteStep: (index: number) => void;
-    addStep: () => void;
-    handleChangeStep: (e : ChangeEvent, index: number) => void;
+    stepsList: Array<string>;
+    setStepsList: (stepsList: string[]) => void;
 }
 
-const RecipeSteps = ({stepsList, deleteStep, addStep, handleChangeStep} : StepsProps) => {
+const RecipeSteps = ({ stepsList, setStepsList }: StepsProps) => {
+
+    const addStep = () => {
+        setStepsList([...stepsList, ""]);
+    }
+
+    const deleteStep = (index: number) => {
+        const list = [...stepsList];
+        list.splice(index, 1);
+        setStepsList(list);
+    }
+
+    const handleChangeStep = (e: ChangeEvent, index: number) => {
+        const { value } = e.target as HTMLInputElement;
+        const list = [...stepsList];
+        list[index] = value;
+        setStepsList(list);
+    }
+
     return (
         <Form.Group as={Col} sm className="section justify-content-center mt-3 rounded-4 bg-light shadow-sm p-4">
+            <h2>Steps</h2>
             <Container className="p-0">
                 {stepsList.map((singleStep, index) => (
                     <StepRow
@@ -27,8 +44,8 @@ const RecipeSteps = ({stepsList, deleteStep, addStep, handleChangeStep} : StepsP
                 ))}
             </Container>
             <Button variant="outline-secondary" className="btn-outline-secondary mt-3" onClick={() => addStep()}>
-                    Add new step
-                </Button>
+                Add new step
+            </Button>
         </Form.Group>);
 }
 

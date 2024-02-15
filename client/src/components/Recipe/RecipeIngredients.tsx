@@ -7,31 +7,27 @@ import '../recipeIngredients.css';
 import '../createRecipeSections.css';
 import { Ingredient } from "../../CreateRecipe";
 
-interface RecipeIngredientsProps{
-    setIngredientsList: (ingredientsList : Ingredient[]) => void,
+interface RecipeIngredientsProps {
+    setIngredientsList: (ingredientsList: Ingredient[]) => void,
     ingredientsList: Array<Ingredient>,
-    setNumServings: (numServings : number) => void,
+    setNumServings: (numServings: number) => void,
     numServings: number
 }
 
-const RecipeIngredients = ({ingredientsList, setIngredientsList, numServings, setNumServings} : RecipeIngredientsProps) => {
+const RecipeIngredients = ({ ingredientsList, setIngredientsList, numServings, setNumServings }: RecipeIngredientsProps) => {
 
     const addIngredient = () => {
         let newIngredient: Ingredient = { name: "", amount: 0, unit: "st" };
         setIngredientsList([...ingredientsList, newIngredient]);
-        //console.log("hej");
     }
 
     const deleteIngredient = (index: number) => {
-        //console.log(index);
         const list = [...ingredientsList];
         list.splice(index, 1);
         setIngredientsList(list);
-        //console.log(list);
     }
     const changeName = (name: string, index: number) => {
         const list = [...ingredientsList];
-        // console.log(name);
         list[index].name = name;
         setIngredientsList(list);
     }
@@ -40,10 +36,9 @@ const RecipeIngredients = ({ingredientsList, setIngredientsList, numServings, se
         list[index].amount = amount;
         setIngredientsList(list);
     }
-    
+
     const changeUnit = (unit: string, index: number) => {
         const list = [...ingredientsList];
-        // console.log(name);
         list[index].unit = unit;
         setIngredientsList(list);
     }
@@ -57,15 +52,15 @@ const RecipeIngredients = ({ingredientsList, setIngredientsList, numServings, se
         <Form.Group as={Col} sm className="section justify-content-center mt-3 rounded-4 bg-light shadow-sm p-4">
             <h2>Ingredients</h2>
             <Container className="servings-container col-md-1 mb-3" >
-                    <Form.Label>Number of servings</Form.Label>
-                    <Form.Select defaultValue={numServings} onChange={e => changeNumServings(e)}>
-                        <option value="2">2</option>
-                        <option value="4">4</option>
-                        <option value="6">6</option>
-                        <option value="8">8</option>
-                        <option value="10">10</option>
-                    </Form.Select>
-                </Container>
+                <Form.Label>Number of servings</Form.Label>
+                <Form.Select defaultValue={numServings} onChange={e => changeNumServings(e)}>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                </Form.Select>
+            </Container>
 
             <Container className="p-0">
                 <IngredientsList
@@ -77,8 +72,8 @@ const RecipeIngredients = ({ingredientsList, setIngredientsList, numServings, se
                 />
             </Container>
             <Button variant="outline-secondary" className="btn-outline-secondary mt-3" onClick={() => addIngredient()}>
-                    Add new ingredient
-                </Button>
+                Add new ingredient
+            </Button>
         </Form.Group>
     );
 }
