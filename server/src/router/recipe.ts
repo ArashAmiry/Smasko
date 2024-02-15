@@ -72,7 +72,7 @@ recipeRouter.delete("/:id", async (
     }    
 });
 
-recipeRouter.put("/e ditor/:id", async (
+recipeRouter.put("/editor/:id", async (
     req : Request<{id : string}, {}, Recipe>,
     res : Response<Recipe | string>
 ) => {
