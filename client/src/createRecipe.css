@@ -12,9 +12,8 @@
     border-color: rgb(204, 204, 204);
 }
 
-.ingredients {
-    background-color: lightgray;
-    border-radius: 10px;
+.submit-button {
+    margin: 10px;
 }
 
 .servings-container {

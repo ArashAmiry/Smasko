@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import IngredientsView from '../IngredientView';
+import '../recipeCardList.css';
 
 type Recipe = {
     id: number;
@@ -13,7 +15,7 @@ type Recipe = {
     // Add more properties as needed
   };
 
-function RecipeCardList() {
+function RecipeCardList(props : {showIngredients: (id : number) => void }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   async function updateRecipes() {
@@ -27,18 +29,21 @@ function RecipeCardList() {
   }, []); 
 
 
+  console.log(recipes);
+    
   return (
-    <Container>
+    <Container className='cards-container'>
       <Row className="mt-4">
       {recipes.map((recipe) => (
-        <Col>
+        <Col key={recipe.id}  xl={3} className='mt-4'>
           <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
-          <RecipeCard
-            key={recipe.id}
-            id={recipe.id.toString()} // Assuming each recipe has a unique id
-            name={recipe.name}
-            img={recipe.img}
-          />
+            <RecipeCard
+              key={recipe.id}
+              id={recipe.id.toString()} // Assuming each recipe has a unique id
+              name={recipe.name}
+              img={recipe.img}
+              showIngredients={() => props.showIngredients(recipe.id)}
+            />
           </Link>
         </Col>
       ))}

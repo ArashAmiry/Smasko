@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { Form, Container, Row, Col, Image, Button } from 'react-bootstrap';
-import binImage from './images/bin.png'; 
+import binImage from '../../images/bin.png'; 
+import '../stepRow.css'; 
 
 interface StepRowProps {
     step : string;
@@ -11,12 +12,12 @@ interface StepRowProps {
 
 function StepRow({ step, handleDelete, handleChange, index }: StepRowProps) {
     return (
-        <Form.Group>
+        <Form.Group className='step-row'>
             <Row>
-                <Col sm={10}>
-                <Form.Control name="desc" type="text" placeholder={`Step ${index + 1} in the recipe`} value={step} onChange={(e) => handleChange(e, index)}/>
+                <Col xs={10}>
+                <Form.Control name="desc" type="text" placeholder={`Step ${index + 1}`} value={step} onChange={(e) => handleChange(e, index)}/>
                 </Col>
-                <Col sm={2}>
+                <Col xs={2}>
                     <Image src={binImage} width={40} height={40} roundedCircle className='delete-button' onClick={() => handleDelete(index)} />
                 </Col>
             </Row>
