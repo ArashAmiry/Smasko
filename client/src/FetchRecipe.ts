@@ -1,10 +1,10 @@
 import axios from "axios";
 import { Recipe } from "./RecipeDetails";
 
-export async function fetchRecipe(id : string | undefined, setRecipe : (recipe : Recipe) => void) {
+export async function fetchRecipe(id : string) : Promise<Recipe | undefined> {
     try {
         const response = await axios.get(`http://localhost:8080/recipe/${id}`);
-        setRecipe(response.data);
+        return response.data;
     } catch (error) {
       console.error("Error fetching recipe:", error);
     }

@@ -28,10 +28,16 @@ function RecipeDetails() {
 
   
   useEffect(() => {
-    fetchRecipe(id, (recipe) => setRecipe(recipe));
-    if(recipe) {
-      setNrServings(recipe.numberServings);
-    }
+    const fetchData = async () => {
+      if (id) {
+        const fetchedRecipe = await fetchRecipe(id);
+      if (fetchedRecipe) {
+        setRecipe(fetchedRecipe);
+        setNrServings(fetchedRecipe.numberServings);
+      }
+      }
+    };
+    fetchData();
   }, [id]);
 
   if (!recipe) {
@@ -108,7 +114,7 @@ function RecipeDetails() {
             </Button>
         </Col>
         <Col>
-        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/editor/${recipe.id}`)}>
+        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe.id}`)}>
           Edit Recipe
             </Button>
         </Col>

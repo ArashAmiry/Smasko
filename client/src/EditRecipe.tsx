@@ -35,29 +35,34 @@ function EditRecipe() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    async function updateData() {
-            if(recipe) {
-                setImgPath(recipe.imagePath);
-                setIngredientsList(recipe.ingredients);
-                setNumServings(recipe.numberServings);
-                setRecipeName(recipe.name);
-                setStepsList(recipe.steps);
-            }
-            
+    async function updateData(recipe : Recipe) {
+        setImgPath(recipe.imagePath);
+        setIngredientsList(recipe.ingredients);
+        setNumServings(recipe.numberServings);
+        setRecipeName(recipe.name);
+        setStepsList(recipe.steps);
     }
 
     useEffect(() => {
-        fetchRecipe(id, (recipe) => setRecipe(recipe));
-        updateData();
-    }, [id]);
+        const fetchData = async() => {
+            if (id) {
+                const recipe = await fetchRecipe(id);
+                if (recipe) {
+                    setRecipe(recipe);
+                    updateData(recipe);
+                }
+            } 
+        }
 
+        fetchData();
+    }, [id]);
+    
     
 
     async function submitRecipe(e: FormEvent) {
         console.log("submit");
         e.preventDefault();
-        await axios.put(`http://localhost:8080/recipe/editor/${id}`, {
-            "id": id,
+        await axios.put(`http://localhost:8080/recipe/${id}`, {
             "name": recipeName,
             "imagePath": "hej",
             "numberServings": numServings,

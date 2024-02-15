@@ -72,21 +72,24 @@ recipeRouter.delete("/:id", async (
     }    
 });
 
-recipeRouter.put("/editor/:id", async (
-    req : Request<{id : string}, {}, Recipe>,
+recipeRouter.put("/:id", async (
+    req : Request<{id : string}, {}, Omit<Recipe, 'id'>>,
     res : Response<Recipe | string>
 ) => {
     try {
-        const recipe: Recipe = req.body;
+        const id : number = parseInt(req.params.id, 10); 
+        const recipe: Omit<Recipe,'id'> = req.body;
         const recipeErrors = validateRecipe(recipe);
        
         if (recipeErrors){
             res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ${recipeErrors}`);
             return;
         }
-        const wasEdited = await recipeService.editRecipe(recipe);
-        if(wasEdited)
-            res.status(200).send();
+        const wasEdited = await recipeService.editRecipe(recipe, id);
+        if(!wasEdited) {
+            res.status(400).send('Recipe could not be edited');
+        }
+        res.status(200).send();
     } catch (e: any) {
         res.status(500).send(e.message);
     }
