@@ -22,39 +22,9 @@ function CreateRecipe() {
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
     const [imgPath, setImgPath] = useState("");
-    const [numServings, setNumServings] = useState(4);
+    const [numServings, setNumServings] = useState(2);
 
-    const addIngredient = () => {
-        let newIngredient: Ingredient = { name: "", amount: 0, unit: "st" };
-        setIngredientsList([...ingredientsList, newIngredient]);
-        //console.log("hej");
-    }
-
-    const deleteIngredient = (index: number) => {
-        //console.log(index);
-        const list = [...ingredientsList];
-        list.splice(index, 1);
-        setIngredientsList(list);
-        //console.log(list);
-    }
-    const changeName = (name: string, index: number) => {
-        const list = [...ingredientsList];
-        // console.log(name);
-        list[index].name = name;
-        setIngredientsList(list);
-    }
-    const changeAmount = (amount: number, index: number) => {
-        const list = [...ingredientsList];
-        list[index].amount = amount;
-        setIngredientsList(list);
-    }
     
-    const changeUnit = (unit: string, index: number) => {
-        const list = [...ingredientsList];
-        // console.log(name);
-        list[index].unit = unit;
-        setIngredientsList(list);
-    }
 
     const addStep = () => {
         setStepsList([...stepsList, ""]);
@@ -84,10 +54,7 @@ function CreateRecipe() {
         setRecipeName(value);
     }
 
-    const changeNumServings = (e: ChangeEvent) => {
-        const { value } = e.target as HTMLInputElement;
-        setNumServings(parseInt(value));
-    }
+    
 
     async function submitRecipe(e: FormEvent) {
         console.log("submit");
@@ -128,12 +95,9 @@ function CreateRecipe() {
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}
-                deleteIngredient={(index) => deleteIngredient(index)}
-                changeName={(name, index) => changeName(name, index)}
-                changeAmount={(amount, index) => changeAmount(amount, index)}
-                changeUnit={(unit, index) => changeUnit(unit, index)}
-                changeNumServings={(e) => changeNumServings(e)}
-                addIngredient={() => addIngredient()}
+                setIngredientsList={(ingredientsList) => setIngredientsList(ingredientsList)}
+                numServings={numServings}
+                setNumServings={(numServings) => setNumServings(numServings)}
             />
 
             <RecipeSteps
