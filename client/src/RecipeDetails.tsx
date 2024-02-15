@@ -8,8 +8,9 @@ import Image from 'react-bootstrap/Image';
 import { useNavigate, useParams } from "react-router-dom";
 import './recipeDetails.css';
 import { Button, Modal } from "react-bootstrap";
+import { fetchRecipe } from "./FetchRecipe";
 
-interface Recipe {
+export interface Recipe {
   id: number;
   name: string;
   imagePath: string;
@@ -25,17 +26,12 @@ function RecipeDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  async function fetchRecipe() {
-    try {
-        const response = await axios.get(`http://localhost:8080/recipe/${id}`);
-        setRecipe(response.data);
-        setNrServings(response.data.numberServings)
-    } catch (error) {
-      console.error("Error fetching recipe:", error);
-    }
-  }
+  
   useEffect(() => {
-    fetchRecipe();
+    fetchRecipe(id, (recipe) => setRecipe(recipe));
+    if(recipe) {
+      setNrServings(recipe.numberServings);
+    }
   }, [id]);
 
   if (!recipe) {

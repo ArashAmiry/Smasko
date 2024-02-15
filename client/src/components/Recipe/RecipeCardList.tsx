@@ -27,9 +27,6 @@ function RecipeCardList(props : {showIngredients: (id : number) => void }) {
   useEffect(() => {
     updateRecipes();
   }, []); 
-
-
-  console.log(recipes);
     
   return (
     <Container className='cards-container'>

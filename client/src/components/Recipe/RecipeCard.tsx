@@ -10,7 +10,6 @@ function RecipeCard(props: { name: string, img: string, id: string, showIngredie
   };
 
   return (
-    <Link  to={`/recipe/${props.id}`}>
     <Card id={props.id} className='card'>
       <Card.Img variant="top" src={props.img} />
       <Card.Body className='card-body'>
@@ -18,7 +17,6 @@ function RecipeCard(props: { name: string, img: string, id: string, showIngredie
         <Button variant="primary" onClick={(e) => handleClick(e)}>See ingredients</Button>
       </Card.Body>
     </Card>
-    </Link>
   );
 }
 

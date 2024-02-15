@@ -15,7 +15,6 @@ const RecipeName = ({ recipeName, setRecipeName }: StepsProps) => {
     const changeRecipeName = (e: ChangeEvent) => {
         let { value } = e.target as HTMLInputElement;
         setRecipeName(value);
-        console.log(recipeName);
     }
 
     return (
