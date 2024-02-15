@@ -60,7 +60,7 @@ function RecipeDetails() {
         <Image src="https://i.kym-cdn.com/photos/images/original/002/488/662/883.jpg"
           className="img rounded-4 mt-3 mx-auto px-0" />
         <Col sm className="justify-content-center mt-3">
-          <div className="rounded-4 bg-light shadow-sm p-4">
+          <div className="rounded-4 bg-light shadow-sm p-4 details-box">
             <h2 className="mb-4">Ingredients</h2>
             <Form.Group as={Col} md={2} className="mb-3">
               <Form.Label>Servings</Form.Label>
@@ -86,7 +86,7 @@ function RecipeDetails() {
           </div>
         </Col>
         <Col sm className="justify-content-center mt-3">
-          <div className="rounded-4 bg-light shadow-sm p-4">
+          <div className="rounded-4 bg-light shadow-sm p-4 details-box">
             <h2 className="mb-4">Instructions</h2>
             {recipe.steps.map((step, index) => (
               <Form.Check
@@ -101,9 +101,19 @@ function RecipeDetails() {
           </div>
         </Col>
       </Row>
-      <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
+      <Row>
+        <Col>
+        <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
           Delete Recipe
             </Button>
+        </Col>
+        <Col>
+        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/editor/${recipe.id}`)}>
+          Edit Recipe
+            </Button>
+        </Col>
+      </Row>
+      
 
             <Modal show={showDeletePrompt} onHide={closeDeletePrompt}>
         <Modal.Header closeButton>

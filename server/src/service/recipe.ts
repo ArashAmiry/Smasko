@@ -47,4 +47,20 @@ export class RecipeService {
             return undefined;
         }
     }
+
+    async editRecipe(editedRecipe : Recipe): Promise<boolean> {
+        const recipe = this.recipes.find((recipe) => recipe.id === editedRecipe.id);
+        
+        if (!recipe) {
+            return false;
+        }
+
+        recipe.imagePath = editedRecipe.imagePath;
+        recipe.ingredients = editedRecipe.ingredients;
+        recipe.name = editedRecipe.name;
+        recipe.numberServings = editedRecipe.numberServings;
+        recipe.steps = editedRecipe.steps;
+
+        return true;
+    }
 }

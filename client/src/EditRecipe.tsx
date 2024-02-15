@@ -56,7 +56,8 @@ function EditRecipe() {
     async function submitRecipe(e: FormEvent) {
         console.log("submit");
         e.preventDefault();
-        await axios.post('http://localhost:8080/recipe', {
+        await axios.put(`http://localhost:8080/recipe/editor/${id}`, {
+            "id": id,
             "name": recipeName,
             "imagePath": "hej",
             "numberServings": numServings,
@@ -69,7 +70,7 @@ function EditRecipe() {
             .catch(function (error) {
                 console.log(error);
             });
-        window.location.reload();
+        navigate(`/recipe/${id}`)
     }
 
     return (

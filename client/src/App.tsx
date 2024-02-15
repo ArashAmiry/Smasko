@@ -7,6 +7,7 @@ import RecipeCardList from './components/Recipe/RecipeCardList';
 import CreateRecipe from './CreateRecipe';
 import RecipeDetails from './RecipeDetails';
 import MyRecipes from './MyRecipes';
+import EditRecipe from './EditRecipe';
 
 
 function App() {
@@ -16,9 +17,10 @@ function App() {
         <Header />
         <div className="content">
           <Routes>
-            <Route path="/" element={<MyRecipes />}></Route>
-            <Route path="/create" element={<CreateRecipe />}></Route>
+            <Route path="/" element={<MyRecipes />} />
+            <Route path="/create" element={<CreateRecipe />} />
             <Route path="/recipe/:id" element={<RecipeDetails />} />
+            <Route path="/recipe/editor/:id" element={<EditRecipe />} />
           </Routes>
         </div>
       </div>

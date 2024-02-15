@@ -71,3 +71,23 @@ recipeRouter.delete("/:id", async (
         res.status(500).send(e.message);
     }    
 });
+
+recipeRouter.put("/e ditor/:id", async (
+    req : Request<{id : string}, {}, Recipe>,
+    res : Response<Recipe | string>
+) => {
+    try {
+        const recipe: Recipe = req.body;
+        const recipeErrors = validateRecipe(recipe);
+       
+        if (recipeErrors){
+            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ${recipeErrors}`);
+            return;
+        }
+        const wasEdited = await recipeService.editRecipe(recipe);
+        if(wasEdited)
+            res.status(200).send();
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+})
