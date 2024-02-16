@@ -1,32 +1,33 @@
 import { useState, useEffect } from 'react';
-import RecipeCard from './RecipeCard'; // Assuming RecipeCard is in the same directory
+import RecipeCard from './RecipeCard';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import IngredientsView from '../IngredientView';
 import '../recipeCardList.css';
 
 type Recipe = {
     id: number;
     name: string;
     img: string;
-    // Add more properties as needed
   };
 
-function RecipeCardList(props : {showIngredients: (id : number) => void }) {
+function RecipeCardList(props : {showIngredients: (id : number) => void, searchTerm: string}) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   async function updateRecipes() {
       const response = await axios.get<Recipe[]>("http://localhost:8080/recipe");
       const newRecipes : Recipe[] = response.data;
-      setRecipes(newRecipes);
+
+      const filteredRecipes = newRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(props.searchTerm.toLowerCase()));
+
+      setRecipes(filteredRecipes);
   }
 
   useEffect(() => {
     updateRecipes();
-  }, []); 
+  }, [props.searchTerm]); 
     
   return (
     <Container className='cards-container'>
@@ -36,7 +37,7 @@ function RecipeCardList(props : {showIngredients: (id : number) => void }) {
           <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
             <RecipeCard
               key={recipe.id}
-              id={recipe.id.toString()} // Assuming each recipe has a unique id
+              id={recipe.id.toString()}
               name={recipe.name}
               img={recipe.img}
               showIngredients={() => props.showIngredients(recipe.id)}
