@@ -73,23 +73,31 @@ recipeRouter.delete("/:id", async (
 });
 
 recipeRouter.put("/:id", async (
-    req : Request<{id : string}, {}, Omit<Recipe, 'id'>>,
+    req : Request<{id : string}, {}, Recipe>,
     res : Response<Recipe | string>
 ) => {
     try {
         const id : number = parseInt(req.params.id, 10); 
-        const recipe: Omit<Recipe,'id'> = req.body;
+        const recipe : Recipe = req.body;
         const recipeErrors = validateRecipe(recipe);
+        
+        if (id !== recipe.id) {
+            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ID in body does not match ID in path`);
+            return;
+        }
        
         if (recipeErrors){
             res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ${recipeErrors}`);
             return;
         }
+
         const wasEdited = await recipeService.editRecipe(recipe, id);
+       
         if(!wasEdited) {
             res.status(400).send('Recipe could not be edited');
         }
-        res.status(200).send();
+
+        res.status(200).send(recipe);
     } catch (e: any) {
         res.status(500).send(e.message);
     }
