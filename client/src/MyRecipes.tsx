@@ -17,6 +17,7 @@ function MyRecipes() {
     const [showIngredients, setShowIngredients] = useState(false);
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([])
     const [nrServings, setNrServings] = useState(0);
+    const [searchInput, setSearchInput] = useState("");
 
     const displayIngredientsView = (id: number) => {
         if (!showIngredients) {
@@ -38,6 +39,9 @@ function MyRecipes() {
     return (
         <>
             <Container className="card-container " fluid>
+                <Row>
+
+                </Row>
                 <Row>
                     <Col xl={2}></Col>
                     <Col xl={8}>
