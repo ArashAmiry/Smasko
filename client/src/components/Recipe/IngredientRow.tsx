@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Form, Container, Row, Col, Image, Button } from 'react-bootstrap';
 import binImage from '../../images/bin.png';
-import { Ingredient } from '../../CreateRecipe';
+import { Ingredient } from './Ingredient';
 import '../ingredientRow.css';
 
 interface IngredientRowProps {
@@ -21,13 +21,13 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
         <Form.Group className='ingredient-row'>
             <Row>
                 <Col xs={5}>
-                    <Form.Control name="name" type="text" placeholder="Ingredient" value={ingredient.name} aria-required="true" onChange={(e) => {
+                    <Form.Control data-testid="name-input" name="name" type="text" placeholder="Ingredient" value={ingredient.name} aria-required="true" onChange={(e) => {
                         const { value } = e.target;
                         changeName(value);
                     }} />
                 </Col>
                 <Col xs={2}>
-                    <Form.Control name="amount" type="text" placeholder="Amount" className='no-spinner' value={val} aria-required="true" onChange={(e) => {
+                    <Form.Control data-testid="amount-input" name="amount" type="text" placeholder="Amount" className='no-spinner' value={val} aria-required="true" onChange={(e) => {
                         changeVal(e.target.value);
 
                         const newAmount: number = parseInt(e.target.value);
@@ -40,7 +40,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                     }}/>
                 </Col>
                 <Col xs={3}>
-                    <Form.Select name="unit" value={ingredient.unit} onChange={(e) => {
+                    <Form.Select data-testid="unit-input" name="unit" value={ingredient.unit} onChange={(e) => {
                         const { value } = e.target;
                         changeUnit(value);
                     }}>
@@ -53,7 +53,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                     </Form.Select>
                 </Col>
                 <Col xs={2}>
-                    <Image src={binImage} width={40} height={40} roundedCircle className='delete-button' onClick={() => handleDelete(index)} />
+                    <Image data-testid='delete-button' alt='image of bin' src={binImage} width={40} height={40} roundedCircle className='delete-button' onClick={() => handleDelete(index)} />
                 </Col>
             </Row>
         </Form.Group>

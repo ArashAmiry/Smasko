@@ -1,4 +1,4 @@
-import { Ingredient } from "../../CreateRecipe";
+import { Ingredient } from "./Ingredient"; 
 import IngredientRow from "./IngredientRow";
 
 

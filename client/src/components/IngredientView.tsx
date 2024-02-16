@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import './ingredientView.css';
-import { Ingredient } from "../CreateRecipe";
+import { Ingredient } from "./Recipe/Ingredient";
 
 function IngredientsView(props : {ingredients : Ingredient[], nrServ : number}){
     return (

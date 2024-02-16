@@ -5,7 +5,7 @@ import IngredientsList, { IngredientsListProps } from "./IngredientsList";
 import Col from "react-bootstrap/esm/Col";
 import '../recipeIngredients.css';
 import '../createRecipeSections.css';
-import { Ingredient } from "../../CreateRecipe";
+import { Ingredient } from "./Ingredient";
 
 interface RecipeIngredientsProps {
     setIngredientsList: (ingredientsList: Ingredient[]) => void,

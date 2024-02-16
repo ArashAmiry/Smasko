@@ -12,13 +12,7 @@ import "./createRecipe.css";
 import RecipeName from "./components/Recipe/RecipeName";
 import { useNavigate } from "react-router-dom";
 import { Recipe } from "./RecipeDetails";
-
-export type Ingredient = {
-    name: string;
-    amount: number;
-    unit: string;
-};
-
+import { Ingredient } from "./components/Recipe/Ingredient";
 
 function CreateRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
@@ -130,7 +124,7 @@ function CreateRecipe() {
             {errors.steps && <p className="error-message">{errors.steps}</p>}
 
 
-            <Button variant="success" type="submit" className="submit-button" size="lg">
+            <Button data-testid="submit-button" variant="success" type="submit" className="submit-button" size="lg">
                 Submit
             </Button>
         </Form>
