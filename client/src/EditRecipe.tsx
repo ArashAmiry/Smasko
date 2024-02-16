@@ -62,7 +62,14 @@ function EditRecipe() {
     async function submitRecipe(e: FormEvent) {
         console.log("submit");
         e.preventDefault();
+
+        if (id === undefined) {
+            console.log("ID is undefined");
+            return;
+        }
+
         await axios.put(`http://localhost:8080/recipe/${id}`, {
+            "id": parseInt(id),
             "name": recipeName,
             "imagePath": "hej",
             "numberServings": numServings,
