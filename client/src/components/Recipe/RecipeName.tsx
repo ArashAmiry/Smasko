@@ -24,7 +24,7 @@ const RecipeName = ({ recipeName, setRecipeName }: StepsProps) => {
                 type="text"
                 placeholder="Recipe Name"
                 name="recipeName"
-                required
+                aria-required="true"
                 maxLength={20}
                 value={recipeName}
                 onChange={e => changeRecipeName(e)} />

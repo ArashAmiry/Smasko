@@ -10,7 +10,7 @@ export interface IngredientsListProps {
     changeUnit: (unit: string, index: number) => void;
 }
 
-function IngredientsList({ ingredientsList, deleteIngredient, changeName, changeAmount, changeUnit }: IngredientsListProps) {
+function IngredientsList({ ingredientsList, deleteIngredient, changeName, changeAmount, changeUnit}: IngredientsListProps) {
     return (
         <>
             {ingredientsList.map((singleIngredient, index) => (

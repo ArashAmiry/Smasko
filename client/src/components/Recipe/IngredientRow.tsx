@@ -13,6 +13,7 @@ interface IngredientRowProps {
     index: number;
 }
 
+
 function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, changeUnit, index }: IngredientRowProps) {
     const [val, changeVal] = useState<string>(ingredient.amount.toString())
 
@@ -20,13 +21,13 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
         <Form.Group className='ingredient-row'>
             <Row>
                 <Col xs={5}>
-                    <Form.Control name="name" type="text" placeholder="Ingredient" value={ingredient.name} onChange={(e) => {
+                    <Form.Control name="name" type="text" placeholder="Ingredient" value={ingredient.name} aria-required="true" onChange={(e) => {
                         const { value } = e.target;
                         changeName(value);
                     }} />
                 </Col>
                 <Col xs={2}>
-                    <Form.Control name="amount" type="text" placeholder="Amount" className='no-spinner' value={val} onChange={(e) => {
+                    <Form.Control name="amount" type="text" placeholder="Amount" className='no-spinner' value={val} aria-required="true" onChange={(e) => {
                         changeVal(e.target.value);
 
                         const newAmount: number = parseInt(e.target.value);

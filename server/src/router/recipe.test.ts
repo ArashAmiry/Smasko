@@ -111,3 +111,22 @@ test("DELETE and GET invalid negative ID", async () => {
     expect(res3.statusCode).toEqual(200);
     expect(res3.body.length === 0);
 })
+
+test("POST and GET valid recipe with ID", async () => {
+    const recipe : Omit<Recipe,'id'> = {
+        name: "Recipe",
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
+        steps: ["step1", "step2"]
+    } 
+    const res1 = await request.post("/recipe").send(recipe);
+
+    expect(res1.statusCode).toEqual(201);
+    expect(res1.body).toMatchObject(recipe);
+
+    const res2 = await request.get("/recipe/" + res1.body.id);
+
+    expect(res2.statusCode).toEqual(200);
+    expect(res2.body).toEqual(res1.body);
+})
