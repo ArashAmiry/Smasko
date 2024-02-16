@@ -26,7 +26,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                     }} />
                 </Col>
                 <Col xs={2}>
-                    <Form.Control name="amount" type="text" placeholder="Amount" className='no-spinner' value={val} onChange={(e) => {
+                    <Form.Control name="amount" type="text" placeholder="Amount" className='no-spinner' value={ingredient.amount} onChange={(e) => {
                         changeVal(e.target.value);
 
                         const newAmount: number = parseInt(e.target.value);
