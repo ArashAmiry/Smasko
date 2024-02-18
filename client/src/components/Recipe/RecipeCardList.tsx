@@ -10,19 +10,24 @@ import '../recipeCardList.css';
 type Recipe = {
     id: number;
     name: string;
-    img: string;
+    image: string;
   };
 
 function RecipeCardList(props : {showIngredients: (id : number) => void, searchTerm: string}) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   async function updateRecipes() {
-      const response = await axios.get<Recipe[]>("http://localhost:8080/recipe");
-      const newRecipes : Recipe[] = response.data;
+      const response = await axios.get<Recipe[]>("http://localhost:8080/recipe")
+      .then( function(response) {
+        console.log(response);
+        const newRecipes : Recipe[] = response.data;
 
-      const filteredRecipes = newRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(props.searchTerm.toLowerCase()));
+        const filteredRecipes = newRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(props.searchTerm.toLowerCase()));
 
-      setRecipes(filteredRecipes);
+        setRecipes(filteredRecipes);})
+      .catch( function (error) {
+          console.log(error);
+      });
   }
 
   useEffect(() => {
@@ -39,7 +44,7 @@ function RecipeCardList(props : {showIngredients: (id : number) => void, searchT
               key={recipe.id}
               id={recipe.id.toString()}
               name={recipe.name}
-              img={recipe.img}
+              img={recipe.image}
               showIngredients={() => props.showIngredients(recipe.id)}
             />
           </Link>

@@ -9,11 +9,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import './recipeDetails.css';
 import { Button, Modal } from "react-bootstrap";
 import { fetchRecipe } from "./FetchRecipe";
+const reactAwesomeSpinners = require('react-awesome-spinners');
+
 
 export interface Recipe {
   id: number;
   name: string;
-  imagePath: string;
+  image: string;
   numberServings: number;
   ingredients: { name: string, amount: number, unit: string }[];
   steps: string[];
@@ -41,7 +43,11 @@ function RecipeDetails() {
   }, [id]);
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return (
+      <div className="spinner">
+        <reactAwesomeSpinners.Heart />
+      </div>
+    );
   }
 
   const closeDeletePrompt = () => setShowDeletePrompt(false);
@@ -63,7 +69,7 @@ function RecipeDetails() {
     <Container className="recipe-container mx-auto">
       <Row className="mx-5">
         <h1 className="text-center mx-auto">{recipe.name}</h1>
-        <Image src="https://i.kym-cdn.com/photos/images/original/002/488/662/883.jpg"
+        <Image src={recipe.image}
           className="img rounded-4 mt-3 mx-auto px-0" />
         <Col sm className="justify-content-center mt-3">
           <div className="rounded-4 bg-light shadow-sm p-4 details-box">

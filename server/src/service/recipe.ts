@@ -1,6 +1,7 @@
 import { Recipe } from '../model/recipe';
+import { IRecipeService } from './IRecipe';
 
-export class RecipeService {
+export class RecipeService implements IRecipeService {
     private recipes : Recipe[] = [];
 
     async getRecipes(): Promise<Recipe[]> {

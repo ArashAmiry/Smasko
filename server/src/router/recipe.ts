@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import { Recipe, validateRecipe } from "../model/recipe";
-import { RecipeService } from "../service/recipe";
+import { RecipeDBService } from  "../service/dbrecipe";  
 
-const recipeService = new RecipeService();
+const recipeService = new RecipeDBService();
 
 export const recipeRouter = express.Router();
 
