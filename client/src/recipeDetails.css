@@ -1,0 +1,32 @@
+.custom-checkbox {
+    margin: 0px;
+    padding: auto;
+}
+
+.custom-checkbox:hover .form-check-label:hover {
+    cursor: pointer;
+}
+
+.form-check-input:checked+.form-check-label {
+    text-decoration: line-through;
+    color: rgb(185, 185, 185);
+
+}
+
+
+.form-group-label {
+    display: flex;
+    align-items: center;
+}
+
+.form-group-label .form-label {
+    margin-right: 10px;
+}
+
+.recipe-container {
+    max-width: 900px;
+}
+
+.details-box {
+    height: 100%;
+}

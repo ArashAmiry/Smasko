@@ -1,0 +1,33 @@
+.img-fluid {
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.instructions-section {
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10;
+}
+
+.ingredients-section {
+    background-color: lightblue;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10;
+}
+
+li {
+    margin: 10px;
+}
+
+.form-check {
+    margin: 10px;
+}
+.form-check-input:checked + .form-check-label{
+    text-decoration: line-through;
+    color: lightgray;
+}
+.form-group {
+    width:fit-content;
+}

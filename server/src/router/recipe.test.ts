@@ -19,7 +19,7 @@ test("POST and GET valid recipe", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4], ["chicken", 6]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
@@ -37,7 +37,7 @@ test("POST and GET invalid recipe", async () => {
     const invalidRecipe = {
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4], ["chicken", 6]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(invalidRecipe);
@@ -57,7 +57,7 @@ test("DELETE and GET valid recipe", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4], ["chicken", 6]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
@@ -77,7 +77,7 @@ test("DELETE and GET invalid text ID", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4], ["chicken", 6]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
@@ -97,7 +97,7 @@ test("DELETE and GET invalid negative ID", async () => {
         name: "Recipe",
         imagePath: "img",
         numberServings: 4,
-        ingredients: [["in1", 4], ["chicken", 6]],
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
     } 
     const res1 = await request.post("/recipe").send(recipe);
@@ -110,4 +110,47 @@ test("DELETE and GET invalid negative ID", async () => {
     console.log(res3.body);
     expect(res3.statusCode).toEqual(200);
     expect(res3.body.length === 0);
+})
+
+test("POST and GET valid recipe with ID", async () => {
+    const recipe : Omit<Recipe,'id'> = {
+        name: "Recipe",
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
+        steps: ["step1", "step2"]
+    } 
+    const res1 = await request.post("/recipe").send(recipe);
+
+    expect(res1.statusCode).toEqual(201);
+    expect(res1.body).toMatchObject(recipe);
+
+    const res2 = await request.get("/recipe/" + res1.body.id);
+
+    expect(res2.statusCode).toEqual(200);
+    expect(res2.body).toEqual(res1.body);
+})
+
+test("GET recipe with invalid ID", async () => {
+    const res = await request.get("/recipe/0");
+    expect(res.statusCode).toEqual(400);
+})
+
+test ("PUT recipe should edit recipe", async () => {
+    const recipe : Omit<Recipe,'id'> = {
+        name: "Recipe",
+        imagePath: "img",
+        numberServings: 4,
+        ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
+        steps: ["step1", "step2"]
+    } 
+
+    const res1 = await request.post("/recipe").send(recipe);
+    const recipe2 : Recipe = res1.body;
+    recipe2.name = "Recipe2";
+    const res2 = await request.put("/recipe/" + res1.body.id).send(recipe2);
+    expect(res2.body).toEqual(recipe2);
+    const res3 = await request.get("/recipe/" + res1.body.id);
+    expect(res3.body).toEqual(recipe2);
+
 })

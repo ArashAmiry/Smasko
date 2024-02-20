@@ -18,16 +18,33 @@ recipeRouter.get("/", async (
     }
 });
 
+recipeRouter.get("/:id", async (
+    req : Request<{id : string}, {}, {}>,
+    res : Response<Recipe | string>
+) => {
+    try {
+        const id : number = parseInt(req.params.id, 10);
+        const recipe = await recipeService.getRecipe(id);
+        if (recipe === undefined) {
+            res.status(400).send(`Bad GET call to ${req.originalUrl} --- recipe with id ${id} does not exist`);
+            return;
+        }
+        res.status(200).send(recipe);
+    } catch (e : any) {
+        res.status(500).send(e.message);
+    }
+})
+
 recipeRouter.post("/", async (
-    req: Request<{}, {}, Omit<Recipe, 'id'>>,
-    res: Response<Recipe | string>
+    req : Request<{}, {}, Omit<Recipe, 'id'>>,
+    res : Response<Recipe | string>
 ) => {
     try {
         const recipe: Omit<Recipe, 'id'> = req.body;
         const recipeErrors = validateRecipe(recipe);
        
         if (recipeErrors){
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ${recipeErrors}`);
+            res.status(400).send(`Bad POST call to ${req.originalUrl} --- ${recipeErrors}`);
             return;
         }
         const newRecipe = await recipeService.addRecipe(recipe);
@@ -54,3 +71,34 @@ recipeRouter.delete("/:id", async (
         res.status(500).send(e.message);
     }    
 });
+
+recipeRouter.put("/:id", async (
+    req : Request<{id : string}, {}, Recipe>,
+    res : Response<Recipe | string>
+) => {
+    try {
+        const id : number = parseInt(req.params.id, 10); 
+        const recipe : Recipe = req.body;
+        const recipeErrors = validateRecipe(recipe);
+        
+        if (id !== recipe.id) {
+            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ID in body does not match ID in path`);
+            return;
+        }
+       
+        if (recipeErrors){
+            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ${recipeErrors}`);
+            return;
+        }
+
+        const wasEdited = await recipeService.editRecipe(recipe, id);
+       
+        if(!wasEdited) {
+            res.status(400).send('Recipe could not be edited');
+        }
+
+        res.status(200).send(recipe);
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+})

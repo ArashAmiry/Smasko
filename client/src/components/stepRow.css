@@ -1,0 +1,8 @@
+.delete-button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.step-row {
+    margin: 10px 0px;
+}

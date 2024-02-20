@@ -1,0 +1,39 @@
+.create-recipe-container {
+    max-width: 900px;
+}
+
+.recipe-name{
+    width: 70%;
+}
+
+.image-input{
+    border-style: dotted;
+    border-radius: 5px;
+    border-color: rgb(204, 204, 204);
+}
+
+.submit-button {
+    margin: 10px;
+}
+
+.servings-container {
+    width:fit-content;
+    margin-left: 0;
+    padding: 0;
+}
+
+.submit-button {
+    margin: 10px;
+}
+@keyframes shake {
+    0% { transform: translateX(0); }
+    10%, 90% { transform: translateX(-10px); }
+    20%, 80% { transform: translateX(10px); }
+    30%, 50%, 70% { transform: translateX(-10px); }
+    40%, 60% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+.error-message {
+    color: red;
+}
