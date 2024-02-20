@@ -15,7 +15,7 @@ import { Recipe } from "./RecipeDetails";
 import { Ingredient } from "./components/Recipe/Ingredient";
 
 function CreateRecipe() {
-    const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
+    const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 1, unit: "st" }]);
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
     const [imgPath, setImgPath] = useState("");
