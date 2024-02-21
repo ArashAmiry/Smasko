@@ -4,6 +4,7 @@ import RecipeCard from './RecipeCard';
   const mockProps = {
     name: 'Test Recipe',
     img: 'test.jpg',
+    rating: 5,
     id: '123',
     showIngredients: jest.fn(),
   };

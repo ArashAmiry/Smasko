@@ -11,27 +11,24 @@ import RecipeIngredients from "./components/Recipe/RecipeIngredients";
 import "./createRecipe.css";
 import RecipeName from "./components/Recipe/RecipeName";
 import { useNavigate } from "react-router-dom";
-import { Recipe } from "./RecipeDetails";
 import { Ingredient } from "./components/Recipe/Ingredient";
+import { Rating } from "react-simple-star-rating";
+import ImageUpload from "./components/Recipe/ImageUpload";
 
 function CreateRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 1, unit: "st" }]);
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
-    const [imgPath, setImgPath] = useState("");
     const [numServings, setNumServings] = useState(4);
     const [shakeScreen, setShakeScreen] = useState(false);
     const [image, setImage] = useState<string>("");
+    const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState({ recipeName: "", ingredients: "", steps: "", image: "" }); 
     const navigate = useNavigate();
     
-    function handleImageChange(e : React.ChangeEvent) {
-        const inputElement = e.target as HTMLInputElement;
-        if (inputElement.files) {
-            const file = inputElement.files[0];
-            setImage(URL.createObjectURL(file));
-        }
-    }
+    const handleRating = (rate: number) => {
+        setRating(rate)
+      }
     
     useEffect(() => {
         let timeout: any;
@@ -80,7 +77,8 @@ function CreateRecipe() {
             "imagePath": "hej",
             "numberServings": numServings,
             "ingredients": ingredientsList,
-            "steps": stepsList
+            "steps": stepsList,
+            "rating": rating
         }, { timeout: 10000 })
             .then(function (response) {
                 console.log(response);
@@ -99,15 +97,7 @@ function CreateRecipe() {
             />
             {errors.recipeName && <p className="error-message">{errors.recipeName}</p>}
 
-            <Form.Group className="image-input my-3 p-4">
-                <Form.Label> Choose an image for the recipe</Form.Label>
-                {image && (
-                <div className="mt-3">
-                    <img src={image} alt="Preview" style={{ maxWidth: '100%', height: 'auto' }} />
-                </div>
-                 )}
-                <Form.Control type="file" lang="en" onChange={(e) => handleImageChange(e)} />
-            </Form.Group>
+            <ImageUpload image={image} setImage={(e) => setImage(e)}/>
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}
@@ -123,6 +113,7 @@ function CreateRecipe() {
             />
             {errors.steps && <p className="error-message">{errors.steps}</p>}
 
+            <Rating onClick={handleRating}/>
 
             <Button data-testid="submit-button" variant="success" type="submit" className="submit-button" size="lg">
                 Submit

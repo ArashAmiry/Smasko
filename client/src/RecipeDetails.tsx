@@ -9,15 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import './recipeDetails.css';
 import { Button, Modal } from "react-bootstrap";
 import { fetchRecipe } from "./FetchRecipe";
-
-export interface Recipe {
-  id: number;
-  name: string;
-  imagePath: string;
-  numberServings: number;
-  ingredients: { name: string, amount: number, unit: string }[];
-  steps: string[];
-}
+import { Recipe } from "./components/Recipe/Recipe";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
