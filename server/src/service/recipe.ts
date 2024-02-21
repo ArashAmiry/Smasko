@@ -15,7 +15,8 @@ export class RecipeService {
             imagePath: recipe.imagePath,
             numberServings: recipe.numberServings,
             ingredients: recipe.ingredients,
-            steps: recipe.steps
+            steps: recipe.steps,
+            rating: recipe.rating
         }
 
         this.recipes.push(addedRecipe);
@@ -47,22 +48,15 @@ export class RecipeService {
         }
     }
 
-    async editRecipe(editedRecipe : Omit<Recipe, 'id'>, editedRecipeId : number): Promise<boolean> {
-        const recipe = this.recipes.find((recipe) => recipe.id === editedRecipeId);
+    async editRecipe(editedRecipe : Recipe): Promise<boolean> {
+        const recipe = this.recipes.find((recipe) => recipe.id === editedRecipe.id);
 
         if (!recipe) {
             return false;
         }
  
         let recipeIndex : number = this.recipes.indexOf(recipe);
-
-        recipe.imagePath = editedRecipe.imagePath;
-        recipe.ingredients = editedRecipe.ingredients;
-        recipe.name = editedRecipe.name;
-        recipe.numberServings = editedRecipe.numberServings;
-        recipe.steps = editedRecipe.steps;
-
-        this.recipes[recipeIndex] = recipe;
+        this.recipes[recipeIndex] = editedRecipe;
 
         return true;
     }

@@ -1,7 +1,7 @@
-import { Ingredient } from "./Ingredient"; 
+import { Ingredient } from "./Ingredient";
 import IngredientRow from "./IngredientRow";
 
-
+//TODO egen fil 
 export interface IngredientsListProps {
     ingredientsList: Array<Ingredient>; // Assuming Ingredient is another interface or type
     deleteIngredient: (index: number) => void;
@@ -10,7 +10,7 @@ export interface IngredientsListProps {
     changeUnit: (unit: string, index: number) => void;
 }
 
-function IngredientsList({ ingredientsList, deleteIngredient, changeName, changeAmount, changeUnit}: IngredientsListProps) {
+function IngredientsList({ ingredientsList, deleteIngredient, changeName, changeAmount, changeUnit }: IngredientsListProps) {
     return (
         <>
             {ingredientsList.map((singleIngredient, index) => (

@@ -91,8 +91,7 @@ recipeRouter.put("/:id", async (
             return;
         }
 
-        const wasEdited = await recipeService.editRecipe(recipe, id);
-       
+        const wasEdited = await recipeService.editRecipe(recipe);
         if(!wasEdited) {
             res.status(400).send('Recipe could not be edited');
         }

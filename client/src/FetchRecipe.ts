@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Recipe } from "./RecipeDetails";
+import { Recipe } from "./components/Recipe/Recipe";
 
 export async function fetchRecipe(id : string) : Promise<Recipe | undefined> {
     try {
