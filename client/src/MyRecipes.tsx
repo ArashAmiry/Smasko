@@ -49,15 +49,18 @@ function MyRecipes() {
 
     return (
         <>
+        <Container className="form-container">
             <Form onSubmit={(e) => searchRecipe(e)}>
                 <Form.Group>
                     <Form.Control
-                        className="recipe-name mx-auto mt-3"
-                        type="text"
+                        className="search-bar mx-auto mt-3"
+                        type="search"
                         placeholder="Search..."
                         onChange={(e) => changeSearchTerm(e.target.value)}/>
                 </Form.Group>   
             </Form>
+            </Container>
+            
             <Container className="card-container " fluid>
                 <Row>
                     <Col xl={2}></Col>

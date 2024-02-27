@@ -17,7 +17,7 @@ interface RecipeIngredientsProps {
 const RecipeIngredients = ({ ingredientsList, setIngredientsList, numServings, setNumServings }: RecipeIngredientsProps) => {
 
     const addIngredient = () => {
-        let newIngredient: Ingredient = { name: "", amount: 0, unit: "st" };
+        let newIngredient: Ingredient = { name: "", amount: 1, unit: "st" };
         setIngredientsList([...ingredientsList, newIngredient]);
     }
 

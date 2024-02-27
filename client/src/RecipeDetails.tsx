@@ -11,15 +11,7 @@ import { Button, Modal } from "react-bootstrap";
 import { fetchRecipe } from "./FetchRecipe";
 const reactAwesomeSpinners = require('react-awesome-spinners');
 
-
-export interface Recipe {
-  id: number;
-  name: string;
-  image: string;
-  numberServings: number;
-  ingredients: { name: string, amount: number, unit: string }[];
-  steps: string[];
-}
+import { Recipe } from "./components/Recipe/Recipe";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -69,7 +61,7 @@ function RecipeDetails() {
     <Container className="recipe-container mx-auto">
       <Row className="mx-5">
         <h1 className="text-center mx-auto">{recipe.name}</h1>
-        <Image src={recipe.image}
+        <Image src={recipe.imagePath}
           className="img rounded-4 mt-3 mx-auto px-0" />
         <Col sm className="justify-content-center mt-3">
           <div className="rounded-4 bg-light shadow-sm p-4 details-box">

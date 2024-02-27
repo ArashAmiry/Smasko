@@ -8,15 +8,18 @@ import "./createRecipe.css";
 import RecipeName from "./components/Recipe/RecipeName";
 import { useNavigate } from "react-router-dom";
 import { Ingredient } from "./components/Recipe/Ingredient";
+import { Rating } from "react-simple-star-rating";
+import ImageUpload from "./components/Recipe/ImageUpload";
 
 function CreateRecipe() {
-    const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
+    const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 1, unit: "st" }]);
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
     const [imageBase64, setImageBase64] = useState('');
     const [numServings, setNumServings] = useState(4);
     const [shakeScreen, setShakeScreen] = useState(false);
-    const [imagePreview, setImagePreview] = useState<string>("");
+    const [image, setImage] = useState<string>("");
+    const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState({ recipeName: "", ingredients: "", steps: "", image: "" }); 
     const navigate = useNavigate();
     
@@ -38,6 +41,9 @@ function CreateRecipe() {
         console.log(imageBase64);
         reader.readAsDataURL(file);
   };
+    const handleRating = (rate: number) => {
+        setRating(rate)
+      }
     
     useEffect(() => {
         let timeout: any;
@@ -86,7 +92,8 @@ function CreateRecipe() {
             "image": imageBase64,
             "numberServings": numServings,
             "ingredients": ingredientsList,
-            "steps": stepsList
+            "steps": stepsList,
+            "rating": rating
         }, { timeout: 10000 })
             .then(function (response) {
                 console.log(response);
@@ -114,6 +121,7 @@ function CreateRecipe() {
                  )}
                 <Form.Control type="file" lang="en" onChange={handleImageChange} />
             </Form.Group>
+            <ImageUpload image={image} setImage={(e) => setImage(e)}/>
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}
@@ -129,6 +137,7 @@ function CreateRecipe() {
             />
             {errors.steps && <p className="error-message">{errors.steps}</p>}
 
+            <Rating onClick={handleRating}/>
 
             <Button data-testid="submit-button" variant="success" type="submit" className="submit-button" size="lg">
                 Submit

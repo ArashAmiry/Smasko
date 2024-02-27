@@ -8,6 +8,9 @@ import "./createRecipe.css";
 import RecipeName from "./components/Recipe/RecipeName";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchRecipe } from "./FetchRecipe";
+import { Recipe } from "./components/Recipe/Recipe";
+import { Rating } from "react-simple-star-rating";
+import ImageUpload from "./components/Recipe/ImageUpload";
 
 export type Ingredient = {
     name: string;
@@ -15,32 +18,30 @@ export type Ingredient = {
     unit: string;
 };
 
-interface Recipe {
-    id: number;
-    name: string;
-    image: string;
-    numberServings: number;
-    ingredients: { name: string, amount: number, unit: string }[];
-    steps: string[];
-}
-
 function EditRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
     const [imageBase64, setImageBase64] = useState("");
+    const [image, setImage] = useState<string>("");
     const [numServings, setNumServings] = useState(2);
-
     const [recipe, setRecipe] = useState<Recipe | null>(null);
+    const [rating, setRating] = useState(0);
+
     const { id } = useParams();
     const navigate = useNavigate();
 
     async function updateData(recipe : Recipe) {
-        setImageBase64(recipe.image);
+        setImageBase64(recipe.imagePath);
         setIngredientsList(recipe.ingredients);
         setNumServings(recipe.numberServings);
         setRecipeName(recipe.name);
         setStepsList(recipe.steps);
+        setRating(recipe.rating);
+    }
+
+    const handleRating = (rate: number) => {
+        setRating(rate);
     }
 
     useEffect(() => {
@@ -56,8 +57,6 @@ function EditRecipe() {
 
         fetchData();
     }, [id]);
-    
-    
 
     async function submitRecipe(e: FormEvent) {
         console.log("submit");
@@ -76,7 +75,8 @@ function EditRecipe() {
             "image": imageBase64,
             "numberServings": numServings,
             "ingredients": ingredientsList,
-            "steps": stepsList
+            "steps": stepsList,
+            "rating": rating
         }, { timeout: 10000 })
             .then(function (response) {
                 console.log(response);
@@ -94,10 +94,7 @@ function EditRecipe() {
                 setRecipeName={(recipeName) => setRecipeName(recipeName)}
             />
 
-            <Form.Group className="image-input my-3 p-4">
-                <Form.Label> Choose an image for the recipe</Form.Label>
-                <Form.Control type="file" lang="en" />
-            </Form.Group>
+            <ImageUpload image={image} setImage={(e) => setImage(e)}/>
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}
@@ -110,6 +107,8 @@ function EditRecipe() {
                 stepsList={stepsList}
                 setStepsList={(stepsList) => setStepsList(stepsList)}
             />
+
+            <Rating initialValue={rating} onClick={(e) => handleRating(e)}/>
 
             <Button variant="success" type="submit" className="submit-button" size="lg">
                 Save

@@ -10,9 +10,11 @@ import '../recipeCardList.css';
 type Recipe = {
     id: number;
     name: string;
-    image: string;
+    img: string;
+    rating: number;
   };
 
+  //TODO move searching higher up
 function RecipeCardList(props : {showIngredients: (id : number) => void, searchTerm: string}) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
@@ -44,7 +46,8 @@ function RecipeCardList(props : {showIngredients: (id : number) => void, searchT
               key={recipe.id}
               id={recipe.id.toString()}
               name={recipe.name}
-              img={recipe.image}
+              img={recipe.img}
+              rating={recipe.rating}
               showIngredients={() => props.showIngredients(recipe.id)}
             />
           </Link>
