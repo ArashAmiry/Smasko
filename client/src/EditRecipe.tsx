@@ -32,7 +32,7 @@ function EditRecipe() {
     const navigate = useNavigate();
 
     async function updateData(recipe : Recipe) {
-        setImageBase64(recipe.imagePath);
+        setImageBase64(recipe.image);
         setIngredientsList(recipe.ingredients);
         setNumServings(recipe.numberServings);
         setRecipeName(recipe.name);

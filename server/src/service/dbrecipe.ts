@@ -28,6 +28,7 @@ export class RecipeDBService implements IRecipeService {
     }
     async getRecipe(recipeId: number): Promise<Recipe | undefined> {
         const recipe = await recipeModel.findOne({ id: recipeId }).exec();
+        console.log(recipe)
         return recipe ? recipe.toObject() : undefined;
     }
     async editRecipe(editedRecipe: Omit<Recipe, "id">, editedRecipeId: number): Promise<boolean> {

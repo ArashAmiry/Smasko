@@ -13,7 +13,7 @@ export class RecipeService implements IRecipeService {
         const addedRecipe: Recipe = {
             id: Date.now(),
             name: recipe.name,
-            imagePath: recipe.imagePath,
+            image: recipe.image,
             numberServings: recipe.numberServings,
             ingredients: recipe.ingredients,
             steps: recipe.steps,
