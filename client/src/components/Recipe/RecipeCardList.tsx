@@ -6,16 +6,17 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import '../recipeCardList.css';
+import { Recipe } from './Recipe';
 
-type Recipe = {
+/* type Recipe = {
     id: number;
     name: string;
     img: string;
     rating: number;
-  };
+  }; */
 
   //TODO move searching higher up
-function RecipeCardList(props : {showIngredients: (id : number) => void, searchTerm: string}) {
+function RecipeCardList(props : {showIngredients: (id : string) => void, searchTerm: string}) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   async function updateRecipes() {
@@ -25,7 +26,6 @@ function RecipeCardList(props : {showIngredients: (id : number) => void, searchT
         const newRecipes : Recipe[] = response.data;
 
         const filteredRecipes = newRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(props.searchTerm.toLowerCase()));
-
         setRecipes(filteredRecipes);})
       .catch( function (error) {
           console.log(error);
@@ -40,15 +40,15 @@ function RecipeCardList(props : {showIngredients: (id : number) => void, searchT
     <Container className='cards-container'>
       <Row className="mt-4">
       {recipes.map((recipe) => (
-        <Col key={recipe.id}  xl={3} className='mt-4'>
-          <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
+        <Col key={recipe._id}  xl={3} className='mt-4'>
+          <Link key={recipe._id} to={`/recipe/${recipe._id}`}>
             <RecipeCard
-              key={recipe.id}
-              id={recipe.id.toString()}
+              key={recipe._id}
+              id={recipe._id}
               name={recipe.name}
-              img={recipe.img}
+              img={recipe.image}
               rating={recipe.rating}
-              showIngredients={() => props.showIngredients(recipe.id)}
+              showIngredients={() => props.showIngredients(recipe._id)}
             />
           </Link>
         </Col>

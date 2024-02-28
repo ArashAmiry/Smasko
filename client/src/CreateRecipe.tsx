@@ -96,8 +96,8 @@ function CreateRecipe() {
             "rating": rating
         }, { timeout: 10000 })
             .then(function (response) {
-                console.log(response);
-                navigate("/recipe/" + response.data.id);
+                console.log(response.data);
+                navigate("/recipe/" + response.data._id);
             })
             .catch(function (error) {
                 console.log(error);
@@ -121,7 +121,6 @@ function CreateRecipe() {
                  )}
                 <Form.Control type="file" lang="en" onChange={handleImageChange} />
             </Form.Group>
-            <ImageUpload image={image} setImage={(e) => setImage(e)}/>
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}

@@ -49,7 +49,7 @@ function RecipeDetails() {
 
   const handleDeleteRecipe = () => {
     closeDeletePrompt();
-    axios.delete(`http://localhost:8080/recipe/${recipe.id}`)
+    axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
       .then(response => {
         console.log('Recipe deleted successfully');
         navigate('/');
@@ -114,7 +114,7 @@ function RecipeDetails() {
             </Button>
         </Col>
         <Col>
-        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe.id}`)}>
+        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe._id}`)}>
           Edit Recipe
             </Button>
         </Col>

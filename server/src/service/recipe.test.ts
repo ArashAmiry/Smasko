@@ -15,7 +15,7 @@ test("If recipe is added to list then it should be in the list", async () => {
     const recipes = await recipeService.getRecipes();
 
 
-    expect(recipes.some((r) => r.id === recipe.id)).toBeTruthy();
+    expect(recipes.some((r) => r._id === recipe._id)).toBeTruthy();
     expect(recipes.some((r) => r.name === recipe.name)).toBeTruthy();
     expect(recipes.some((r) => r.imagePath === recipe.imagePath)).toBeTruthy();
     expect(recipes.some((r) => r.numberServings === recipe.numberServings)).toBeTruthy();
@@ -43,7 +43,7 @@ test("If recipe is deleted from list then it should not be in the list", async (
     } 
 
     const recipe = await recipeService.addRecipe(testRecipe);
-    await recipeService.deleteRecipe(recipe.id);
+    await recipeService.deleteRecipe(recipe._id);
     const recipes = await recipeService.getRecipes();
 
     expect(recipes.length === 0).toBeTruthy();
@@ -86,7 +86,7 @@ test("If recipe is deleted from list with two recipes then the list should be of
 
     const recipe = await recipeService.addRecipe(testRecipe);
     const recipe2 = await recipeService.addRecipe(testRecipe2);
-    await recipeService.deleteRecipe(recipe.id);
+    await recipeService.deleteRecipe(recipe._id);
     const recipes = await recipeService.getRecipes();
     
     expect(recipes).toContainEqual(recipe2);

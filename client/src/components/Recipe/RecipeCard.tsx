@@ -3,10 +3,10 @@ import Card from 'react-bootstrap/Card';
 import '../recipeCard.css';
 import { Rating } from 'react-simple-star-rating';
 
-function RecipeCard(props: { name: string, img: string, rating: number, id: string, showIngredients: (id : number) => void }) {
+function RecipeCard(props: { name: string, img: string, rating: number, id: string, showIngredients: (id : string) => void }) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    props.showIngredients(parseInt(props.id));
+    props.showIngredients(props.id);
   };
 
   return (

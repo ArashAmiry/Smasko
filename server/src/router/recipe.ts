@@ -23,10 +23,9 @@ recipeRouter.get("/:id", async (
     res : Response<Recipe | string>
 ) => {
     try {
-        const id : number = parseInt(req.params.id, 10);
-        const recipe = await recipeService.getRecipe(id);
+        const recipe = await recipeService.getRecipe(req.params.id);
         if (recipe === undefined) {
-            res.status(400).send(`Bad GET call to ${req.originalUrl} --- recipe with id ${id} does not exist`);
+            res.status(400).send(`Bad GET call to ${req.originalUrl} --- recipe with id ${req.params.id} does not exist`);
             return;
         }
         res.status(200).send(recipe);
@@ -60,7 +59,7 @@ recipeRouter.delete("/:id", async (
 ) => {
     try {
         const id: number = parseInt(req.params.id, 10);
-        const deletedRecipe : boolean = await recipeService.deleteRecipe(id);
+        const deletedRecipe : boolean = await recipeService.deleteRecipe(req.params.id);
        
         if (deletedRecipe === false) {
             res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- recipe with id ${id} does not exist`);
@@ -77,11 +76,11 @@ recipeRouter.put("/:id", async (
     res : Response<Recipe | string>
 ) => {
     try {
-        const id : number = parseInt(req.params.id, 10); 
         const recipe : Recipe = req.body;
         const recipeErrors = validateRecipe(recipe);
         
-        if (id !== recipe.id) {
+        console.log(recipe);
+        if (req.params.id !== recipe._id) {
             res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ID in body does not match ID in path`);
             return;
         }

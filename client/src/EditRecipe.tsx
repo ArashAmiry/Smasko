@@ -70,7 +70,7 @@ function EditRecipe() {
         console.log(ingredientsList);
 
         await axios.put(`http://localhost:8080/recipe/${id}`, {
-            "id": parseInt(id),
+            "_id": id,
             "name": recipeName,
             "image": imageBase64,
             "numberServings": numServings,

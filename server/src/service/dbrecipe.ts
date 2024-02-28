@@ -14,7 +14,6 @@ export class RecipeDBService implements IRecipeService {
     }
     async addRecipe(recipe: Omit<Recipe, "id">): Promise<Recipe> {
        return await recipeModel.create({
-        id: new Date().valueOf(),
         name: recipe.name,
         image: recipe.image,
         numberServings: recipe.numberServings,
@@ -22,18 +21,18 @@ export class RecipeDBService implements IRecipeService {
         steps: recipe.steps
        }) 
     }
-    async deleteRecipe(id: number): Promise<boolean> {
-        const result = await recipeModel.deleteOne({ id: id }).exec();
+    async deleteRecipe(id: string): Promise<boolean> {
+        const result = await recipeModel.deleteOne({ _id: id }).exec();
         return (result.deletedCount !== 0);
     }
-    async getRecipe(recipeId: number): Promise<Recipe | undefined> {
-        const recipe = await recipeModel.findOne({ id: recipeId }).exec();
-        console.log(recipe)
+    async getRecipe(recipeId: string): Promise<Recipe | undefined> {
+        console.log(recipeId);
+        const recipe = await recipeModel.findOne({ _id: recipeId }).exec();
         return recipe ? recipe.toObject() : undefined;
     }
-    async editRecipe(editedRecipe: Omit<Recipe, "id">, editedRecipeId: number): Promise<boolean> {
+    async editRecipe(editedRecipe: Recipe): Promise<boolean> {
         const result = await recipeModel.findOneAndUpdate(
-            { id: editedRecipeId },
+            { _id: editedRecipe._id },
             {
                 name: editedRecipe.name,
                 image: editedRecipe.image,

@@ -20,14 +20,14 @@ function MyRecipes() {
     const [nrServings, setNrServings] = useState(0);
     const [searchTerm, setSearchTerm] = useState<string>('');
 
-    const displayIngredientsView = (id: number) => {
+    const displayIngredientsView = (id: string) => {
         if (!showIngredients) {
             fetchRecipeIngredients(id);
         }
         setShowIngredients(!showIngredients);
     }
 
-    async function fetchRecipeIngredients(id: number) {
+    async function fetchRecipeIngredients(id: string) {
         try {
             const response = await axios.get(`http://localhost:8080/recipe/${id}`);
             setIngredientsList(response.data.ingredients)
@@ -65,7 +65,7 @@ function MyRecipes() {
                 <Row>
                     <Col xl={2}></Col>
                     <Col xl={8}>
-                        <RecipeCardList showIngredients={(id: number) => displayIngredientsView(id)} searchTerm={searchTerm} />
+                        <RecipeCardList showIngredients={(id: string) => displayIngredientsView(id)} searchTerm={searchTerm} />
                     </Col>
                     <Col xl={2}>
                         {showIngredients && <IngredientsView ingredients={ingredientsList} nrServ={nrServings} />}
