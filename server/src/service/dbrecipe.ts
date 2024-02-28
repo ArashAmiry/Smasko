@@ -12,13 +12,16 @@ export class RecipeDBService implements IRecipeService {
             throw error;
         }
     }
-    async addRecipe(recipe: Omit<Recipe, "id">): Promise<Recipe> {
+    async addRecipe(recipe: Omit<Recipe, "_id">): Promise<Recipe> {
+
+        console.log(recipe);
        return await recipeModel.create({
         name: recipe.name,
         image: recipe.image,
         numberServings: recipe.numberServings,
         ingredients: recipe.ingredients,
-        steps: recipe.steps
+        steps: recipe.steps,
+        rating: recipe.rating
        }) 
     }
     async deleteRecipe(id: string): Promise<boolean> {
@@ -38,7 +41,8 @@ export class RecipeDBService implements IRecipeService {
                 image: editedRecipe.image,
                 numberServings: editedRecipe.numberServings,
                 ingredients: editedRecipe.ingredients,
-                steps: editedRecipe.steps
+                steps: editedRecipe.steps,
+                rating: editedRecipe.rating
             },
             { new: true }
         ).exec();

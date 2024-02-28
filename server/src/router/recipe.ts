@@ -46,6 +46,7 @@ recipeRouter.post("/", async (
             res.status(400).send(`Bad POST call to ${req.originalUrl} --- ${recipeErrors}`);
             return;
         }
+
         const newRecipe = await recipeService.addRecipe(recipe);
         res.status(201).send(newRecipe);
     } catch (e: any) {
