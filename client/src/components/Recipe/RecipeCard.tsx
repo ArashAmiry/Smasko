@@ -5,17 +5,25 @@ import { Rating } from 'react-simple-star-rating';
 import { useState } from 'react';
 import Heart from '@react-sandbox/heart'
 import { Row, Col } from 'react-bootstrap';
+import axios from "axios";
 
-function RecipeCard(props: { name: string, img: string, rating: number, id: string, showIngredients: (id : string) => void }) {
+function RecipeCard(props: { name: string, img: string, rating: number, like: boolean, id: string, showIngredients: (id : string) => void }) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     props.showIngredients(props.id);
   };
 
-  const [isClicked, setisClick] = useState(false);  
+  const [isClicked, setisClick] = useState(props.like);
 
-  const handleHeartClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleHeartClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
+
+    const clicked = !isClicked;
+    setisClick(clicked);
+
+    await axios.patch(`http://localhost:8080/recipe/${props.id}`, 
+      {"liked": clicked}
+    );
   }
 
   return (
@@ -32,7 +40,7 @@ function RecipeCard(props: { name: string, img: string, rating: number, id: stri
                 width={24}
                 height={24}
                 active={isClicked}
-                onClick={() => (setisClick(!isClicked))}/>
+                onClick={() => (setisClick(isClicked))}/>
             </button>
           </Col>
         </Row>

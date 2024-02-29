@@ -48,6 +48,7 @@ function RecipeCardList(props : {showIngredients: (id : string) => void, searchT
               name={recipe.name}
               img={recipe.image}
               rating={recipe.rating}
+              like={recipe.like}
               showIngredients={() => props.showIngredients(recipe._id)}
             />
           </Link>

@@ -101,3 +101,22 @@ recipeRouter.put("/:id", async (
         res.status(500).send(e.message);
     }
 })
+
+recipeRouter.patch("/:id", async (
+    req : Request<{id : string}, {}, {liked: boolean}>,
+    res : Response<boolean | string>
+) => {
+    try {
+        const liked : boolean = req.body.liked;
+
+        console.log("liked: " + liked);
+        const wasEdited = await recipeService.updateLiked(req.params.id, liked);
+        if(!wasEdited) {
+            res.status(400).send('Recipe could not be edited');
+        }
+
+        res.status(200).send(wasEdited);
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+})

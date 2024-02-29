@@ -5,7 +5,8 @@ export interface Recipe {
     numberServings : number,
     ingredients : {name : string, amount : number, unit: string}[],
     steps : string[],
-    rating : number
+    rating : number,
+    like : boolean
 }
 
 

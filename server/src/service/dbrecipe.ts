@@ -42,12 +42,24 @@ export class RecipeDBService implements IRecipeService {
                 numberServings: editedRecipe.numberServings,
                 ingredients: editedRecipe.ingredients,
                 steps: editedRecipe.steps,
-                rating: editedRecipe.rating
+                rating: editedRecipe.rating,
+                like: editedRecipe.like
             },
             { new: true }
         ).exec();
 
         return result !== null;
     }
-    
+
+    async updateLiked(recipeId: string, like: boolean): Promise<boolean> {
+       const result = await recipeModel.updateOne(
+            { _id: recipeId},
+            {
+                like: like
+            },
+            { new: true }
+        ).exec();
+
+        return result !== null;
+    }
 }
