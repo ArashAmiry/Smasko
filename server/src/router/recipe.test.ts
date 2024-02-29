@@ -9,7 +9,7 @@ afterEach(async () => {
     const recipes = await request.get("/recipe");
 
     recipes.body.map(async (recipe : Recipe) => {
-        await request.delete("/recipe/"+recipe.id)
+        await request.delete("/recipe/"+recipe._id)
     });
   });
 

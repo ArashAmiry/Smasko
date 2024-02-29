@@ -11,6 +11,10 @@ import { Button, Modal } from "react-bootstrap";
 import { fetchRecipe } from "./FetchRecipe";
 import { Recipe } from "./components/Recipe/Recipe";
 
+const reactAwesomeSpinners = require('react-awesome-spinners');
+
+
+
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [nrServings, setNrServings] = useState(0);
@@ -33,7 +37,11 @@ function RecipeDetails() {
   }, [id]);
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return (
+      <div className="spinner">
+        <reactAwesomeSpinners.Heart />
+      </div>
+    );
   }
 
   const closeDeletePrompt = () => setShowDeletePrompt(false);
@@ -41,7 +49,7 @@ function RecipeDetails() {
 
   const handleDeleteRecipe = () => {
     closeDeletePrompt();
-    axios.delete(`http://localhost:8080/recipe/${recipe.id}`)
+    axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
       .then(response => {
         console.log('Recipe deleted successfully');
         navigate('/');
@@ -55,7 +63,7 @@ function RecipeDetails() {
     <Container className="recipe-container mx-auto">
       <Row className="mx-5">
         <h1 className="text-center mx-auto">{recipe.name}</h1>
-        <Image src="https://i.kym-cdn.com/photos/images/original/002/488/662/883.jpg"
+        <Image src={recipe.image}
           className="img rounded-4 mt-3 mx-auto px-0" />
         <Col sm className="justify-content-center mt-3">
           <div className="rounded-4 bg-light shadow-sm p-4 details-box">
@@ -106,7 +114,7 @@ function RecipeDetails() {
             </Button>
         </Col>
         <Col>
-        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe.id}`)}>
+        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe._id}`)}>
           Edit Recipe
             </Button>
         </Col>

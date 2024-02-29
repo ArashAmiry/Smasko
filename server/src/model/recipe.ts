@@ -1,11 +1,11 @@
 export interface Recipe {
-    id : number;
-    name : string;
-    imagePath : string;
-    numberServings : number;
-    ingredients : {name : string, amount : number, unit: string}[];
-    steps : string[];
-    rating : number;
+    _id : string,
+    name : string,
+    image : string,
+    numberServings : number,
+    ingredients : {name : string, amount : number, unit: string}[],
+    steps : string[],
+    rating : number
 }
 
 
@@ -18,8 +18,8 @@ export function validateRecipe(obj: any): string {
         return 'name must be a string';
     }
 
-    if (typeof obj.imagePath !== 'string') {
-        return 'imagePath must be a string';
+    if ('image' in obj && !/^data:image\/\w+;base64,/.test(obj.image)) {
+        return 'image must be a Base64 string';
     }
 
     if (typeof obj.numberServings !== 'number') {

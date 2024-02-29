@@ -1,7 +1,7 @@
 export interface Recipe {
-    id: number;
+    _id: string;
     name: string;
-    imagePath: string;
+    image: string;
     numberServings: number;
     ingredients: { name: string, amount: number, unit: string }[];
     steps: string[];

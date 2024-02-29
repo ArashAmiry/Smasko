@@ -9,7 +9,6 @@ import RecipeDetails from './RecipeDetails';
 import MyRecipes from './MyRecipes';
 import EditRecipe from './EditRecipe';
 
-
 function App() {
   return (
     <Router>

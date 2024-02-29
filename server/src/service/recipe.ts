@@ -1,6 +1,7 @@
 import { Recipe } from '../model/recipe';
+import { IRecipeService } from './IRecipe';
 
-export class RecipeService {
+export class RecipeService implements IRecipeService {
     private recipes : Recipe[] = [];
 
     async getRecipes(): Promise<Recipe[]> {
@@ -10,9 +11,9 @@ export class RecipeService {
     async addRecipe(recipe : Omit<Recipe,'id'>) : Promise<Recipe>{
         
         const addedRecipe: Recipe = {
-            id: Date.now(),
+            _id: Date.now(),
             name: recipe.name,
-            imagePath: recipe.imagePath,
+            image: recipe.image,
             numberServings: recipe.numberServings,
             ingredients: recipe.ingredients,
             steps: recipe.steps,
@@ -24,7 +25,7 @@ export class RecipeService {
     }
 
     async deleteRecipe(id: number): Promise<boolean> {
-        const recipe = this.recipes.find((recipe) => recipe.id === id);
+        const recipe = this.recipes.find((recipe) => recipe._id === id);
         
         if (!recipe) {
             return false;
@@ -40,7 +41,7 @@ export class RecipeService {
     }
 
     async getRecipe(recipeId: number): Promise<Recipe | undefined> {
-        const recipe = this.recipes.find((r) => r.id === recipeId);
+        const recipe = this.recipes.find((r) => r._id === recipeId);
         if (recipe) {
             return JSON.parse(JSON.stringify(recipe));
         } else {
@@ -49,7 +50,7 @@ export class RecipeService {
     }
 
     async editRecipe(editedRecipe : Recipe): Promise<boolean> {
-        const recipe = this.recipes.find((recipe) => recipe.id === editedRecipe.id);
+        const recipe = this.recipes.find((recipe) => recipe._id === editedRecipe._id);
 
         if (!recipe) {
             return false;

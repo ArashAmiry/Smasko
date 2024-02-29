@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Form from "react-bootstrap/esm/Form";
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
@@ -22,6 +22,7 @@ function EditRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
+    const [imageBase64, setImageBase64] = useState("");
     const [image, setImage] = useState<string>("");
     const [numServings, setNumServings] = useState(2);
     const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -31,7 +32,7 @@ function EditRecipe() {
     const navigate = useNavigate();
 
     async function updateData(recipe : Recipe) {
-        setImage(recipe.imagePath);
+        setImageBase64(recipe.image);
         setIngredientsList(recipe.ingredients);
         setNumServings(recipe.numberServings);
         setRecipeName(recipe.name);
@@ -66,10 +67,12 @@ function EditRecipe() {
             return;
         }
 
+        console.log(ingredientsList);
+
         await axios.put(`http://localhost:8080/recipe/${id}`, {
-            "id": parseInt(id),
+            "_id": id,
             "name": recipeName,
-            "imagePath": "hej",
+            "image": imageBase64,
             "numberServings": numServings,
             "ingredients": ingredientsList,
             "steps": stepsList,

@@ -8,3 +8,8 @@
     flex-direction: column;
     justify-content: space-between;
   }
+
+.heartBtn,.heartBtn:hover,.heartBtn:active{
+    background-color: transparent;
+    border-color: transparent;
+}
