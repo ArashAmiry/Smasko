@@ -18,29 +18,10 @@ function CreateRecipe() {
     const [imageBase64, setImageBase64] = useState('');
     const [numServings, setNumServings] = useState(4);
     const [shakeScreen, setShakeScreen] = useState(false);
-    const [image, setImage] = useState<string>("");
     const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState({ recipeName: "", ingredients: "", steps: "", image: "" }); 
     const navigate = useNavigate();
     
-
-    
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-        const result = reader.result;
-        if (typeof result === 'string' || result instanceof ArrayBuffer) {
-            // Set the Base64 string representation of the image
-            setImageBase64(result as string);
-        }
-        };
-        console.log(imageBase64);
-        reader.readAsDataURL(file);
-  };
     const handleRating = (rate: number) => {
         setRating(rate)
       }
@@ -112,15 +93,7 @@ function CreateRecipe() {
             />
             {errors.recipeName && <p className="error-message">{errors.recipeName}</p>}
 
-            <Form.Group className="image-input my-3 p-4">
-                <Form.Label> Choose an image for the recipe</Form.Label>
-                {imageBase64 && (
-                <div className="mt-3">
-                    <img src={imageBase64} alt="Preview" style={{ maxWidth: '100%', height: 'auto' }} />
-                </div>
-                 )}
-                <Form.Control type="file" lang="en" onChange={handleImageChange} />
-            </Form.Group>
+            <ImageUpload image={imageBase64} setImage={(e) => setImageBase64(e)}/>
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}
