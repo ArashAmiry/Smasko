@@ -12,6 +12,17 @@ export class RecipeDBService implements IRecipeService {
             throw error;
         }
     }
+
+    async getFavoriteRecipes(): Promise<Recipe[]> {
+        try {
+            const recipes = await recipeModel.find({like: true});
+            return recipes; 
+        } catch (error) {
+            console.error("Error fetching recipes:", error);
+            throw error;
+        }
+    }
+
     async addRecipe(recipe: Omit<Recipe, "_id">): Promise<Recipe> {
 
         console.log(recipe);

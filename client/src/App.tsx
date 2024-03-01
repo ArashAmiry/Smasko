@@ -6,8 +6,9 @@ import Header from './components/Header';
 import RecipeCardList from './components/Recipe/RecipeCardList';
 import CreateRecipe from './CreateRecipe';
 import RecipeDetails from './RecipeDetails';
-import MyRecipes from './MyRecipes';
+import AllRecipes from './AllRecipes';
 import EditRecipe from './EditRecipe';
+import FavoriteRecipes from './Favorites';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Header />
         <div className="content">
           <Routes>
-            <Route path="/" element={<MyRecipes />} />
+            <Route path="/" element={<AllRecipes />} />
+            <Route path="/favorites" element={<FavoriteRecipes />} />
             <Route path="/create" element={<CreateRecipe />} />
             <Route path="/recipe/:id" element={<RecipeDetails />} />
             <Route path="/recipe/editor/:id" element={<EditRecipe />} />

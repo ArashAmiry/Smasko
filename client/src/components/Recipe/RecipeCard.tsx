@@ -7,7 +7,7 @@ import Heart from '@react-sandbox/heart'
 import { Row, Col } from 'react-bootstrap';
 import axios from "axios";
 
-function RecipeCard(props: { name: string, img: string, rating: number, like: boolean, id: string, showIngredients: (id : string) => void }) {
+function RecipeCard(props: { name: string, img: string, rating: number, like: boolean, id: string, showIngredients: (id : string) => void}) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     props.showIngredients(props.id);
@@ -45,7 +45,7 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
           </Col>
         </Row>
         <Button variant="primary" onClick={(e) => handleClick(e)}>See ingredients</Button>
-        <Rating initialValue={props.rating} readonly={true}/>
+        <Rating className="px-auto" initialValue={props.rating} readonly={true} size={30}/>
       </Card.Body>
     </Card>
   );

@@ -15,7 +15,10 @@ function Header() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="navbar-nav mx-auto">
               <Nav.Item className="nav-item text-center">
-              <NavLink to="/" className="nav-link" aria-current="page">My Recipes</NavLink>
+              <NavLink to="/" className="nav-link" aria-current="page">All Recipes</NavLink>
+              </Nav.Item>
+              <Nav.Item className="nav-item">
+                <NavLink to="/favorites" className="nav-link">Favorite recipes</NavLink>
               </Nav.Item>
               <Nav.Item className="nav-item">
                 <NavLink to="/create" className="nav-link">Create Recipe</NavLink>

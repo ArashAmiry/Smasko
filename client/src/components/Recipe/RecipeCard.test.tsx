@@ -8,6 +8,7 @@ import RecipeCard from './RecipeCard';
     id: '123',
     like: true,
     showIngredients: jest.fn(),
+    updateRecipes: jest.fn(),
   };
 
   test('RecipeCard should show its name on screen', () => {

@@ -18,6 +18,18 @@ recipeRouter.get("/", async (
     }
 });
 
+recipeRouter.get("/favorites", async (
+    req : Request<{}, {}, {}>,
+    res : Response<Array<Recipe> | String>
+) => {
+    try {
+        const recipes = await recipeService.getFavoriteRecipes();
+        res.status(200).send(recipes);
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
 recipeRouter.get("/:id", async (
     req : Request<{id : string}, {}, {}>,
     res : Response<Recipe | string>
