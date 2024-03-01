@@ -61,7 +61,7 @@ function MyRecipes() {
                     <Col xl={8}>
                         <RecipeCardList showIngredients={(id: string) => displayIngredientsView(id)} searchTerm={searchTerm} />
                     </Col>
-                    
+
                     <Col xl={2}>
                         {showIngredients && <IngredientsView ingredients={ingredientsList} nrServ={nrServings} />}
                     </Col>
