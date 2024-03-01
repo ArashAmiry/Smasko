@@ -42,10 +42,8 @@ function RecipeDetails() {
     );
   }
 
-  const closeDeletePrompt = () => setShowDeletePrompt(false);
-
   const handleDeleteRecipe = () => {
-    closeDeletePrompt();
+    setShowDeletePrompt(false);
     axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
       .then(() => {
         navigate('/');
@@ -121,7 +119,7 @@ function RecipeDetails() {
         </Col>
       </Row>
 
-      <Modal show={showDeletePrompt} onHide={closeDeletePrompt}>
+      <Modal show={showDeletePrompt} onHide={() => setShowDeletePrompt(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Recipe Is About To Be Deleted</Modal.Title>
         </Modal.Header>
@@ -129,10 +127,10 @@ function RecipeDetails() {
         <Modal.Body>Are you sure you want to delete the recipe? This action cannot be undone.</Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={closeDeletePrompt}>
+          <Button variant="secondary" onClick={() => setShowDeletePrompt(false)}>
             No, Close!
           </Button>
-          <Button variant="danger" onClick={handleDeleteRecipe}>
+          <Button variant="danger" onClick={() => handleDeleteRecipe()}>
             Yes, Delete!
           </Button>
         </Modal.Footer>

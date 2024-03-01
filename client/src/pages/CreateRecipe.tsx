@@ -123,7 +123,7 @@ function CreateRecipe() {
             />
             {errors.steps && <p className="error-message">{errors.steps}</p>}
 
-            <Rating onClick={handleRating} />
+            <Rating onClick={(rating) => handleRating(rating)} />
 
             <Button data-testid="submit-button" variant="success" type="submit" className="submit-button" size="lg">
                 Submit
