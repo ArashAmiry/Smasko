@@ -9,6 +9,7 @@ import RecipeName from "../components/Recipe/RecipeName";
 import { useNavigate } from "react-router-dom";
 import { Ingredient } from "../components/Recipe/Ingredient";
 import { Rating } from "react-simple-star-rating";
+import ImageUpload from "../components/Recipe/ImageUpload";
 
 function CreateRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 1, unit: "st" }]);
@@ -106,17 +107,7 @@ function CreateRecipe() {
             
             {errors.recipeName && <p className="error-message">{errors.recipeName}</p>}
 
-            <Form.Group className="image-input my-3 p-4">
-                <Form.Label> Choose an image for the recipe</Form.Label>
-
-                {imageBase64 && (
-                    <div className="mt-3">
-                        <img src={imageBase64} alt="Preview" style={{ maxWidth: '100%', height: 'auto' }} />
-                    </div>
-                )}
-
-                <Form.Control type="file" lang="en" onChange={handleImageChange} />
-            </Form.Group>
+            <ImageUpload image={imageBase64} setImage={(e) => setImageBase64(e)}/>
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}

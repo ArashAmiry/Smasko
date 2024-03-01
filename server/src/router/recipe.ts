@@ -18,6 +18,18 @@ recipeRouter.get("/", async (
     }
 });
 
+recipeRouter.get("/favorites", async (
+    req : Request<{}, {}, {}>,
+    res : Response<Array<Recipe> | String>
+) => {
+    try {
+        const recipes = await recipeService.getFavoriteRecipes();
+        res.status(200).send(recipes);
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
 recipeRouter.get("/:id", async (
     req : Request<{id : string}, {}, {}>,
     res : Response<Recipe | string>
@@ -96,6 +108,25 @@ recipeRouter.put("/:id", async (
         }
 
         res.status(200).send(recipe);
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+})
+
+recipeRouter.patch("/:id", async (
+    req : Request<{id : string}, {}, {liked: boolean}>,
+    res : Response<boolean | string>
+) => {
+    try {
+        const liked : boolean = req.body.liked;
+
+        console.log("liked: " + liked);
+        const wasEdited = await recipeService.updateLiked(req.params.id, liked);
+        if(!wasEdited) {
+            res.status(400).send('Recipe could not be edited');
+        }
+
+        res.status(200).send(wasEdited);
     } catch (e: any) {
         res.status(500).send(e.message);
     }

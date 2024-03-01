@@ -10,6 +10,7 @@ import './recipeDetails.css';
 import { Button, Modal } from "react-bootstrap";
 import { fetchRecipe } from "./FetchRecipe";
 import { Recipe } from "../components/Recipe/Recipe";
+import { Rating } from 'react-simple-star-rating';
 
 const reactAwesomeSpinners = require('react-awesome-spinners');
 
@@ -58,9 +59,9 @@ function RecipeDetails() {
     <Container className="recipe-container mx-auto">
       <Row className="mx-5">
         <h1 className="text-center mx-auto">{recipe.name}</h1>
-
-        <Image src={recipe.image} className="img rounded-4 mt-3 mx-auto px-0" />
-
+        <Rating initialValue={recipe.rating} readonly={true}/>
+        <Image src={recipe.image}
+          className="img rounded-4 mt-3 mx-auto px-0" />
         <Col sm className="justify-content-center mt-3">
           <div className="rounded-4 bg-light shadow-sm p-4 details-box">
             <h2 className="mb-4">Ingredients</h2>

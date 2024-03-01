@@ -18,7 +18,6 @@ function EditRecipe() {
     const [stepsList, setStepsList] = useState<string[]>([""]);
     const [recipeName, setRecipeName] = useState("");
     const [imageBase64, setImageBase64] = useState("");
-    const [image, setImage] = useState<string>("");
     const [numServings, setNumServings] = useState(2);
     const [rating, setRating] = useState(0);
 
@@ -81,7 +80,7 @@ function EditRecipe() {
                 setRecipeName={(recipeName) => setRecipeName(recipeName)}
             />
 
-            <ImageUpload image={image} setImage={(e) => setImage(e)} />
+            <ImageUpload image={imageBase64} setImage={(e) => setImageBase64(e)}/>
 
             <RecipeIngredients
                 ingredientsList={ingredientsList}
