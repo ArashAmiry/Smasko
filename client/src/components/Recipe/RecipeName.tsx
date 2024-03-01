@@ -1,16 +1,13 @@
-import { Container, Button } from "react-bootstrap";
-import StepRow from "./StepsRow";
 import { ChangeEvent } from "react";
 import Form from "react-bootstrap/esm/Form";
-import Col from "react-bootstrap/esm/Col";
-import '../createRecipeSections.css';
+import './createRecipeSections.css';
 
-interface StepsProps {
+interface RecipeNameProps {
     recipeName: string;
     setRecipeName: (recipeName: string) => void;
 }
 
-const RecipeName = ({ recipeName, setRecipeName }: StepsProps) => {
+const RecipeName = ({ recipeName, setRecipeName }: RecipeNameProps) => {
 
     const changeRecipeName = (e: ChangeEvent) => {
         let { value } = e.target as HTMLInputElement;
@@ -25,7 +22,7 @@ const RecipeName = ({ recipeName, setRecipeName }: StepsProps) => {
                 placeholder="Recipe Name"
                 name="recipeName"
                 aria-required="true"
-                maxLength={20}
+                maxLength={100}
                 value={recipeName}
                 onChange={e => changeRecipeName(e)} />
         </Form.Group>

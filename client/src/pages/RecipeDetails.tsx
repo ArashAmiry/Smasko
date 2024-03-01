@@ -9,11 +9,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import './recipeDetails.css';
 import { Button, Modal } from "react-bootstrap";
 import { fetchRecipe } from "./FetchRecipe";
-import { Recipe } from "./components/Recipe/Recipe";
+import { Recipe } from "../components/Recipe/Recipe";
 
 const reactAwesomeSpinners = require('react-awesome-spinners');
-
-
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -22,15 +20,14 @@ function RecipeDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
         const fetchedRecipe = await fetchRecipe(id);
-      if (fetchedRecipe) {
-        setRecipe(fetchedRecipe);
-        setNrServings(fetchedRecipe.numberServings);
-      }
+        if (fetchedRecipe) {
+          setRecipe(fetchedRecipe);
+          setNrServings(fetchedRecipe.numberServings);
+        }
       }
     };
     fetchData();
@@ -46,12 +43,10 @@ function RecipeDetails() {
 
   const closeDeletePrompt = () => setShowDeletePrompt(false);
 
-
   const handleDeleteRecipe = () => {
     closeDeletePrompt();
     axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
-      .then(response => {
-        console.log('Recipe deleted successfully');
+      .then(() => {
         navigate('/');
       })
       .catch(error => {
@@ -63,69 +58,75 @@ function RecipeDetails() {
     <Container className="recipe-container mx-auto">
       <Row className="mx-5">
         <h1 className="text-center mx-auto">{recipe.name}</h1>
-        <Image src={recipe.image}
-          className="img rounded-4 mt-3 mx-auto px-0" />
+
+        <Image src={recipe.image} className="img rounded-4 mt-3 mx-auto px-0" />
+
         <Col sm className="justify-content-center mt-3">
           <div className="rounded-4 bg-light shadow-sm p-4 details-box">
             <h2 className="mb-4">Ingredients</h2>
+
             <Form.Group as={Col} md={2} className="mb-3">
               <Form.Label>Servings</Form.Label>
               <Form.Control as="select" defaultValue={recipe.numberServings} onChange={(e) => setNrServings(Number(e.target.value))}>
-                  <option key={2}>2</option>
-                  <option key={4}>4</option>
-                  <option key={6}>6</option> 
-                  <option key={8}>8</option>
+                <option key={2}>2</option>
+                <option key={4}>4</option>
+                <option key={6}>6</option>
+                <option key={8}>8</option>
               </Form.Control>
             </Form.Group>
+
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
                 <li key={index} className="text-start">
-                {
-                  (() => {
-                    const result = ingredient.amount * nrServings / recipe.numberServings;
-                    return (result % 1 === 0) ? result : result.toFixed(1);
-                  })()
-                } {ingredient.unit} {ingredient.name}
-              </li>
+                  {
+                    (() => {
+                      const result = ingredient.amount * nrServings / recipe.numberServings;
+                      return (result % 1 === 0) ? result : result.toFixed(1);
+                    })()
+                  } {ingredient.unit} {ingredient.name}
+                </li>
               ))}
             </ul>
           </div>
         </Col>
+
         <Col sm className="justify-content-center mt-3">
           <div className="rounded-4 bg-light shadow-sm p-4 details-box">
             <h2 className="mb-4">Instructions</h2>
             {recipe.steps.map((step, index) => (
               <Form.Check
                 key={index}
-                id={`step-${index}`} // Add a unique id for each checkbox
+                id={`step-${index}`} 
                 type="checkbox"
                 label={<p><strong>Step {index + 1}:</strong> {step}</p>}
                 className="text-start custom-checkbox"
               />
             ))}
-
           </div>
         </Col>
       </Row>
+
       <Row>
         <Col>
-        <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
-          Delete Recipe
-            </Button>
+          <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
+            Delete Recipe
+          </Button>
         </Col>
+
         <Col>
-        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe._id}`)}>
-          Edit Recipe
-            </Button>
+          <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe._id}`)}>
+            Edit Recipe
+          </Button>
         </Col>
       </Row>
-      
 
-            <Modal show={showDeletePrompt} onHide={closeDeletePrompt}>
+      <Modal show={showDeletePrompt} onHide={closeDeletePrompt}>
         <Modal.Header closeButton>
           <Modal.Title>Recipe Is About To Be Deleted</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>Are you sure you want to delete the recipe? This action cannot be undone.</Modal.Body>
+
         <Modal.Footer>
           <Button variant="secondary" onClick={closeDeletePrompt}>
             No, Close!
