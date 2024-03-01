@@ -6,7 +6,9 @@ import RecipeCard from './RecipeCard';
     img: 'test.jpg',
     rating: 5,
     id: '123',
+    like: true,
     showIngredients: jest.fn(),
+    updateRecipes: jest.fn(),
   };
 
   test('RecipeCard should show its name on screen', () => {
