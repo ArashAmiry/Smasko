@@ -3,7 +3,7 @@ import IngredientRow from "./IngredientRow";
 
 //TODO egen fil 
 export interface IngredientsListProps {
-    ingredientsList: Array<Ingredient>; // Assuming Ingredient is another interface or type
+    ingredientsList: Array<Ingredient>;
     deleteIngredient: (index: number) => void;
     changeName: (name: string, index: number) => void;
     changeAmount: (amount: number, index: number) => void;

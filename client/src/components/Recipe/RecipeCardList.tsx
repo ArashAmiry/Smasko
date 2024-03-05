@@ -8,23 +8,19 @@ import Col from 'react-bootstrap/esm/Col';
 import '../recipeCardList.css';
 import { Recipe } from './Recipe';
 
-/* type Recipe = {
-    id: number;
-    name: string;
-    img: string;
-    rating: number;
-  }; */
-
   //TODO move searching higher up
 function RecipeCardList(props : {path: string, showIngredients: (id : string) => void, searchTerm: string}) {
+  // State to store the list of recipes
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
+  // Function to fetch and update the recipes from the server
   async function updateRecipes() {
       await axios.get<Recipe[]>(`http://localhost:8080/${props.path}`)
       .then( function(response) {
         console.log(response);
         const newRecipes : Recipe[] = response.data;
 
+         // Filter recipes based on the searchTerm prop to implement search functionality
         const filteredRecipes = newRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(props.searchTerm.toLowerCase()));
         setRecipes(filteredRecipes);})
       .catch( function (error) {
@@ -32,6 +28,7 @@ function RecipeCardList(props : {path: string, showIngredients: (id : string) =>
       });
   }
 
+  // useEffect hook to fetch recipes when the components are rendered at the beginning and when the searchTerm prop changes
   useEffect(() => {
     updateRecipes();
   }, [props.searchTerm]); 

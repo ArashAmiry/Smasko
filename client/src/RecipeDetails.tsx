@@ -23,20 +23,21 @@ function RecipeDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  
+  // Fetch recipe details from the server upon component rendering or when the id changes
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
         const fetchedRecipe = await fetchRecipe(id);
-      if (fetchedRecipe) {
-        setRecipe(fetchedRecipe);
-        setNrServings(fetchedRecipe.numberServings);
-      }
+        if (fetchedRecipe) {
+          setRecipe(fetchedRecipe);
+          setNrServings(fetchedRecipe.numberServings);
+        }
       }
     };
     fetchData();
   }, [id]);
 
+  // Display loading spinner while recipe data is being fetched
   if (!recipe) {
     return (
       <div className="spinner">
@@ -47,7 +48,7 @@ function RecipeDetails() {
 
   const closeDeletePrompt = () => setShowDeletePrompt(false);
 
-
+  // Function to handle recipe deletion
   const handleDeleteRecipe = () => {
     closeDeletePrompt();
     axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
@@ -64,7 +65,7 @@ function RecipeDetails() {
     <Container className="recipe-container mx-auto">
       <Row className="mx-5">
         <h1 className="text-center mx-auto">{recipe.name}</h1>
-        <Rating initialValue={recipe.rating} readonly={true}/>
+        <Rating initialValue={recipe.rating} readonly={true} />
         <Image src={recipe.image}
           className="img rounded-4 mt-3 mx-auto px-0" />
         <Col sm className="justify-content-center mt-3">
@@ -73,22 +74,24 @@ function RecipeDetails() {
             <Form.Group as={Col} md={2} className="mb-3">
               <Form.Label>Servings</Form.Label>
               <Form.Control as="select" defaultValue={recipe.numberServings} onChange={(e) => setNrServings(Number(e.target.value))}>
-                  <option key={2}>2</option>
-                  <option key={4}>4</option>
-                  <option key={6}>6</option> 
-                  <option key={8}>8</option>
+                <option key={2}>2</option>
+                <option key={4}>4</option>
+                <option key={6}>6</option>
+                <option key={8}>8</option>
               </Form.Control>
             </Form.Group>
+            {/* Mapping through ingredients to display them */}
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
                 <li key={index} className="text-start">
-                {
-                  (() => {
-                    const result = ingredient.amount * nrServings / recipe.numberServings;
-                    return (result % 1 === 0) ? result : result.toFixed(1);
-                  })()
-                } {ingredient.unit} {ingredient.name}
-              </li>
+                  {/* Adjusting ingredient amounts based on servings */}
+                  {
+                    (() => {
+                      const result = ingredient.amount * nrServings / recipe.numberServings;
+                      return (result % 1 === 0) ? result : result.toFixed(1);
+                    })()
+                  } {ingredient.unit} {ingredient.name}
+                </li>
               ))}
             </ul>
           </div>
@@ -99,7 +102,7 @@ function RecipeDetails() {
             {recipe.steps.map((step, index) => (
               <Form.Check
                 key={index}
-                id={`step-${index}`} // Add a unique id for each checkbox
+                id={`step-${index}`}
                 type="checkbox"
                 label={<p><strong>Step {index + 1}:</strong> {step}</p>}
                 className="text-start custom-checkbox"
@@ -111,19 +114,19 @@ function RecipeDetails() {
       </Row>
       <Row>
         <Col>
-        <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
-          Delete Recipe
-            </Button>
+          <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
+            Delete Recipe
+          </Button>
         </Col>
         <Col>
-        <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe._id}`)}>
-          Edit Recipe
-            </Button>
+          <Button variant="outline-secondary" className="mb-3 mt-3" size="lg" onClick={() => navigate(`/recipe/editor/${recipe._id}`)}>
+            Edit Recipe
+          </Button>
         </Col>
       </Row>
-      
 
-            <Modal show={showDeletePrompt} onHide={closeDeletePrompt}>
+
+      <Modal show={showDeletePrompt} onHide={closeDeletePrompt}>
         <Modal.Header closeButton>
           <Modal.Title>Recipe Is About To Be Deleted</Modal.Title>
         </Modal.Header>

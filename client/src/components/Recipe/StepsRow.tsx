@@ -13,6 +13,7 @@ interface StepRowProps {
 function StepRow({ step, handleDelete, handleChange, index }: StepRowProps) {
     const [showStepError, setShowStepError] = useState(false);
 
+    // Function to validate the step description upon losing focus from the input field
     function validateName(e: React.FocusEvent) {
         const { value } = e.target as HTMLInputElement;
         if (value.trim()) {

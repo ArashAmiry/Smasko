@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { Container, Button } from "react-bootstrap";
 import Form from "react-bootstrap/esm/Form";
-import IngredientsList, { IngredientsListProps } from "./IngredientsList";
+import IngredientsList from "./IngredientsList";
 import Col from "react-bootstrap/esm/Col";
 import '../recipeIngredients.css';
 import '../createRecipeSections.css';

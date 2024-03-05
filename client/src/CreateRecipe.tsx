@@ -31,7 +31,7 @@ function CreateRecipe() {
         if (shakeScreen) {
             timeout = setTimeout(() => {
                 setShakeScreen(false);
-            }, 500); // Adjust the duration based on your animation duration
+            }, 500); // Adjust the duration based on the animation duration
         }
         return () => clearTimeout(timeout);
     }, [shakeScreen]);
@@ -64,10 +64,12 @@ function CreateRecipe() {
 
         setErrors(newErrors);
 
+        // If there are any errors, prevent form submission
         if (!Object.values(newErrors).every(val => val === "")) { 
             return;
         }
 
+        // Submit the recipe data to the backend if validation passes
         await axios.post('http://localhost:8080/recipe', {
             "name": recipeName,
             "image": imageBase64,
@@ -78,7 +80,7 @@ function CreateRecipe() {
         }, { timeout: 10000 })
             .then(function (response) {
                 console.log(response.data);
-                navigate("/recipe/" + response.data._id);
+                navigate("/recipe/" + response.data._id); // Navigate to the newly created recipe page
             })
             .catch(function (error) {
                 console.log(error);

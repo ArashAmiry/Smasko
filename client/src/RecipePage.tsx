@@ -19,6 +19,7 @@ function RecipePage(props : {path: string}) {
     const [nrServings, setNrServings] = useState(0);
     const [searchTerm, setSearchTerm] = useState<string>('');
 
+    // Function to toggle the IngredientsView
     const displayIngredientsView = (id: string) => {
         if (!showIngredients) {
             fetchRecipeIngredients(id);
