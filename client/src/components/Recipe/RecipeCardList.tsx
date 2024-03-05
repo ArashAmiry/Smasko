@@ -16,11 +16,11 @@ import { Recipe } from './Recipe';
   }; */
 
   //TODO move searching higher up
-function RecipeCardList(props : {showIngredients: (id : string) => void, searchTerm: string}) {
+function RecipeCardList(props : {path: string, showIngredients: (id : string) => void, searchTerm: string}) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   async function updateRecipes() {
-      const response = await axios.get<Recipe[]>("http://localhost:8080/recipe")
+      await axios.get<Recipe[]>(`http://localhost:8080/${props.path}`)
       .then( function(response) {
         console.log(response);
         const newRecipes : Recipe[] = response.data;
@@ -48,6 +48,7 @@ function RecipeCardList(props : {showIngredients: (id : string) => void, searchT
               name={recipe.name}
               img={recipe.image}
               rating={recipe.rating}
+              like={recipe.like}
               showIngredients={() => props.showIngredients(recipe._id)}
             />
           </Link>

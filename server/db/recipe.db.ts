@@ -56,8 +56,15 @@ const recipeSchema : Schema = new Schema({
         min: 1,
 
         max: 5
+    },
+
+    like: {
+        type: Boolean,
+        
+        required: true,
+
+        default: false
     }
-    
 });
 
 
