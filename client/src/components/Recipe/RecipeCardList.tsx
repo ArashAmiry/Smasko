@@ -22,7 +22,6 @@ function RecipeCardList(props : {path: string, showIngredients: (id : string) =>
   async function updateRecipes() {
       await axios.get<Recipe[]>(`http://localhost:8080/${props.path}`)
       .then( function(response) {
-        console.log(response);
         const newRecipes : Recipe[] = response.data;
 
         const filteredRecipes = newRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(props.searchTerm.toLowerCase()));

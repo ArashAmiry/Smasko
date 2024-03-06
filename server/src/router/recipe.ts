@@ -92,7 +92,6 @@ recipeRouter.put("/:id", async (
         const recipe : Recipe = req.body;
         const recipeErrors = validateRecipe(recipe);
         
-        console.log(recipe);
         if (req.params.id !== recipe._id) {
             res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ID in body does not match ID in path`);
             return;
@@ -121,7 +120,6 @@ recipeRouter.patch("/:id", async (
     try {
         const liked : boolean = req.body.liked;
 
-        console.log("liked: " + liked);
         const wasEdited = await recipeService.updateLiked(req.params.id, liked);
         if(!wasEdited) {
             res.status(400).send('Recipe could not be edited');

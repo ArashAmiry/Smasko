@@ -25,7 +25,6 @@ export class RecipeDBService implements IRecipeService {
 
     async addRecipe(recipe: Omit<Recipe, "_id">): Promise<Recipe> {
 
-        console.log(recipe);
        return await recipeModel.create({
         name: recipe.name,
         image: recipe.image,
@@ -40,7 +39,6 @@ export class RecipeDBService implements IRecipeService {
         return (result.deletedCount !== 0);
     }
     async getRecipe(recipeId: string): Promise<Recipe | undefined> {
-        console.log(recipeId);
         const recipe = await recipeModel.findOne({ _id: recipeId }).exec();
         return recipe ? recipe.toObject() : undefined;
     }

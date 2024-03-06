@@ -77,7 +77,6 @@ function CreateRecipe() {
             "rating": rating
         }, { timeout: 10000 })
             .then(function (response) {
-                console.log(response.data);
                 navigate("/recipe/" + response.data._id);
             })
             .catch(function (error) {
