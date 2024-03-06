@@ -51,7 +51,7 @@ function RecipePage(props : {path: string}) {
             <Form onSubmit={(e) => searchRecipe(e)}>
                 <Form.Group>
                     <Form.Control
-                        className="search-bar mx-auto mt-3"
+                        className="search-bar mx-auto my-3"
                         type="search"
                         placeholder="Search..."
                         onChange={(e) => changeSearchTerm(e.target.value)}/>
