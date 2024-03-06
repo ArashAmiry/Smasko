@@ -14,16 +14,22 @@ export type Ingredient = {
 };
 
 function RecipePage(props : {path: string}) {
+    const [currentIngredientsID, setCurrentIngredientsID] = useState<string>("")
     const [showIngredients, setShowIngredients] = useState(false);
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([])
     const [nrServings, setNrServings] = useState(0);
     const [searchTerm, setSearchTerm] = useState<string>('');
 
-    const displayIngredientsView = (id: string) => {
-        if (!showIngredients) {
-            fetchRecipeIngredients(id);
+    const displayIngredientsView = async (id: string) => {
+        if (id === currentIngredientsID) {
+            setCurrentIngredientsID("");
+            setShowIngredients(false);
         }
-        setShowIngredients(!showIngredients);
+        else {
+            setCurrentIngredientsID(id);
+            await fetchRecipeIngredients(id);
+            setShowIngredients(true);
+        }
     }
 
     async function fetchRecipeIngredients(id: string) {
@@ -60,7 +66,7 @@ function RecipePage(props : {path: string}) {
             </Container>
             
             <Container className="card-container " fluid>
-                <Row>
+                <Row className="mx-0">
                     <Col xl={2}></Col>
                     <Col xl={8}>
                         <RecipeCardList path={props.path} showIngredients={(id: string) => displayIngredientsView(id)} searchTerm={searchTerm} />
