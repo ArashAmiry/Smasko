@@ -25,7 +25,7 @@ const RecipeName = ({ recipeName, setRecipeName }: StepsProps) => {
                 placeholder="Recipe Name"
                 name="recipeName"
                 aria-required="true"
-                maxLength={20}
+                maxLength={100}
                 value={recipeName}
                 onChange={e => changeRecipeName(e)} />
         </Form.Group>

@@ -32,7 +32,8 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
       <Card.Body className='card-body'>
         <Row style={{justifyContent: 'center'}}>
           <Col sm={10} className='py-1'>
-            <Card.Title>{props.name}</Card.Title>
+            {props.name.length <= 30 && <Card.Title>{props.name}</Card.Title>}
+            {props.name.length > 30 && <Card.Title>{props.name.slice(0,27) + "..."}</Card.Title>}
           </Col>
           <Col sm={2}>
             <button className='py-0 heartBtn' onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleHeartClick(e)}>
