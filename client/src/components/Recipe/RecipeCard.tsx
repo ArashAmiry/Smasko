@@ -4,7 +4,7 @@ import '../recipeCard.css';
 import { Rating } from 'react-simple-star-rating';
 import { useState } from 'react';
 import Heart from '@react-sandbox/heart'
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import axios from "axios";
 
 function RecipeCard(props: { name: string, img: string, rating: number, like: boolean, id: string, showIngredients: (id : string) => void}) {
@@ -28,12 +28,12 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
 
   return (
     <Card id={props.id} className='card'>   
-      <Card.Img variant="top" src={props.img} />
+      <Card.Img className="recipeCardImage" variant="top" src={props.img} />
       <Card.Body className='card-body'>
+        <Container>
         <Row style={{justifyContent: 'center'}}>
           <Col sm={10} className='py-1'>
-            {props.name.length <= 30 && <Card.Title>{props.name}</Card.Title>}
-            {props.name.length > 30 && <Card.Title>{props.name.slice(0,27) + "..."}</Card.Title>}
+            <Card.Title className="two-line-name">{props.name}</Card.Title>
           </Col>
           <Col sm={2}>
             <button className='py-0 heartBtn' onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleHeartClick(e)}>
@@ -45,6 +45,7 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
             </button>
           </Col>
         </Row>
+        </Container>
         <Button variant="primary" onClick={(e) => handleClick(e)}>See ingredients</Button>
         <Rating className="px-auto" initialValue={props.rating} readonly={true} size={30}/>
       </Card.Body>
