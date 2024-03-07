@@ -2,14 +2,16 @@
     height: 100%;
 }
 
-.card-body{
+.card-body {
     display: flex;
     text-align: center;
     flex-direction: column;
     justify-content: space-between;
-  }
+}
 
-.heartBtn,.heartBtn:hover,.heartBtn:active{
+.heartBtn,
+.heartBtn:hover,
+.heartBtn:active {
     background-color: transparent;
     border-color: transparent;
 }
@@ -26,5 +28,5 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    height: 3em; 
-  }
+    height: 3em;
+}
