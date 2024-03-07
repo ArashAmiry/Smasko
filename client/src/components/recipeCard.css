@@ -13,3 +13,18 @@
     background-color: transparent;
     border-color: transparent;
 }
+
+.recipeCardImage {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.two-line-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 3em; 
+  }
