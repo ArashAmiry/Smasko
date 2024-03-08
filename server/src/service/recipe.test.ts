@@ -99,3 +99,55 @@ test("If recipe is deleted from list with two recipes then the list should be of
 
     expect(recipes.length === 1).toBeTruthy();
 })
+
+test("If recipe is patched with true boolean it will now have like: true and be in list of favorites", async () => {
+    const testRecipe: Omit<Recipe, '_id'> = {
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
+    }
+
+    const recipe = await recipeService.addRecipe(testRecipe);
+    const favoriteList = await recipeService.getFavoriteRecipes();
+    expect(favoriteList.length === 0).toBeTruthy();
+
+    await recipeService.updateLiked(recipe._id, true);
+    const favoriteList1 = await recipeService.getFavoriteRecipes();
+    expect(favoriteList1.length === 1).toBeTruthy();
+})
+
+test("editRecipe should return true if recipe is successfully edited when called", async () => {
+    const testRecipe: Omit<Recipe, '_id'> = {
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
+    }
+    
+    const recipe = await recipeService.addRecipe(testRecipe);
+    expect(recipe.rating === 4).toBeTruthy();
+    const newRecipe: Recipe = {
+            _id: recipe._id,
+            name: "Recipe",
+            image: "img",
+            numberServings: 4,
+            ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+            steps: ["step1", "step2"],
+            rating: 2,
+            like: false
+        }
+    const res = await recipeService.editRecipe(newRecipe);
+    const recipe2 = await recipeService.getRecipe(recipe._id);
+    if(recipe2) {
+        expect(recipe2.rating === 2).toBeTruthy();
+        expect(res).toBeTruthy();
+    }
+    
+})
