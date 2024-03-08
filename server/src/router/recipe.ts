@@ -120,7 +120,6 @@ recipeRouter.patch("/:id", async (
     try {
         const liked : boolean = req.body.liked;
 
-        console.log("liked: " + liked);
         const wasEdited = await recipeService.updateLiked(req.params.id, liked);
         if(!wasEdited) {
             res.status(400).send('Recipe could not be edited');

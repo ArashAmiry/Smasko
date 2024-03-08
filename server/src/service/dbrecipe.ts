@@ -39,7 +39,6 @@ export class RecipeDBService implements IRecipeService {
         return (result.deletedCount !== 0);
     }
     async getRecipe(recipeId: string): Promise<Recipe | undefined> {
-
         const recipe = await recipeModel.findOne({ _id: recipeId }).exec();
         return recipe ? recipe.toObject() : undefined;
     }

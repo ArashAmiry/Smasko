@@ -11,8 +11,7 @@ import { Button, Modal } from "react-bootstrap";
 import { fetchRecipe } from "./FetchRecipe";
 import { Recipe } from "../components/Recipe/Recipe";
 import { Rating } from 'react-simple-star-rating';
-
-const reactAwesomeSpinners = require('react-awesome-spinners');
+import { ClockLoader } from "react-spinners";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -38,8 +37,8 @@ function RecipeDetails() {
   // Display loading spinner while recipe data is being fetched
   if (!recipe) {
     return (
-      <div className="spinner">
-        <reactAwesomeSpinners.Heart />
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <ClockLoader />
       </div>
     );
   }

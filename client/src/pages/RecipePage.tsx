@@ -14,18 +14,24 @@ export type Ingredient = {
     unit: string;
 };
 
-function RecipePage({ path }: { path: string }) {
+function RecipePage(props : {path: string}) {
+    const [currentIngredientsID, setCurrentIngredientsID] = useState<string>("")
     const [showIngredients, setShowIngredients] = useState(false);
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([])
     const [nrServings, setNrServings] = useState(0);
     const [searchTerm, setSearchTerm] = useState<string>('');
 
     // Function to toggle the IngredientsView
-    const displayIngredientsView = (id: string) => {
-        if (!showIngredients) {
-            fetchRecipeIngredients(id);
+    const displayIngredientsView = async (id: string) => {
+        if (id === currentIngredientsID) {
+            setCurrentIngredientsID("");
+            setShowIngredients(false);
         }
-        setShowIngredients(!showIngredients);
+        else {
+            setCurrentIngredientsID(id);
+            await fetchRecipeIngredients(id);
+            setShowIngredients(true);
+        }
     }
 
     async function fetchRecipeIngredients(id: string) {
@@ -49,8 +55,20 @@ function RecipePage({ path }: { path: string }) {
 
     return (
         <>
+        <Container className="form-container">
+            <Form onSubmit={(e) => searchRecipe(e)}>
+                <Form.Group>
+                    <Form.Control
+                        className="search-bar mx-auto my-3"
+                        type="search"
+                        placeholder="Search..."
+                        onChange={(e) => changeSearchTerm(e.target.value)}/>
+                </Form.Group>   
+            </Form>
+            </Container>
+            
             <Container className="card-container " fluid>
-                <Row>
+                <Row className="mx-0">
                     <Col xl={2}></Col>
                     <Col xl={8}>
                         <Form onSubmit={(e) => searchRecipe(e)}>
