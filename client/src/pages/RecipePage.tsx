@@ -14,7 +14,7 @@ export type Ingredient = {
     unit: string;
 };
 
-function RecipePage(props : {path: string}) {
+function RecipePage({path} : {path: string}) {
     const [currentIngredientsID, setCurrentIngredientsID] = useState<string>("")
     const [showIngredients, setShowIngredients] = useState(false);
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([])
@@ -54,19 +54,7 @@ function RecipePage(props : {path: string}) {
     };
 
     return (
-        <>
-        <Container className="form-container">
-            <Form onSubmit={(e) => searchRecipe(e)}>
-                <Form.Group>
-                    <Form.Control
-                        className="search-bar mx-auto my-3"
-                        type="search"
-                        placeholder="Search..."
-                        onChange={(e) => changeSearchTerm(e.target.value)}/>
-                </Form.Group>   
-            </Form>
-            </Container>
-            
+        <>  
             <Container className="card-container " fluid>
                 <Row className="mx-0">
                     <Col xl={2}></Col>
