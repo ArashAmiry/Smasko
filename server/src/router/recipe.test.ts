@@ -2,12 +2,12 @@ import * as SuperTest from "supertest";
 import { app } from "../../src/start";
 import { Recipe } from "../../src/model/recipe";
 
-const request = SuperTest.default(app);
 
+jest.mock("../../db/conn");
+const request = SuperTest.default(app);
 
 afterEach(async () => {
     const recipes = await request.get("/recipe");
-
     recipes.body.map(async (recipe : Recipe) => {
         await request.delete("/recipe/"+recipe._id)
     });
@@ -16,11 +16,14 @@ afterEach(async () => {
 
 test("POST and GET valid recipe", async () => {
     const recipe : Omit<Recipe,'id'> = {
+        _id: "12345",
         name: "Recipe",
-        imagePath: "img",
+        image: "img",
         numberServings: 4,
         ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
-        steps: ["step1", "step2"]
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
     } 
     const res1 = await request.post("/recipe").send(recipe);
 
@@ -35,7 +38,7 @@ test("POST and GET valid recipe", async () => {
 
 test("POST and GET invalid recipe", async () => {
     const invalidRecipe = {
-        imagePath: "img",
+        image: "img",
         numberServings: 4,
         ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
         steps: ["step1", "step2"]
@@ -54,11 +57,14 @@ test("POST and GET invalid recipe", async () => {
 
 test("DELETE and GET valid recipe", async () => {
     const recipe : Omit<Recipe,'id'> = {
+        _id: "12345",
         name: "Recipe",
-        imagePath: "img",
+        image: "img",
         numberServings: 4,
         ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
-        steps: ["step1", "step2"]
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
     } 
     const res1 = await request.post("/recipe").send(recipe);
 
@@ -74,11 +80,14 @@ test("DELETE and GET valid recipe", async () => {
 
 test("DELETE and GET invalid text ID", async () => {
     const recipe : Omit<Recipe,'id'> = {
+        _id: "12345",
         name: "Recipe",
-        imagePath: "img",
+        image: "img",
         numberServings: 4,
         ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
-        steps: ["step1", "step2"]
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
     } 
     const res1 = await request.post("/recipe").send(recipe);
 
@@ -94,11 +103,14 @@ test("DELETE and GET invalid text ID", async () => {
 
 test("DELETE and GET invalid negative ID", async () => {
     const recipe : Omit<Recipe,'id'> = {
+        _id: "12345",
         name: "Recipe",
-        imagePath: "img",
+        image: "img",
         numberServings: 4,
         ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
-        steps: ["step1", "step2"]
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
     } 
     const res1 = await request.post("/recipe").send(recipe);
 
@@ -114,11 +126,14 @@ test("DELETE and GET invalid negative ID", async () => {
 
 test("POST and GET valid recipe with ID", async () => {
     const recipe : Omit<Recipe,'id'> = {
+        _id: "12345",
         name: "Recipe",
-        imagePath: "img",
+        image: "img",
         numberServings: 4,
         ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
-        steps: ["step1", "step2"]
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
     } 
     const res1 = await request.post("/recipe").send(recipe);
 
@@ -138,11 +153,14 @@ test("GET recipe with invalid ID", async () => {
 
 test ("PUT recipe should edit recipe", async () => {
     const recipe : Omit<Recipe,'id'> = {
+        _id: "12345",
         name: "Recipe",
-        imagePath: "img",
+        image: "img",
         numberServings: 4,
         ingredients: [{"name" : "in1", "amount": 4, "unit": "g"}, {"name": "chicken", "amount": 6, "unit" : "g"}],
-        steps: ["step1", "step2"]
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
     } 
 
     const res1 = await request.post("/recipe").send(recipe);
