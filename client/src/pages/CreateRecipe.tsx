@@ -22,21 +22,6 @@ function CreateRecipe() {
     const [errors, setErrors] = useState({ recipeName: "", ingredients: "", steps: "", image: "" });
     const navigate = useNavigate();
 
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            const result = reader.result;
-            if (typeof result === 'string' || result instanceof ArrayBuffer) {
-                setImageBase64(result as string);
-            }
-        };
-        reader.readAsDataURL(file);
-    };
-
     const handleRating = (rate: number) => {
         setRating(rate)
     }

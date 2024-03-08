@@ -10,9 +10,7 @@
 .form-check-input:checked+.form-check-label {
     text-decoration: line-through;
     color: rgb(185, 185, 185);
-
 }
-
 
 .form-group-label {
     display: flex;
@@ -30,4 +28,3 @@
 .details-box {
     height: 100%;
 }
-

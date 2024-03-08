@@ -21,6 +21,7 @@ function DisplayRecipes({searchTerm, path, showIngredients}: {searchTerm: string
       });
   }
 
+  // Filters recipes upon changed searchTerm
   useEffect(() => {
     filterRecipes();
   }, [searchTerm]); 
