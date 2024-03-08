@@ -18,5 +18,5 @@ test('RecipeCard should show its name on screen', () => {
 test('Pressing see ingredients button should call showIngredients method', () => {
   render(<RecipeCard {...mockProps} />);
   fireEvent.click(screen.getByText('See ingredients'));
-  expect(mockProps.showIngredients).toHaveBeenCalledWith(123);
+  expect(mockProps.showIngredients).toHaveBeenCalledWith("123");
 });
