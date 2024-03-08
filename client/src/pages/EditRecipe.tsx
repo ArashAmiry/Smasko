@@ -21,10 +21,12 @@ function EditRecipe() {
     const [numServings, setNumServings] = useState(2);
     const [rating, setRating] = useState(0);
 
+    // Hooks to access URL parameters 
     const { id } = useParams();
     const navigate = useNavigate();
 
-    async function updateData(recipe: Recipe) {
+    // Function to update component state with fetched recipe data
+    async function updateData(recipe : Recipe) {
         setImageBase64(recipe.image);
         setIngredientsList(recipe.ingredients);
         setNumServings(recipe.numberServings);
@@ -37,6 +39,7 @@ function EditRecipe() {
         setRating(rate);
     }
 
+    // useEffect to fetch recipe details when the component is rendered at the beginning or the ID changes
     useEffect(() => {
         const fetchData = async () => {
             if (id) {
@@ -50,6 +53,7 @@ function EditRecipe() {
         fetchData();
     }, [id]);
 
+    // Function to submit the edited recipe data
     async function submitRecipe(e: FormEvent) {
         e.preventDefault();
 

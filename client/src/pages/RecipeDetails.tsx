@@ -21,6 +21,7 @@ function RecipeDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // Fetch recipe details from the server upon component rendering or when the id changes
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
@@ -34,6 +35,7 @@ function RecipeDetails() {
     fetchData();
   }, [id]);
 
+  // Display loading spinner while recipe data is being fetched
   if (!recipe) {
     return (
       <div className="spinner">
@@ -42,6 +44,7 @@ function RecipeDetails() {
     );
   }
 
+  // Function to handle recipe deletion
   const handleDeleteRecipe = () => {
     setShowDeletePrompt(false);
     axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
@@ -57,7 +60,7 @@ function RecipeDetails() {
     <Container className="recipe-container mx-auto">
       <Row className="mx-5">
         <h1 className="text-center mx-auto">{recipe.name}</h1>
-        <Rating initialValue={recipe.rating} readonly={true}/>
+        <Rating initialValue={recipe.rating} readonly={true} />
         <Image src={recipe.image}
           className="img rounded-4 mt-3 mx-auto px-0" />
         <Col sm className="justify-content-center mt-3">
@@ -73,10 +76,11 @@ function RecipeDetails() {
                 <option key={8}>8</option>
               </Form.Control>
             </Form.Group>
-
+            {/* Mapping through ingredients to display them */}
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
                 <li key={index} className="text-start">
+                  {/* Adjusting ingredient amounts based on servings */}
                   {
                     (() => {
                       const result = ingredient.amount * nrServings / recipe.numberServings;
@@ -95,7 +99,7 @@ function RecipeDetails() {
             {recipe.steps.map((step, index) => (
               <Form.Check
                 key={index}
-                id={`step-${index}`} 
+                id={`step-${index}`}
                 type="checkbox"
                 label={<p><strong>Step {index + 1}:</strong> {step}</p>}
                 className="text-start custom-checkbox"

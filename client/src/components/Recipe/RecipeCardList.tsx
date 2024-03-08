@@ -6,7 +6,6 @@ import Col from 'react-bootstrap/esm/Col';
 import './recipeCardList.css';
 import { Recipe } from './Recipe';
 
-// function RecipeCardList(props : {path: string, showIngredients: (id : string) => void, searchTerm: string}) {
 function RecipeCardList({recipes, showIngredients} : {recipes: Recipe[], showIngredients: (id : string) => void}) {
   return (
     <Container className='cards-container'>

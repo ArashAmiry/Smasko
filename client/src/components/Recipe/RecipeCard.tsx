@@ -8,6 +8,8 @@ import { Row, Col } from 'react-bootstrap';
 import axios from "axios";
 
 function RecipeCard(props: { name: string, img: string, rating: number, like: boolean, id: string, showIngredients: (id : string) => void}) {
+  
+  // Displays sidebar with the recipes ingredients when clicked
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     props.showIngredients(props.id);
@@ -15,6 +17,7 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
 
   const [isClicked, setisClick] = useState(props.like);
 
+  // Adds recipe to one's favorites
   const handleHeartClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 

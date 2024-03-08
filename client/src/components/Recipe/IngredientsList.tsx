@@ -2,7 +2,7 @@ import { Ingredient } from "./Ingredient";
 import IngredientRow from "./IngredientRow";
 
 export interface IngredientsListProps {
-    ingredientsList: Array<Ingredient>; 
+    ingredientsList: Array<Ingredient>;
     deleteIngredient: (index: number) => void;
     changeName: (name: string, index: number) => void;
     changeAmount: (amount: number, index: number) => void;

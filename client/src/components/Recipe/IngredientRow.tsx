@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Form, Row, Col, Image } from 'react-bootstrap';
 import binImage from '../../images/bin.png';
 import { Ingredient } from './Ingredient';
@@ -13,7 +14,6 @@ interface IngredientRowProps {
 }
 
 function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, changeUnit, index }: IngredientRowProps) {
-
     return (
         <Form.Group className='ingredient-row'>
             <Row>
@@ -28,6 +28,8 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                     <Form.Control data-testid="amount-input" name="amount" type="text" placeholder="Amount" className='no-spinner' value={ingredient.amount} aria-required="true" onChange={(e) => {
 
                         const newAmount: number = parseInt(e.target.value);
+
+                        // Validate and update the amount, fallback to 0 on invalid input
                         if (newAmount > 0) {
                             changeAmount(newAmount);
                         } else {
