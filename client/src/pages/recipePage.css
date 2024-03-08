@@ -16,5 +16,5 @@
 }
 
 .search-bar::-webkit-search-cancel-button {
-    cursor: pointer; /* Change cursor style to pointer */
+    cursor: pointer; 
   }

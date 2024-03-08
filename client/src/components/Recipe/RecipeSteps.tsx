@@ -3,7 +3,7 @@ import StepRow from "./StepsRow";
 import { ChangeEvent } from "react";
 import Form from "react-bootstrap/esm/Form";
 import Col from "react-bootstrap/esm/Col";
-import '../createRecipeSections.css';
+import './createRecipeSections.css';
 
 interface StepsProps {
     stepsList: Array<string>;
@@ -32,6 +32,7 @@ const RecipeSteps = ({ stepsList, setStepsList }: StepsProps) => {
     return (
         <Form.Group as={Col} sm className="section justify-content-center mt-3 rounded-4 bg-light shadow-sm p-4">
             <h2>Steps</h2>
+
             <Container className="p-0">
                 {stepsList.map((singleStep, index) => (
                     <StepRow
@@ -43,10 +44,12 @@ const RecipeSteps = ({ stepsList, setStepsList }: StepsProps) => {
                     />
                 ))}
             </Container>
+
             <Button variant="outline-secondary" className="btn-outline-secondary mt-3" onClick={() => addStep()}>
                 Add new step
             </Button>
-        </Form.Group>);
+        </Form.Group>
+    );
 }
 
 export default RecipeSteps;

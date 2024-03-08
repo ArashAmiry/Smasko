@@ -1,4 +1,0 @@
-.cards-container {
-    overflow-y: auto; /* Add this property */
-    max-height: calc(100vh - 136px); /* Adjusted height considering header height */
-}

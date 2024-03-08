@@ -1,16 +1,13 @@
-import { Container, Button } from "react-bootstrap";
-import StepRow from "./StepsRow";
 import { ChangeEvent } from "react";
 import Form from "react-bootstrap/esm/Form";
-import Col from "react-bootstrap/esm/Col";
-import '../createRecipeSections.css';
+import './createRecipeSections.css';
 
-interface StepsProps {
+interface RecipeNameProps {
     recipeName: string;
     setRecipeName: (recipeName: string) => void;
 }
 
-const RecipeName = ({ recipeName, setRecipeName }: StepsProps) => {
+const RecipeName = ({ recipeName, setRecipeName }: RecipeNameProps) => {
 
     const changeRecipeName = (e: ChangeEvent) => {
         let { value } = e.target as HTMLInputElement;

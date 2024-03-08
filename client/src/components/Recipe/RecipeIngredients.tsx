@@ -1,10 +1,10 @@
 import { ChangeEvent } from "react";
 import { Container, Button } from "react-bootstrap";
 import Form from "react-bootstrap/esm/Form";
-import IngredientsList, { IngredientsListProps } from "./IngredientsList";
-import Col from "react-bootstrap/esm/Col";
-import '../recipeIngredients.css';
-import '../createRecipeSections.css';
+import IngredientsList from "./IngredientsList";
+import Col from "react-bootstrap/Col";
+import './recipeIngredients.css';
+import './createRecipeSections.css';
 import { Ingredient } from "./Ingredient";
 
 interface RecipeIngredientsProps {
@@ -51,6 +51,7 @@ const RecipeIngredients = ({ ingredientsList, setIngredientsList, numServings, s
     return (
         <Form.Group as={Col} sm className="section justify-content-center mt-3 rounded-4 bg-light shadow-sm p-4">
             <h2>Ingredients</h2>
+
             <Container className="servings-container col-md-1 mb-3" >
                 <Form.Label>Number of servings</Form.Label>
                 <Form.Select defaultValue={numServings} onChange={e => changeNumServings(e)}>
@@ -71,6 +72,7 @@ const RecipeIngredients = ({ ingredientsList, setIngredientsList, numServings, s
                     changeUnit={(unit, index) => changeUnit(unit, index)}
                 />
             </Container>
+
             <Button variant="outline-secondary" className="btn-outline-secondary mt-3" onClick={() => addIngredient()}>
                 Add new ingredient
             </Button>

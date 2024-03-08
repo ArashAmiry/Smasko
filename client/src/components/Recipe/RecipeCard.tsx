@@ -1,13 +1,15 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import '../recipeCard.css';
+import './recipeCard.css';
 import { Rating } from 'react-simple-star-rating';
 import { useState } from 'react';
 import Heart from '@react-sandbox/heart'
 import { Row, Col, Container } from 'react-bootstrap';
 import axios from "axios";
 
-function RecipeCard(props: { name: string, img: string, rating: number, like: boolean, id: string, showIngredients: (id: string) => void }) {
+function RecipeCard(props: { name: string, img: string, rating: number, like: boolean, id: string, showIngredients: (id : string) => void}) {
+
+  // Displays sidebar with the recipes ingredients when clicked
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
     props.showIngredients(props.id);
@@ -15,14 +17,15 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
 
   const [isClicked, setisClick] = useState(props.like);
 
+  // Adds recipe to one's favorites
   const handleHeartClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
     const clicked = !isClicked;
     setisClick(clicked);
-
+    
     await axios.patch(`http://localhost:8080/recipe/${props.id}`,
-      { "liked": clicked }
+      {"liked": clicked}
     );
   }
 
@@ -46,7 +49,6 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
         <Rating className="px-auto" initialValue={props.rating} readonly={true} size={30} />
       </Card.Body>
     </Card>
-
   );
 }
 

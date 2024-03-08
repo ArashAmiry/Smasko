@@ -2,21 +2,16 @@ import { FormEvent, useEffect, useState } from "react";
 import Form from "react-bootstrap/esm/Form";
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
-import RecipeSteps from "./components/Recipe/RecipeSteps";
-import RecipeIngredients from "./components/Recipe/RecipeIngredients";
+import RecipeSteps from "../components/Recipe/RecipeSteps";
+import RecipeIngredients from "../components/Recipe/RecipeIngredients";
 import "./createRecipe.css";
-import RecipeName from "./components/Recipe/RecipeName";
+import RecipeName from "../components/Recipe/RecipeName";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchRecipe } from "./FetchRecipe";
-import { Recipe } from "./components/Recipe/Recipe";
+import { Recipe } from "../components/Recipe/Recipe";
 import { Rating } from "react-simple-star-rating";
-import ImageUpload from "./components/Recipe/ImageUpload";
-
-export type Ingredient = {
-    name: string;
-    amount: number;
-    unit: string;
-};
+import ImageUpload from "../components/Recipe/ImageUpload";
+import { Ingredient } from "../components/Recipe/Ingredient";
 
 function EditRecipe() {
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([{ name: "", amount: 0, unit: "st" }]);
@@ -24,12 +19,13 @@ function EditRecipe() {
     const [recipeName, setRecipeName] = useState("");
     const [imageBase64, setImageBase64] = useState("");
     const [numServings, setNumServings] = useState(2);
-    const [recipe, setRecipe] = useState<Recipe | null>(null);
     const [rating, setRating] = useState(0);
 
+    // Hooks to access URL parameters 
     const { id } = useParams();
     const navigate = useNavigate();
 
+    // Function to update component state with fetched recipe data
     async function updateData(recipe : Recipe) {
         setImageBase64(recipe.image);
         setIngredientsList(recipe.ingredients);
@@ -43,30 +39,28 @@ function EditRecipe() {
         setRating(rate);
     }
 
+    // useEffect to fetch recipe details when the component is rendered at the beginning or the ID changes
     useEffect(() => {
-        const fetchData = async() => {
+        const fetchData = async () => {
             if (id) {
                 const recipe = await fetchRecipe(id);
                 if (recipe) {
-                    setRecipe(recipe);
                     updateData(recipe);
                 }
-            } 
+            }
         }
 
         fetchData();
     }, [id]);
 
+    // Function to submit the edited recipe data
     async function submitRecipe(e: FormEvent) {
-        console.log("submit");
         e.preventDefault();
 
         if (id === undefined) {
             console.log("ID is undefined");
             return;
         }
-
-        console.log(ingredientsList);
 
         await axios.put(`http://localhost:8080/recipe/${id}`, {
             "_id": id,
@@ -77,9 +71,6 @@ function EditRecipe() {
             "steps": stepsList,
             "rating": rating
         }, { timeout: 10000 })
-            .then(function (response) {
-                console.log(response);
-            })
             .catch(function (error) {
                 console.log(error);
             });
@@ -107,7 +98,7 @@ function EditRecipe() {
                 setStepsList={(stepsList) => setStepsList(stepsList)}
             />
 
-            <Rating initialValue={rating} onClick={(e) => handleRating(e)}/>
+            <Rating initialValue={rating} onClick={(e) => handleRating(e)} />
 
             <Button variant="success" type="submit" className="submit-button" size="lg">
                 Save
@@ -115,6 +106,5 @@ function EditRecipe() {
         </Form>
     );
 }
-
 
 export default EditRecipe;
