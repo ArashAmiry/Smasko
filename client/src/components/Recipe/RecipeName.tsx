@@ -9,6 +9,7 @@ interface RecipeNameProps {
 
 const RecipeName = ({ recipeName, setRecipeName }: RecipeNameProps) => {
 
+    // Function to handle changes to the recipe name input.
     const changeRecipeName = (e: ChangeEvent) => {
         let { value } = e.target as HTMLInputElement;
         setRecipeName(value);
