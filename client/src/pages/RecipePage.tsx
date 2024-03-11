@@ -14,7 +14,7 @@ export type Ingredient = {
   unit: string;
 };
 
-function RecipePage({path} : {path: string}) {
+function RecipePage({path, noRecipesMessage} : {path: string, noRecipesMessage: string}) {
     const [currentIngredientsID, setCurrentIngredientsID] = useState<string>("")
     const [showIngredients, setShowIngredients] = useState(false);
     const [ingredientsList, setIngredientsList] = useState<Ingredient[]>([])
@@ -68,7 +68,7 @@ function RecipePage({path} : {path: string}) {
                                     onChange={(e) => changeSearchTerm(e.target.value)} />
                             </Form.Group>
                         </Form>
-                        <DisplayRecipes path={path} showIngredients={(id: string) => displayIngredientsView(id)} searchTerm={searchTerm} />
+                        <DisplayRecipes path={path} showIngredients={(id: string) => displayIngredientsView(id)} searchTerm={searchTerm} noRecipesMessage={noRecipesMessage}/>
                     </Col>
                     <Col xl={2} className="px-0">
                         {showIngredients && <IngredientsView ingredients={ingredientsList} nrServ={nrServings} />}
