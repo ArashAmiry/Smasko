@@ -32,6 +32,8 @@ test("If a recipe is created then it should be in the list of recipes", async ()
     expect(recipes.some((r) => r.numberServings === recipe.numberServings)).toBeTruthy();
     expect(JSON.stringify(recipe.ingredients)).toEqual(JSON.stringify(recipes[0].ingredients));
     expect(recipe.steps).toEqual(recipes[0].steps);
+    expect(recipe.rating).toEqual(recipes[0].rating);
+    expect(recipe.like).toEqual(recipes[0].like);
     expect(recipes.length === 1).toBeTruthy();
 })
 
@@ -151,6 +153,33 @@ test("editRecipe should return true if recipe is successfully edited when called
     }
 
 })
+
+test("getRecipe with valid id should return the recipe", async () => {
+    const testRecipe: Omit<Recipe, '_id'> = {
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
+    }
+    const r = await recipeService.addRecipe(testRecipe);
+    console.log(r);
+
+    const recipe = await recipeService.getRecipe(r._id);
+    console.log(recipe);
+    if (r && recipe) {
+        expect(r._id.toString === recipe._id.toString).toBeTruthy();
+        expect(r.name === recipe.name).toBeTruthy();
+        expect(r.image === recipe.image).toBeTruthy();
+        expect(r.numberServings === recipe.numberServings).toBeTruthy();
+        expect(JSON.stringify(r.ingredients)).toEqual(JSON.stringify(recipe.ingredients));
+        expect(r.steps).toEqual(recipe.steps);
+        expect(r.rating).toEqual(recipe.rating);
+        expect(r.like).toEqual(recipe.like);
+    }
+});
 
 test("getRecipe with invalid id should return undefined", async () => {
     const testRecipe: Omit<Recipe, '_id'> = {
