@@ -2,16 +2,16 @@ import Container from "react-bootstrap/esm/Container";
 import RecipeCardList from "../components/Recipe/RecipeCardList";
 import { FormEvent, useState } from "react";
 import axios from "axios";
-import './recipePage.css';
+import "./recipePage.css";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/esm/Form";
 import IngredientsView from "../components/Recipe/IngredientView";
 import DisplayRecipes from "../components/Recipe/DisplayRecipes";
 
 export type Ingredient = {
-    name: string;
-    amount: number;
-    unit: string;
+  name: string;
+  amount: number;
+  unit: string;
 };
 
 function RecipePage({path} : {path: string}) {
@@ -34,24 +34,24 @@ function RecipePage({path} : {path: string}) {
         }
     }
 
-    async function fetchRecipeIngredients(id: string) {
-        try {
-            const response = await axios.get(`http://localhost:8080/recipe/${id}`);
-            setIngredientsList(response.data.ingredients)
-            setNrServings(response.data.numberServings);
-        } catch (error) {
-            console.error("Error fetching recipe:", error);
-        }
+  async function fetchRecipeIngredients(id: string) {
+    try {
+      const response = await axios.get(`http://localhost:8080/recipe/${id}`);
+      setIngredientsList(response.data.ingredients);
+      setNrServings(response.data.numberServings);
+    } catch (error) {
+      console.error("Error fetching recipe:", error);
     }
+  }
 
-    const searchRecipe = (e: FormEvent) => {
+  const searchRecipe = (e: FormEvent) => {
+    e.preventDefault();
+  };
 
-        e.preventDefault();
-    }
+  const changeSearchTerm = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+  };
 
-    const changeSearchTerm = (searchTerm: string) => {
-        setSearchTerm(searchTerm);
-    };
 
     return (
         <>  
@@ -76,7 +76,7 @@ function RecipePage({path} : {path: string}) {
                 </Row>
             </Container>
         </>
-    );
+  );
 }
 
 export default RecipePage;
