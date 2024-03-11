@@ -12,7 +12,7 @@ afterEach(async () => {
     });
 });
 
-test("If recipe is added to list then it should be in the list", async () => {
+test("If a recipe is created then it should be in the list of recipes", async () => {
 
     const testRecipe: Omit<Recipe, "_id"> = {
         name: "Recipe",
@@ -35,7 +35,7 @@ test("If recipe is added to list then it should be in the list", async () => {
     expect(recipes.length === 1).toBeTruthy();
 })
 
-test("If recipe is deleted from list then it should not be in the list", async () => {
+test("If recipe is deleted then it should not be in the list of recipes", async () => {
     const testRecipe: Omit<Recipe, '_id'> = {
         name: "Recipe",
         image: "img",
@@ -53,7 +53,7 @@ test("If recipe is deleted from list then it should not be in the list", async (
     expect(recipes.length === 0).toBeTruthy();
 })
 
-test("If get recipe is called it should return an empty list", async () => {
+test("If get recipe is called when no recipes are created, it should return an empty list", async () => {
 
     const recipes = await recipeService.getRecipes();
     expect(recipes.length === 0).toBeTruthy();
@@ -61,7 +61,7 @@ test("If get recipe is called it should return an empty list", async () => {
 
 
 
-test("If recipe ID is deleted from a list that does not contain that ID, then deleteRecipe() should return false", async () => {
+test("If recipe ID is called to be deleted from a list that does not contain that ID, then deleteRecipe() should return false", async () => {
 
     const recipeId = "60eac581c329232b14c29d32";
 
@@ -71,7 +71,7 @@ test("If recipe ID is deleted from a list that does not contain that ID, then de
 })
 
 
-test("If recipe is deleted from list with two recipes then the list should be of length 1 and contain correct recipe", async () => {
+test("If recipe is deleted from a list with two recipes then the list should be of length 1 and contain correct recipe", async () => {
     const testRecipe: Omit<Recipe, '_id'> = {
         name: "Recipe",
         image: "img",
@@ -100,7 +100,7 @@ test("If recipe is deleted from list with two recipes then the list should be of
     expect(recipes.length === 1).toBeTruthy();
 })
 
-test("If recipe is patched with true boolean it will now have like: true and be in list of favorites", async () => {
+test("If recipe is updated with true for 'like' it will now be in the list of favorites", async () => {
     const testRecipe: Omit<Recipe, '_id'> = {
         name: "Recipe",
         image: "img",
