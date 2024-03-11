@@ -1,40 +1,12 @@
-import { useState, useEffect } from 'react';
 import RecipeCard from './RecipeCard';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import '../recipeCardList.css';
+import './recipeCardList.css';
 import { Recipe } from './Recipe';
 
-/* type Recipe = {
-    id: number;
-    name: string;
-    img: string;
-    rating: number;
-  }; */
-
-  //TODO move searching higher up
-function RecipeCardList(props : {path: string, showIngredients: (id : string) => void, searchTerm: string}) {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-
-  async function updateRecipes() {
-      await axios.get<Recipe[]>(`http://localhost:8080/${props.path}`)
-      .then( function(response) {
-        const newRecipes : Recipe[] = response.data;
-
-        const filteredRecipes = newRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(props.searchTerm.toLowerCase()));
-        setRecipes(filteredRecipes);})
-      .catch( function (error) {
-          console.log(error);
-      });
-  }
-
-  useEffect(() => {
-    updateRecipes();
-  }, [props.searchTerm]); 
-    
+function RecipeCardList({recipes, showIngredients} : {recipes: Recipe[], showIngredients: (id : string) => void}) {
   return (
     <Container className='cards-container'>
       <Row className="mt-4">
@@ -48,7 +20,7 @@ function RecipeCardList(props : {path: string, showIngredients: (id : string) =>
               img={recipe.image}
               rating={recipe.rating}
               like={recipe.like}
-              showIngredients={() => props.showIngredients(recipe._id)}
+              showIngredients={() => showIngredients(recipe._id)}
             />
           </Link>
         </Col>

@@ -1,14 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
-import RecipeCardList from './components/Recipe/RecipeCardList';
-import CreateRecipe from './CreateRecipe';
-import RecipeDetails from './RecipeDetails';
-import AllRecipes from './AllRecipes';
-import EditRecipe from './EditRecipe';
-import FavoriteRecipes from './Favorites';
+import CreateRecipe from './pages/CreateRecipe';
+import RecipeDetails from './pages/RecipeDetails';
+import AllRecipes from './pages/AllRecipes';
+import EditRecipe from './pages/EditRecipe';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
