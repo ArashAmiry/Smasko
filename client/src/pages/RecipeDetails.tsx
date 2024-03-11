@@ -124,10 +124,10 @@ function RecipeDetails() {
 
       <Modal show={showDeletePrompt} onHide={() => setShowDeletePrompt(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Recipe Is About To Be Deleted</Modal.Title>
+          <Modal.Title>This Recipe Is About to Be Deleted</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are you sure you want to delete the recipe? This action cannot be undone.</Modal.Body>
+        <Modal.Body>Are you sure you want to delete this recipe? This action cannot be undone.</Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowDeletePrompt(false)}>
