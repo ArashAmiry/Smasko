@@ -49,6 +49,7 @@ function RecipeDetails() {
     axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
       .then(() => {
         navigate('/');
+        window.scrollTo({top: 0, behavior: 'smooth'});
       })
       .catch(error => {
         console.error('Error deleting recipe:', error);
