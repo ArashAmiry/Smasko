@@ -15,7 +15,7 @@ import { ClockLoader } from "react-spinners";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
-  const [nrServings, setNrServings] = useState(0);
+  const [currentNrServings, setCurrentNumberServings] = useState(0); //The number of servings chosen by the user in the recipe details ingredients
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function RecipeDetails() {
         const fetchedRecipe = await fetchRecipe(id);
         if (fetchedRecipe) {
           setRecipe(fetchedRecipe);
-          setNrServings(fetchedRecipe.numberServings);
+          setCurrentNumberServings(fetchedRecipe.numberServings);
         }
       }
     };
@@ -68,7 +68,7 @@ function RecipeDetails() {
 
             <Form.Group as={Col} md={2} className="mb-3">
               <Form.Label>Servings</Form.Label>
-              <Form.Control as="select" defaultValue={recipe.numberServings} onChange={(e) => setNrServings(Number(e.target.value))}>
+              <Form.Control as="select" defaultValue={recipe.numberServings} onChange={(e) => setCurrentNumberServings(Number(e.target.value))}>
                 <option key={2}>2</option>
                 <option key={4}>4</option>
                 <option key={6}>6</option>
@@ -82,7 +82,8 @@ function RecipeDetails() {
                   {/* Adjusting ingredient amounts based on servings */}
                   {
                     (() => {
-                      const result = ingredient.amount * nrServings / recipe.numberServings;
+                      // Uses the currently chosen number of servings and the default number of servings for the recipe to calculate the correct amount for the ingredients' amount
+                      const result = ingredient.amount * currentNrServings / recipe.numberServings;
                       return (result % 1 === 0) ? result : result.toFixed(1);
                     })()
                   } {ingredient.unit} {ingredient.name}
