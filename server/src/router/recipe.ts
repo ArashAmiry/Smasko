@@ -47,13 +47,12 @@ recipeRouter.get("/:id", async (
 })
 
 recipeRouter.post("/", async (
-    req : Request<{}, {}, Omit<Recipe, 'id'>>,
+    req : Request<{}, {}, Omit<Recipe, '_id'>>,
     res : Response<Recipe | string>
 ) => {
     try {
-        const recipe: Omit<Recipe, 'id'> = req.body;
+        const recipe: Omit<Recipe, '_id'> = req.body;
         const recipeErrors = validateRecipe(recipe);
-       
         if (recipeErrors){
             res.status(400).send(`Bad POST call to ${req.originalUrl} --- ${recipeErrors}`);
             return;
@@ -71,15 +70,15 @@ recipeRouter.delete("/:id", async (
     res : Response<Recipe | string>
 ) => {
     try {
-        const id: number = parseInt(req.params.id, 10);
         const deletedRecipe : boolean = await recipeService.deleteRecipe(req.params.id);
        
         if (deletedRecipe === false) {
-            res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- recipe with id ${id} does not exist`);
+            res.status(400).send(`Bad DELETE call to ${req.originalUrl} --- recipe with id ${req.params.id} does not exist`);
             return;
         }
         res.status(204).send();
     } catch (e: any) {
+       
         res.status(500).send(e.message);
     }    
 });

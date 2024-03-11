@@ -11,20 +11,21 @@ export class RecipeService implements IRecipeService {
     async addRecipe(recipe : Omit<Recipe,'id'>) : Promise<Recipe>{
         
         const addedRecipe: Recipe = {
-            _id: Date.now(),
+            _id: Date.now().toString(),
             name: recipe.name,
             image: recipe.image,
             numberServings: recipe.numberServings,
             ingredients: recipe.ingredients,
             steps: recipe.steps,
-            rating: recipe.rating
+            rating: recipe.rating,
+            like: false
         }
 
         this.recipes.push(addedRecipe);
         return JSON.parse(JSON.stringify(addedRecipe));
     }
 
-    async deleteRecipe(id: number): Promise<boolean> {
+    async deleteRecipe(id: string): Promise<boolean> {
         const recipe = this.recipes.find((recipe) => recipe._id === id);
         
         if (!recipe) {
@@ -40,7 +41,7 @@ export class RecipeService implements IRecipeService {
         return false;
     }
 
-    async getRecipe(recipeId: number): Promise<Recipe | undefined> {
+    async getRecipe(recipeId: string): Promise<Recipe | undefined> {
         const recipe = this.recipes.find((r) => r._id === recipeId);
         if (recipe) {
             return JSON.parse(JSON.stringify(recipe));
