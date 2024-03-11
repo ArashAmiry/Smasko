@@ -100,7 +100,7 @@ function EditRecipe() {
 
             <Rating initialValue={rating} onClick={(e) => handleRating(e)} />
 
-            <Button variant="success" type="submit" className="submit-button" size="lg">
+            <Button data-testid="save-button" variant="success" type="submit" className="submit-button" size="lg">
                 Save
             </Button>
         </Form>
