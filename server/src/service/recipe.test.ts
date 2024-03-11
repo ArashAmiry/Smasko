@@ -130,24 +130,97 @@ test("editRecipe should return true if recipe is successfully edited when called
         rating: 4,
         like: false
     }
-    
+
     const recipe = await recipeService.addRecipe(testRecipe);
     expect(recipe.rating === 4).toBeTruthy();
     const newRecipe: Recipe = {
-            _id: recipe._id,
-            name: "Recipe",
-            image: "img",
-            numberServings: 4,
-            ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
-            steps: ["step1", "step2"],
-            rating: 2,
-            like: false
-        }
+        _id: recipe._id,
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 2,
+        like: false
+    }
     const res = await recipeService.editRecipe(newRecipe);
     const recipe2 = await recipeService.getRecipe(recipe._id);
-    if(recipe2) {
+    if (recipe2) {
         expect(recipe2.rating === 2).toBeTruthy();
         expect(res).toBeTruthy();
     }
-    
+
+})
+
+test("getRecipe with invalid id should return undefined", async () => {
+    const testRecipe: Omit<Recipe, '_id'> = {
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
+    }
+    await recipeService.addRecipe(testRecipe);
+    const res = await recipeService.getRecipe("65eec198e3a5ac94eb5f6368"); // Invalid ObjectID
+    expect(res).toBeUndefined();
+
+})
+
+test("editRecipe with invalid id should return false", async () => {
+    const testRecipe: Omit<Recipe, '_id'> = {
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
+    }
+    await recipeService.addRecipe(testRecipe);
+    const newRecipe: Recipe = {
+        _id: "65eec198e3a5ac94eb5f6368", // Invalid ObjectID, does not match initial recipe's ID
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 2,
+        like: false
+    }
+    const res = await recipeService.editRecipe(newRecipe);
+    expect(res).toBeFalsy();
+})
+
+test("updateLiked with invalid id should return false", async () => {
+    const testRecipe: Omit<Recipe, '_id'> = {
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
+    }
+    await recipeService.addRecipe(testRecipe);
+
+    const res = await recipeService.updateLiked("65eec198e3a5ac94eb5f6368", true);
+    expect(res).toBeFalsy();
+})
+
+test("deleteRecipe with invalid id should return false", async () => {
+    const testRecipe: Omit<Recipe, '_id'> = {
+        name: "Recipe",
+        image: "img",
+        numberServings: 4,
+        ingredients: [{ "name": "in1", "amount": 4, "unit": "g" }, { "name": "chicken", "amount": 6, "unit": "g" }],
+        steps: ["step1", "step2"],
+        rating: 4,
+        like: false
+    }
+    await recipeService.addRecipe(testRecipe);
+    const res = await recipeService.deleteRecipe("65eec198e3a5ac94eb5f6368"); // Invalid ObjectID
+    expect(res).toBeFalsy();
+
 })

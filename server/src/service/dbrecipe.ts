@@ -8,7 +8,7 @@ export class RecipeDBService implements IRecipeService {
         try {
             const rm: Model<Recipe> = await recipeModel;
             const recipes = await rm.find();
-            return recipes; 
+            return recipes;
         } catch (error) {
             console.error("Error fetching recipes:", error);
             throw error;
@@ -18,8 +18,8 @@ export class RecipeDBService implements IRecipeService {
     async getFavoriteRecipes(): Promise<Recipe[]> {
         try {
             const rm: Model<Recipe> = await recipeModel;
-            const recipes = await rm.find({like: true});
-            return recipes; 
+            const recipes = await rm.find({ like: true });
+            return recipes;
         } catch (error) {
             console.error("Error fetching recipes:", error);
             throw error;
@@ -28,14 +28,14 @@ export class RecipeDBService implements IRecipeService {
 
     async addRecipe(recipe: Omit<Recipe, "_id">): Promise<Recipe> {
         const rm: Model<Recipe> = await recipeModel;
-       return await rm.create({
-        name: recipe.name,
-        image: recipe.image,
-        numberServings: recipe.numberServings,
-        ingredients: recipe.ingredients,
-        steps: recipe.steps,
-        rating: recipe.rating
-       }) 
+        return await rm.create({
+            name: recipe.name,
+            image: recipe.image,
+            numberServings: recipe.numberServings,
+            ingredients: recipe.ingredients,
+            steps: recipe.steps,
+            rating: recipe.rating
+        })
     }
     async deleteRecipe(id: string): Promise<boolean> {
         const rm: Model<Recipe> = await recipeModel;
@@ -68,14 +68,14 @@ export class RecipeDBService implements IRecipeService {
 
     async updateLiked(recipeId: string, like: boolean): Promise<boolean> {
         const rm: Model<Recipe> = await recipeModel;
-       const result = await rm.updateOne(
-            { _id: recipeId},
+        const result = await rm.updateOne(
+            { _id: recipeId },
             {
                 like: like
             },
             { new: true }
         ).exec();
-
-        return result !== null;
+            
+        return result.matchedCount > 0;
     }
 }
