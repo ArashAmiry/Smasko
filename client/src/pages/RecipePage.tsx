@@ -57,7 +57,7 @@ function RecipePage({path} : {path: string}) {
         <>  
             <Container className="card-container " fluid>
                 <Row className="mx-0">
-                    <Col xl={2}></Col>
+                    <Col xl={2} className="px-0" />
                     <Col xl={8}>
                         <Form onSubmit={(e) => searchRecipe(e)}>
                             <Form.Group>
@@ -70,7 +70,7 @@ function RecipePage({path} : {path: string}) {
                         </Form>
                         <DisplayRecipes path={path} showIngredients={(id: string) => displayIngredientsView(id)} searchTerm={searchTerm} />
                     </Col>
-                    <Col xl={2}>
+                    <Col xl={2} className="px-0">
                         {showIngredients && <IngredientsView ingredients={ingredientsList} nrServ={nrServings} />}
                     </Col>
                 </Row>
