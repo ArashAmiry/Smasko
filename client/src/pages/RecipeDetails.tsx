@@ -15,7 +15,7 @@ import { ClockLoader } from "react-spinners";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
-  const [nrServings, setNrServings] = useState(0);
+  const [currentNrServings, setCurrentNumberServings] = useState(0); //The number of servings chosen by the user in the recipe details ingredients
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function RecipeDetails() {
         const fetchedRecipe = await fetchRecipe(id);
         if (fetchedRecipe) {
           setRecipe(fetchedRecipe);
-          setNrServings(fetchedRecipe.numberServings);
+          setCurrentNumberServings(fetchedRecipe.numberServings);
         }
       }
     };
@@ -49,6 +49,7 @@ function RecipeDetails() {
     axios.delete(`http://localhost:8080/recipe/${recipe._id}`)
       .then(() => {
         navigate('/');
+        window.scrollTo({top: 0, behavior: 'smooth'});
       })
       .catch(error => {
         console.error('Error deleting recipe:', error);
@@ -68,7 +69,7 @@ function RecipeDetails() {
 
             <Form.Group as={Col} md={2} className="mb-3">
               <Form.Label>Servings</Form.Label>
-              <Form.Control as="select" defaultValue={recipe.numberServings} onChange={(e) => setNrServings(Number(e.target.value))}>
+              <Form.Control as="select" defaultValue={recipe.numberServings} onChange={(e) => setCurrentNumberServings(Number(e.target.value))}>
                 <option key={2}>2</option>
                 <option key={4}>4</option>
                 <option key={6}>6</option>
@@ -82,7 +83,8 @@ function RecipeDetails() {
                   {/* Adjusting ingredient amounts based on servings */}
                   {
                     (() => {
-                      const result = ingredient.amount * nrServings / recipe.numberServings;
+                      // Uses the currently chosen number of servings and the default number of servings for the recipe to calculate the correct amount for the ingredients' amount
+                      const result = ingredient.amount * currentNrServings / recipe.numberServings;
                       return (result % 1 === 0) ? result : result.toFixed(1);
                     })()
                   } {ingredient.unit} {ingredient.name}
@@ -124,10 +126,10 @@ function RecipeDetails() {
 
       <Modal show={showDeletePrompt} onHide={() => setShowDeletePrompt(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Recipe Is About To Be Deleted</Modal.Title>
+          <Modal.Title>This Recipe Is About to Be Deleted</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are you sure you want to delete the recipe? This action cannot be undone.</Modal.Body>
+        <Modal.Body>Are you sure you want to delete this recipe? This action cannot be undone.</Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowDeletePrompt(false)}>

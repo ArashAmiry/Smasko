@@ -68,7 +68,8 @@ const recipeSchema : Schema = new Schema({
 });
 
 
+async function makeModel(): Promise<Model<Recipe>> {
+return (await conn).model<Recipe>("Recipe", recipeSchema);
+}
 
-export const recipeModel = conn.model<Recipe>("Recipe", recipeSchema);
-
-
+export const recipeModel: Promise<Model<Recipe>> = makeModel();

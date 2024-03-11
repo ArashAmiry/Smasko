@@ -12,16 +12,19 @@ interface StepsProps {
 
 const RecipeSteps = ({ stepsList, setStepsList }: StepsProps) => {
 
+    // Adds a new step with an empty string to the steps list.
     const addStep = () => {
         setStepsList([...stepsList, ""]);
     }
 
+     // Deletes a step from the steps list at the specified index.
     const deleteStep = (index: number) => {
         const list = [...stepsList];
         list.splice(index, 1);
         setStepsList(list);
     }
 
+    // Handles the event of changing a step's text at the specified index.
     const handleChangeStep = (e: ChangeEvent, index: number) => {
         const { value } = e.target as HTMLInputElement;
         const list = [...stepsList];

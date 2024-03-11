@@ -16,33 +16,41 @@ interface RecipeIngredientsProps {
 
 const RecipeIngredients = ({ ingredientsList, setIngredientsList, numServings, setNumServings }: RecipeIngredientsProps) => {
 
+    // Adds a new ingredient with default values to the ingredients list.
     const addIngredient = () => {
         let newIngredient: Ingredient = { name: "", amount: 1, unit: "st" };
         setIngredientsList([...ingredientsList, newIngredient]);
     }
 
+     // Removes an ingredient from the ingredients list at a specified index.
     const deleteIngredient = (index: number) => {
         const list = [...ingredientsList];
         list.splice(index, 1);
         setIngredientsList(list);
     }
+
+     // Changes the name of an ingredient at a specified index.
     const changeName = (name: string, index: number) => {
         const list = [...ingredientsList];
         list[index].name = name;
         setIngredientsList(list);
     }
+
+    // Changes the amount of an ingredient at a specified index.
     const changeAmount = (amount: number, index: number) => {
         const list = [...ingredientsList];
         list[index].amount = amount;
         setIngredientsList(list);
     }
 
+    // Changes the unit of measurement for an ingredient at a specified index.
     const changeUnit = (unit: string, index: number) => {
         const list = [...ingredientsList];
         list[index].unit = unit;
         setIngredientsList(list);
     }
 
+    // Updates the number of servings based on the event emitted by the input change
     const changeNumServings = (e: ChangeEvent) => {
         const { value } = e.target as HTMLInputElement;
         setNumServings(parseInt(value));

@@ -39,23 +39,28 @@ function CreateRecipe() {
     async function submitRecipe(e: FormEvent) {
         e.preventDefault();
 
+         // Initialize an object to keep track of errors for different fields.
         let newErrors = { recipeName: "", ingredients: "", steps: "", image: "" };
 
+        // Check if the recipe name field is empty after trimming whitespace.
         if (!recipeName.trim()) {
             setShakeScreen(true);
             newErrors.recipeName = "Please enter a recipe name";
         }
 
+        // Check if any ingredient in the list is missing a name.
         if (ingredientsList.some(ingredient => !ingredient.name.trim())) {
             setShakeScreen(true);
             newErrors.ingredients = "Please enter valid ingredients";
         }
 
+        // Check if any ingredient in the list has an invalid amount (not greater than 0).
         if (ingredientsList.some(ingredient => !(ingredient.amount > 0))) {
             setShakeScreen(true);
             newErrors.ingredients = "Please enter valid ingredients";
         }
 
+        // Check if any step in the list is empty after trimming whitespace.
         if (stepsList.some(step => !step.trim())) {
             setShakeScreen(true);
             newErrors.steps = "Please enter valid steps";
