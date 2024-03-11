@@ -9,7 +9,7 @@ const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
 test('Editing a recipe should call a put request to the server', async () => {
 
-    const route = '/edit-recipe/123';
+    const route = '/recipe/123';
 
     const mockRecipe: Recipe =
     {
@@ -40,12 +40,15 @@ test('Editing a recipe should call a put request to the server', async () => {
         render(
             <MemoryRouter initialEntries={[route]}>
                 <Routes>
-                    <Route path="/edit-recipe/:id" element={<EditRecipe />} />
+                    <Route path="/recipe/:id" element={<EditRecipe />} />
                 </Routes>
             </MemoryRouter>);
     });
 
-    fireEvent.click(screen.getByTestId('save-button'));
+    await act(async () => {
+        fireEvent.click(screen.getByTestId('save-button'));
+      });
+    
 
 
     expect(mockedAxios.put).toHaveBeenCalled();
