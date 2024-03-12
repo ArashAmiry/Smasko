@@ -33,7 +33,7 @@ function RecipeCard(props: { name: string, img: string, rating: number, like: bo
     <Card id={props.id} className='card'>
       <Container className="px-0 position-relative" >
         <Card.Img className="recipeCardImage" variant="top" src={props.img} />
-        <button className='py-0 heartBtn' style={{ position: 'absolute', top: 0, left: 0 }} onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleHeartClick(e)}>
+        <button data-testid="heartButton" className='py-0 heartBtn' style={{ position: 'absolute', top: 0, left: 0 }} onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleHeartClick(e)}>
           <Heart
             width={40}
             height={40}

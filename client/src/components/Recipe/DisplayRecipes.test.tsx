@@ -51,14 +51,14 @@ const mockRecipes: Recipe[] = [
     like: false
 }];
 
-test('DisplayRecipe should filter recipes based on searchterm', async () => {
+test('DisplayRecipe should filter recipes based on searchterm.', async () => {
     const showIngredients = jest.fn();
     mockedAxios.get.mockResolvedValue({status: 200, data: mockRecipes });
 
     await act(async () => {
         render(
             <MemoryRouter>
-                <DisplayRecipes searchTerm={'testrecipe'} path={'recipe'} showIngredients={() => showIngredients()}/>
+                <DisplayRecipes searchTerm={'testrecipe'} path={'recipe'} showIngredients={() => showIngredients()} noRecipesMessage={'No Recipes'}/>
             </MemoryRouter>);
     });
 
@@ -67,4 +67,21 @@ test('DisplayRecipe should filter recipes based on searchterm', async () => {
 
     expect(recipe).toBeInTheDocument();
     expect(noexistingrecipe).not.toBeInTheDocument();
+});
+
+test('DisplayRecipe with no recipes should display no recipes.', async () => {
+    const showIngredients = jest.fn();
+    const emptyRecipes: Recipe[] = [];
+    mockedAxios.get.mockResolvedValue({status: 200, data: emptyRecipes });
+
+    await act(async () => {
+        render(
+            <MemoryRouter>
+                <DisplayRecipes searchTerm={'testrecipe'} path={'recipe'} showIngredients={() => showIngredients()} noRecipesMessage={'No recipes found.'}/>
+            </MemoryRouter>);
+    });
+
+    const noRecipesText = screen.getByText("No recipes found.");
+
+    expect(noRecipesText).toBeInTheDocument();
 });

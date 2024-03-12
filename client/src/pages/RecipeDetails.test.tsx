@@ -1,10 +1,9 @@
 import { render, fireEvent, screen, act, getByLabelText, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import RecipeDetails from './RecipeDetails';
-import axios, { AxiosStatic } from 'axios';
+import axios from 'axios';
 import 'core-js';
 import { Recipe } from '../components/Recipe/Recipe';
-import { fetchRecipe } from './FetchRecipe';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<any>;
@@ -32,12 +31,11 @@ const mockRecipe: Recipe =
     like: false
 };
 
-test('test', async () => {
+test('RecipesDetails should display the content of a recipe.', async () => {
     mockedAxios.get.mockResolvedValue({ status: 200, data: mockRecipe });
 
     await act(async () => {
         render(
-
             <MemoryRouter initialEntries={['/recipe/123']}> 
                 <Routes>
                     <Route path="/recipe/:id" element={<RecipeDetails/>} />
@@ -50,4 +48,31 @@ test('test', async () => {
      expect(screen.getByText(mockRecipe.numberServings)).toBeInTheDocument();
      expect(screen.getByText(/1 st ingredient1/i)).toBeInTheDocument();
      expect(screen.getByText(/2 dl ingredient2/i)).toBeInTheDocument();
+});
+
+test('Clicking delete button triggers axios.delete.', async () => {
+    mockedAxios.get.mockResolvedValue({ status: 200, data: mockRecipe });
+    mockedAxios.delete.mockResolvedValue({ status: 204 });
+
+    await act(async () => {
+        render(
+            <MemoryRouter initialEntries={['/recipe/123']}> 
+                <Routes>
+                    <Route path="/recipe/:id" element={<RecipeDetails/>} />
+                </Routes>
+            </MemoryRouter>
+        )
+    });
+
+    const deletepromtButton = screen.getByTestId("deletepromt-button");
+    await act(async () => {
+        fireEvent.click(deletepromtButton);
+      });
+
+    const deleteButton = screen.getByTestId("delete-button");
+    await act(async () => {
+        fireEvent.click(deleteButton);
+    });
+    
+    expect(mockedAxios.delete).toHaveBeenCalled();
 });
