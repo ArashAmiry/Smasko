@@ -59,7 +59,7 @@ test('Creating a recipe should make a post call.', async () => {
     expect(mockedAxios.post).toHaveBeenCalled();
 })
 
-test('Creating a incomplete recipe with missing properties should not call post.', async () => {
+test('Creating a incomplete recipe should not call post.', async () => {
     const mockRecipe: Recipe =
     {
         _id: "123",

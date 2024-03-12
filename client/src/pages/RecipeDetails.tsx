@@ -112,7 +112,7 @@ function RecipeDetails() {
 
       <Row>
         <Col>
-          <Button variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
+          <Button data-testid="deletepromt-button" variant="outline-danger" className="mb-3 mt-3" size="lg" onClick={() => setShowDeletePrompt(true)}>
             Delete Recipe
           </Button>
         </Col>
@@ -135,7 +135,7 @@ function RecipeDetails() {
           <Button variant="secondary" onClick={() => setShowDeletePrompt(false)}>
             No, Close!
           </Button>
-          <Button variant="danger" onClick={() => handleDeleteRecipe()}>
+          <Button data-testid="delete-button" variant="danger" onClick={() => handleDeleteRecipe()}>
             Yes, Delete!
           </Button>
         </Modal.Footer>

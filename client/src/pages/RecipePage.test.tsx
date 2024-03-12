@@ -3,7 +3,6 @@ import { MemoryRouter } from 'react-router-dom';
 import axios, { AxiosStatic } from 'axios';
 import { Recipe } from '../components/Recipe/Recipe';
 import RecipePage from './RecipePage';
-import MockAdapter from 'axios-mock-adapter';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<AxiosStatic>;
@@ -31,31 +30,26 @@ const mockRecipes: Recipe[] = [
     like: false
 }];
 
-
-test('Test', async () => {
-    var mock = new MockAdapter(axios);
-
+test('Pressing See Ingredients should display the list of ingredients.', async () => {
     mockedAxios.get
-    .mockResolvedValue({status: 200, data: mockRecipes });
-    // .mockResolvedValueOnce({ status: 200, data: mockRecipes[0].ingredients });
-
-
+    .mockResolvedValueOnce({status: 200, data: mockRecipes })
+    .mockResolvedValueOnce({status: 200, data: mockRecipes[0] });
+    
     await act(async () => {
-        render(
+        const { debug } = render(
             <MemoryRouter>
-                <RecipePage path={'recipe'}/>
+                <RecipePage path={'recipe'} noRecipesMessage={'No recipes found'}/>
             </MemoryRouter>);
 
-        expect("testrecipe").toBeInTheDocument();
-
-        
+            debug();
     });
 
-    // const button = await screen.getByText("See ingredients");
-
-    // await fireEvent.click(button);
-
-    expect("testrecipe").toBeInTheDocument();
-
-    // expect("Number of servings: 2").toBeInTheDocument();
+    const button = screen.getByText("See ingredients");
+    await act(async () => {
+        fireEvent.click(button);
+    });
+ 
+    expect(screen.getByText("Number of servings: 2")).toBeInTheDocument();
+    expect(screen.getByText("1 st ingredient1")).toBeInTheDocument();
+    expect(screen.getByText("2 dl ingredient2")).toBeInTheDocument();
 });
