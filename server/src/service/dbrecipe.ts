@@ -8,6 +8,7 @@ export class RecipeDBService implements IRecipeService {
         try {
             const rm: Model<Recipe> = await recipeModel;
             const recipes = await rm.find();
+            console.log(recipes)
             return recipes;
         } catch (error) {
             console.error("Error fetching recipes:", error);

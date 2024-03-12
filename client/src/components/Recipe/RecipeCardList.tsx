@@ -8,7 +8,7 @@ import { Recipe } from './Recipe';
 
 function RecipeCardList({recipes, showIngredients} : {recipes: Recipe[], showIngredients: (id : string) => void}) {
   return (
-    <Container className='cards-container mt-4'>
+    <Container className='cards-container my-4'>
       <Row>
       {recipes.map((recipe) => (
         <Col key={recipe._id}  xl={3} className='mt-4'>

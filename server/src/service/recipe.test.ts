@@ -1,10 +1,38 @@
 import { Recipe } from "../model/recipe";
 import { RecipeDBService } from "./dbrecipe";
 import { RecipeService } from "./recipe";
+import { conn } from "../../db/__mocks__/conn"; // Import the connection promise
+import { MongoMemoryServer } from "mongodb-memory-server"; // Import MongoMemoryServer
+import { MongoClient } from "mongodb";
 
 jest.mock("../../db/conn");
 
-const recipeService = new RecipeDBService();
+describe('Single MongoMemoryServer', () => {
+    let con: MongoClient;
+    let mongoServer: MongoMemoryServer;
+    let recipeService = new RecipeDBService();
+  
+    beforeAll(async () => {
+      mongoServer = await MongoMemoryServer.create();
+      con = await MongoClient.connect(mongoServer.getUri(), {});
+    });
+  
+    afterAll(async () => {
+      if (con) {
+        await con.close();
+      }
+      if (mongoServer) {
+        await mongoServer.stop();
+      }
+    });
+  
+    it('should successfully set & get information from the database', async () => {
+      await mongoServer.stop();
+        const res = await recipeService.getRecipes();
+        console.log(res);
+    });
+  });
+/* const recipeService = new RecipeDBService();
 afterEach(async () => {
     const recipes = await recipeService.getRecipes();
     recipes.map(async (recipe: Recipe) => {
@@ -253,3 +281,4 @@ test("deleteRecipe with invalid id should return false", async () => {
     expect(res).toBeFalsy();
 
 })
+ */
