@@ -48,6 +48,7 @@ function IngredientRow({ ingredient, handleDelete, changeName, changeAmount, cha
                         <option value="dl">dl</option>
                         <option value="tbsp">tbsp</option>
                         <option value="tsp">tsp</option>
+                        <option value="g">g</option>
                         <option value="kg">kg</option>
                     </Form.Select>
                 </Col>

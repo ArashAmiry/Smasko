@@ -18,20 +18,17 @@ function DisplayRecipes({
 }) {
   // State to store the list of recipes
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Function to fetch and filter the recipes from the server
-  async function filterRecipes() {
+  // Function to fetch all the recipes 
+  async function getRecipes() {
     await axios
       .get<Recipe[]>(`http://localhost:8080/${path}`)
       .then(function (response) {
         const newRecipes: Recipe[] = response.data;
-
-        // Filter recipes based on the searchTerm prop to implement search functionality
-        const filteredRecipes = newRecipes.filter((recipe) =>
-          recipe.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-        );
-        setRecipes(filteredRecipes);
+        setRecipes(newRecipes);
+        setFilteredRecipes(newRecipes);
       })
       .catch(function (error) {
         console.log(error);
@@ -40,6 +37,20 @@ function DisplayRecipes({
         setIsLoading(false);
       });
   }
+
+  // Function to filter the recipes from the server
+  async function filterRecipes() {
+    console.log(recipes)
+    const filteredRecipes = recipes.filter((recipe) =>
+          recipe.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+        );
+        setFilteredRecipes(filteredRecipes);
+  }
+
+  // Fetches all the recipes when the page loads
+  useEffect(() => {
+    getRecipes();
+  }, []);
 
   // Filters recipes upon changed searchTerm
   useEffect(() => {
@@ -55,7 +66,7 @@ function DisplayRecipes({
       )}
       {!isLoading && recipes.length > 0 && (
         <RecipeCardList
-          recipes={recipes}
+          recipes={filteredRecipes}
           showIngredients={(id) => showIngredients(id)}
         ></RecipeCardList>
       )}
