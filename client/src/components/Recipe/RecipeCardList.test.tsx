@@ -2,7 +2,6 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import RecipeCardList from './RecipeCardList';
 import { Recipe } from './Recipe';
 import { MemoryRouter } from 'react-router-dom';
-import React from 'react';
 
 const mockRecipes: Recipe[] = [
     {
@@ -44,5 +43,3 @@ test('RecipeCardList should show display a list of RecipeCards', () => {
   expect(screen.getByText(mockRecipes[0].name)).toBeInTheDocument();
   expect(screen.getByText(mockRecipes[1].name)).toBeInTheDocument();
 });
-
-  
