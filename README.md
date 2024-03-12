@@ -5,4 +5,4 @@ In the server directory, please include a db_password.ts file to make the progra
 The **frontend** files are all located in the client directory, and all the .tsx files are inside the client/src directory. Inside the src directory, the different pages of the application are located in the pages directory, and the components used on those pages are located in the components directory.
 
 # The report
-The report is located in the root directory. See "name_of_report".
+The report is located in the root directory. See "Smasko.pdf".
